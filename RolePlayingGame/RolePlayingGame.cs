@@ -25,10 +25,10 @@ namespace RolePlayingGame
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            Components.Add(new GamerServicesComponent(this));
+            //Components.Add(new GamerServicesComponent(this));
 
             // add the audio manager
-            AudioManager.Initialize(this, @"Content\Audio\RpgAudio.xgs", @"Content\Audio\Wave Bank.xwb", @"Content\Audio\Sound Bank.xsb");
+            //AudioManager.Initialize(this, @"Content\Audio\RpgAudio.xgs", @"Content\Audio\Wave Bank.xwb", @"Content\Audio\Sound Bank.xsb");
 
             // add the screen manager
             _screenManager = new ScreenManager(this);
