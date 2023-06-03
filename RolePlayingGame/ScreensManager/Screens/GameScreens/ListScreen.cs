@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using RolePlayingGame.InputsManager;
+using RolePlayingGame.SessionObjects;
 using RolePlayingGame.TextFonts;
 using System;
 using System.Collections.ObjectModel;

@@ -15,32 +15,30 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
         private Vector2 plankPosition;
         private Vector2 titlePosition;
 
-        private string helpText =
-            "Welcome, hero!  You must meet new comrades, earn necessary " +
-            "experience, gold, spells, and the equipment required to challenge " +
-            "and defeat the evil Tamar, who resides in his lair, known as the " +
-            "Unspoken Tower.  Be wary!  The Unspoken Tower is filled with " +
-            "monstrosities that only the most hardened of heroes could possibly " +
-            "face.  Good luck!";
+        private string helpText = @"Welcome, hero!  You must meet new comrades, earn necessary
+                                    experience, gold, spells, and the equipment required to challenge
+                                    and defeat the evil Tamar, who resides in his lair, known as the
+                                    Unspoken Tower.  Be wary!  The Unspoken Tower is filled with
+                                    monstrosities that only the most hardened of heroes could possibly 
+                                    face.  Good luck!";
 
         private List<string> textLines;
 
         private Texture2D scrollUpTexture;
-        private readonly Vector2 scrollUpPosition = new Vector2(980, 200);
+        private readonly Vector2 scrollUpPosition = new(980, 200);
         private Texture2D scrollDownTexture;
-        private readonly Vector2 scrollDownPosition = new Vector2(980, 460);
+        private readonly Vector2 scrollDownPosition = new(980, 460);
 
         private Texture2D lineBorderTexture;
-        private readonly Vector2 linePosition = new Vector2(200, 570);
+        private readonly Vector2 linePosition = new(200, 570);
 
         private Texture2D backTexture;
-        private readonly Vector2 backPosition = new Vector2(225, 610);
+        private readonly Vector2 backPosition = new(225, 610);
 
         private int startIndex;
-        private const int maxLineDisplay = 7;
+        private const int maxLineDisplay = 3;
 
-        public HelpScreen()
-            : base()
+        public HelpScreen() : base()
         {
             textLines = Fonts.BreakTextIntoList(helpText, Fonts.DescriptionFont, 590);
         }
@@ -54,25 +52,18 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
 
             ContentManager content = ScreenManager.Game.Content;
 
-            backgroundTexture = content.Load<Texture2D>(@"Textures\MainMenu\MainMenu");
-            plankTexture =
-                content.Load<Texture2D>(@"Textures\MainMenu\MainMenuPlank03");
-            backTexture =
-                content.Load<Texture2D>(@"Textures\Buttons\BButton");
-            scrollUpTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\ScrollUp");
-            scrollDownTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\ScrollDown");
-            lineBorderTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\LineBorder");
+            backgroundTexture = content.Load<Texture2D>("Textures/MainMenu/MainMenu");
+            plankTexture = content.Load<Texture2D>("Textures/MainMenu/MainMenuPlank03");
+            backTexture = content.Load<Texture2D>("Textures/Buttons/BButton");
+            scrollUpTexture = content.Load<Texture2D>("Textures/GameScreens/ScrollUp");
+            scrollDownTexture = content.Load<Texture2D>("Textures/GameScreens/ScrollDown");
+            lineBorderTexture = content.Load<Texture2D>("Textures/GameScreens/LineBorder");
 
             plankPosition.X = backgroundTexture.Width / 2 - plankTexture.Width / 2;
             plankPosition.Y = 60;
 
-            titlePosition.X = plankPosition.X + (plankTexture.Width -
-                Fonts.HeaderFont.MeasureString("Help").X) / 2;
-            titlePosition.Y = plankPosition.Y + (plankTexture.Height -
-                Fonts.HeaderFont.MeasureString("Help").Y) / 2;
+            titlePosition.X = plankPosition.X + (plankTexture.Width - Fonts.HeaderFont.MeasureString("Help").X) / 2;
+            titlePosition.Y = plankPosition.Y + (plankTexture.Height - Fonts.HeaderFont.MeasureString("Help").Y) / 2;
         }
 
         /// <summary>
@@ -120,20 +111,16 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
             spriteBatch.Draw(backTexture, backPosition, Color.White);
 
             spriteBatch.Draw(lineBorderTexture, linePosition, Color.White);
-            spriteBatch.DrawString(Fonts.ButtonNamesFont, "Back",
-                new Vector2(backPosition.X + 55, backPosition.Y + 5), Color.White);
+            spriteBatch.DrawString(Fonts.ButtonNamesFont, "Back", new Vector2(backPosition.X + 55, backPosition.Y + 5), Color.White);
 
             spriteBatch.Draw(scrollUpTexture, scrollUpPosition, Color.White);
             spriteBatch.Draw(scrollDownTexture, scrollDownPosition, Color.White);
 
-            spriteBatch.DrawString(Fonts.HeaderFont, "Help", titlePosition,
-                Fonts.TitleColor);
+            spriteBatch.DrawString(Fonts.HeaderFont, "Help", titlePosition, Fonts.TitleColor);
 
             for (int i = 0; i < maxLineDisplay; i++)
             {
-                spriteBatch.DrawString(Fonts.DescriptionFont, textLines[startIndex + i],
-                    new Vector2(360, 200 + (Fonts.DescriptionFont.LineSpacing + 10) * i),
-                    Color.Black);
+                spriteBatch.DrawString(Fonts.DescriptionFont, textLines[startIndex + i], new Vector2(360, 200 + (Fonts.DescriptionFont.LineSpacing + 10) * i), Color.Black);
             }
 
             spriteBatch.End();

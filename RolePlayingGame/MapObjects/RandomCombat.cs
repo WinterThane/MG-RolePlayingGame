@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Content;
+using RolePlayingGame.Characters;
+using RolePlayingGame.Data;
 using RolePlayingGame.Engine;
 using System.Collections.Generic;
 using System.IO;

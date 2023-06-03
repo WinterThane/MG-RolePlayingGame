@@ -78,15 +78,15 @@ namespace RolePlayingGame.TextFonts
             get { return captionFont; }
         }
 
-        public static readonly Color CountColor = new Color(79, 24, 44);
-        public static readonly Color TitleColor = new Color(59, 18, 6);
-        public static readonly Color CaptionColor = new Color(228, 168, 57);
-        public static readonly Color HighlightColor = new Color(223, 206, 148);
-        public static readonly Color DisplayColor = new Color(68, 32, 19);
-        public static readonly Color DescriptionColor = new Color(0, 0, 0);
-        public static readonly Color RestrictionColor = new Color(0, 0, 0);
-        public static readonly Color ModifierColor = new Color(0, 0, 0);
-        public static readonly Color MenuSelectedColor = new Color(248, 218, 127);
+        public static readonly Color CountColor = new(79, 24, 44);
+        public static readonly Color TitleColor = new(59, 18, 6);
+        public static readonly Color CaptionColor = new(228, 168, 57);
+        public static readonly Color HighlightColor = new(223, 206, 148);
+        public static readonly Color DisplayColor = new(68, 32, 19);
+        public static readonly Color DescriptionColor = new(0, 0, 0);
+        public static readonly Color RestrictionColor = new(0, 0, 0);
+        public static readonly Color ModifierColor = new(0, 0, 0);
+        public static readonly Color MenuSelectedColor = new(248, 218, 127);
 
         /// <summary>
         /// Load the fonts from the content pipeline.
@@ -101,16 +101,15 @@ namespace RolePlayingGame.TextFonts
 
             // load each font from the content pipeline
             buttonNamesFont = contentManager.Load<SpriteFont>("Fonts/ButtonNamesFont");
-            captionFont = contentManager.Load<SpriteFont>("Fonts/CaptionFont");
-            damageFont = contentManager.Load<SpriteFont>("Fonts/DamageFont");
-            debugFont = contentManager.Load<SpriteFont>("Fonts/DebugFont");
-            descriptionFont = contentManager.Load<SpriteFont>("Fonts/DescriptionFont");
-            gearInfoFont = contentManager.Load<SpriteFont>("Fonts/GearInfoFont");
-            headerFont = contentManager.Load<SpriteFont>("Fonts/HeaderFont");
-            hudDetailFont = contentManager.Load<SpriteFont>("Fonts/HudDetailFont");
-            playerNameFont = contentManager.Load<SpriteFont>("Fonts/PlayerNameFont");
-            playerStatisticsFont =
-                contentManager.Load<SpriteFont>("Fonts/PlayerStatisticsFont");
+            captionFont = contentManager.Load<SpriteFont>("Fonts/ButtonNamesFont");
+            damageFont = contentManager.Load<SpriteFont>("Fonts/ButtonNamesFont");
+            debugFont = contentManager.Load<SpriteFont>("Fonts/ButtonNamesFont");
+            descriptionFont = contentManager.Load<SpriteFont>("Fonts/ButtonNamesFont");
+            gearInfoFont = contentManager.Load<SpriteFont>("Fonts/ButtonNamesFont");
+            headerFont = contentManager.Load<SpriteFont>("Fonts/ButtonNamesFont");
+            hudDetailFont = contentManager.Load<SpriteFont>("Fonts/ButtonNamesFont");
+            playerNameFont = contentManager.Load<SpriteFont>("Fonts/ButtonNamesFont");
+            playerStatisticsFont = contentManager.Load<SpriteFont>("Fonts/ButtonNamesFont");
         }
 
 
@@ -140,8 +139,7 @@ namespace RolePlayingGame.TextFonts
         /// </param>
         /// <param name="maximumLines">The maximum number of lines to draw.</param>
         /// <returns>The new string, with newline characters if needed.</returns>
-        public static string BreakTextIntoLines(string text,
-            int maximumCharactersPerLine, int maximumLines)
+        public static string BreakTextIntoLines(string text, int maximumCharactersPerLine, int maximumLines)
         {
             if (maximumLines <= 0)
             {
@@ -153,9 +151,9 @@ namespace RolePlayingGame.TextFonts
             }
 
             // if the string is trivial, then this is really easy
-            if (String.IsNullOrEmpty(text))
+            if (string.IsNullOrEmpty(text))
             {
-                return String.Empty;
+                return string.Empty;
             }
 
             // if the text is short enough to fit on one line, then this is still easy
@@ -165,7 +163,7 @@ namespace RolePlayingGame.TextFonts
             }
 
             // construct a new string with carriage returns
-            StringBuilder stringBuilder = new StringBuilder(text);
+            StringBuilder stringBuilder = new(text);
             int currentLine = 0;
             int newLineIndex = 0;
             while (((text.Length - newLineIndex) > maximumCharactersPerLine) &&
@@ -193,8 +191,7 @@ namespace RolePlayingGame.TextFonts
         /// <param name="maximumCharactersPerLine">
         /// The maximum length of a single line of text.
         /// </param>
-        public static string BreakTextIntoLines(string text,
-            int maximumCharactersPerLine)
+        public static string BreakTextIntoLines(string text, int maximumCharactersPerLine)
         {
             // check the parameters
             if (maximumCharactersPerLine <= 0)
@@ -203,9 +200,9 @@ namespace RolePlayingGame.TextFonts
             }
 
             // if the string is trivial, then this is really easy
-            if (String.IsNullOrEmpty(text))
+            if (string.IsNullOrEmpty(text))
             {
-                return String.Empty;
+                return string.Empty;
             }
 
             // if the text is short enough to fit on one line, then this is still easy
@@ -215,7 +212,7 @@ namespace RolePlayingGame.TextFonts
             }
 
             // construct a new string with carriage returns
-            StringBuilder stringBuilder = new StringBuilder(text);
+            StringBuilder stringBuilder = new(text);
             int currentLine = 0;
             int newLineIndex = 0;
             while (((text.Length - newLineIndex) > maximumCharactersPerLine))
@@ -241,8 +238,7 @@ namespace RolePlayingGame.TextFonts
         /// <param name="text">The text to be broken up.</param>
         /// <param name="font">The font used ot measure the width of the text.</param>
         /// <param name="rowWidth">The maximum width of each line, in pixels.</param>
-        public static List<string> BreakTextIntoList(string text, SpriteFont font,
-            int rowWidth)
+        public static List<string> BreakTextIntoList(string text, SpriteFont font, int rowWidth)
         {
             // check parameters
             if (font == null)
@@ -255,12 +251,12 @@ namespace RolePlayingGame.TextFonts
             }
 
             // create the list
-            List<string> lines = new List<string>();
+            List<string> lines = new();
 
             // check for trivial text
-            if (String.IsNullOrEmpty("text"))
+            if (string.IsNullOrEmpty("text"))
             {
-                lines.Add(String.Empty);
+                lines.Add(string.Empty);
                 return lines;
             }
 
@@ -279,7 +275,7 @@ namespace RolePlayingGame.TextFonts
             while (currentWord < words.Length)
             {
                 int wordsThisLine = 0;
-                string line = String.Empty;
+                string line = string.Empty;
                 while (currentWord < words.Length)
                 {
                     string testLine = line;
@@ -297,8 +293,7 @@ namespace RolePlayingGame.TextFonts
                     {
                         testLine += " " + words[currentWord];
                     }
-                    if ((wordsThisLine > 0) &&
-                        (font.MeasureString(testLine).X > rowWidth))
+                    if ((wordsThisLine > 0) && (font.MeasureString(testLine).X > rowWidth))
                     {
                         break;
                     }
@@ -317,7 +312,7 @@ namespace RolePlayingGame.TextFonts
         /// </summary>
         public static string GetGoldString(int gold)
         {
-            return String.Format("{0:n0}", gold);
+            return string.Format("{0:n0}", gold);
         }
 
         /// <summary>
@@ -328,8 +323,7 @@ namespace RolePlayingGame.TextFonts
         /// <param name="text">The text to be drawn</param>
         /// <param name="position">The center position of the text.</param>
         /// <param name="color">The color of the text.</param>
-        public static void DrawCenteredText(SpriteBatch spriteBatch, SpriteFont font,
-            string text, Vector2 position, Color color)
+        public static void DrawCenteredText(SpriteBatch spriteBatch, SpriteFont font, string text, Vector2 position, Color color)
         {
             // check the parameters
             if (spriteBatch == null)
@@ -342,20 +336,17 @@ namespace RolePlayingGame.TextFonts
             }
 
             // check for trivial text
-            if (String.IsNullOrEmpty(text))
+            if (string.IsNullOrEmpty(text))
             {
                 return;
             }
 
             // calculate the centered position
             Vector2 textSize = font.MeasureString(text);
-            Vector2 centeredPosition = new Vector2(
-                position.X - (int)textSize.X / 2,
-                position.Y - (int)textSize.Y / 2);
+            Vector2 centeredPosition = new Vector2(position.X - (int)textSize.X / 2, position.Y - (int)textSize.Y / 2);
 
             // draw the string
-            spriteBatch.DrawString(font, text, centeredPosition, color, 0f,
-                Vector2.Zero, 1f, SpriteEffects.None, 1f - position.Y / 720f);
+            spriteBatch.DrawString(font, text, centeredPosition, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f - position.Y / 720f);
         }
     }
 }

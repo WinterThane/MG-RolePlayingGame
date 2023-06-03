@@ -22,7 +22,7 @@ namespace RolePlayingGame.GameData
         /// <summary>
         /// The content names of the players in the party from the beginning.
         /// </summary>
-        private List<string> playerContentNames = new List<string>();
+        private List<string> playerContentNames = new();
 
         /// <summary>
         /// The content names of the players in the party from the beginning.
@@ -55,8 +55,7 @@ namespace RolePlayingGame.GameData
         /// </summary>
         public class GameStartDescriptionReader : ContentTypeReader<GameStartDescription>
         {
-            protected override GameStartDescription Read(ContentReader input,
-                GameStartDescription existingInstance)
+            protected override GameStartDescription Read(ContentReader input, GameStartDescription existingInstance)
             {
                 GameStartDescription desc = existingInstance;
                 if (desc == null)

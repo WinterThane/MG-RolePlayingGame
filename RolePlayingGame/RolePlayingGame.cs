@@ -5,6 +5,7 @@ using RolePlayingGame.Engine;
 using RolePlayingGame.InputsManager;
 using RolePlayingGame.ScreensManager;
 using RolePlayingGame.ScreensManager.Screens.MenuScreens;
+using RolePlayingGame.TextFonts;
 
 namespace RolePlayingGame
 {
@@ -48,8 +49,8 @@ namespace RolePlayingGame
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            //_spriteBatch = new SpriteBatch(GraphicsDevice);
+            Fonts.LoadContent(Content);
             // TODO: use this.Content to load your game content here
         }
 

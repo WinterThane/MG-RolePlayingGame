@@ -22,8 +22,7 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
         /// The constructor is private: loading screens should
         /// be activated via the static Load method instead.
         /// </summary>
-        private LoadingScreen(ScreenManager screenManager, bool loadingIsSlow,
-                              GameScreen[] screensToLoad)
+        private LoadingScreen(ScreenManager screenManager, bool loadingIsSlow, GameScreen[] screensToLoad)
         {
             this.loadingIsSlow = loadingIsSlow;
             this.screensToLoad = screensToLoad;
@@ -31,40 +30,31 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
             TransitionOnTime = TimeSpan.FromSeconds(0.5);
         }
 
-
         /// <summary>
         /// Activates the loading screen.
         /// </summary>
-        public static void Load(ScreenManager screenManager, bool loadingIsSlow,
-                                params GameScreen[] screensToLoad)
+        public static void Load(ScreenManager screenManager, bool loadingIsSlow, params GameScreen[] screensToLoad)
         {
             // Tell all the current screens to transition off.
             foreach (GameScreen screen in screenManager.GetScreens())
+            {
                 screen.ExitScreen();
+            }
 
             // Create and activate the loading screen.
-            LoadingScreen loadingScreen = new LoadingScreen(screenManager,
-                                                            loadingIsSlow,
-                                                            screensToLoad);
+            LoadingScreen loadingScreen = new(screenManager, loadingIsSlow, screensToLoad);
 
             screenManager.AddScreen(loadingScreen);
         }
 
-
         public override void LoadContent()
         {
             ContentManager content = ScreenManager.Game.Content;
-            loadingTexture = content.Load<Texture2D>(@"Textures\MainMenu\LoadingPause");
-            loadingBlackTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\FadeScreen");
+            loadingTexture = content.Load<Texture2D>("Textures/MainMenu/LoadingPause");
+            loadingBlackTexture = content.Load<Texture2D>("Textures/GameScreens/FadeScreen");
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
-            loadingBlackTextureDestination = new Rectangle(viewport.X, viewport.Y,
-                viewport.Width, viewport.Height);
-            loadingPosition = new Vector2(
-                viewport.X + (float)Math.Floor((viewport.Width -
-                    loadingTexture.Width) / 2f),
-                viewport.Y + (float)Math.Floor((viewport.Height -
-                    loadingTexture.Height) / 2f));
+            loadingBlackTextureDestination = new Rectangle(viewport.X, viewport.Y, viewport.Width, viewport.Height);
+            loadingPosition = new Vector2(viewport.X + (float)Math.Floor((viewport.Width - loadingTexture.Width) / 2f), viewport.Y + (float)Math.Floor((viewport.Height - loadingTexture.Height) / 2f));
 
             base.LoadContent();
         }
@@ -72,8 +62,7 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
         /// <summary>
         /// Updates the loading screen.
         /// </summary>
-        public override void Update(GameTime gameTime, bool otherScreenHasFocus,
-                                                       bool coveredByOtherScreen)
+        public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
 
@@ -98,7 +87,6 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
             }
         }
 
-
         /// <summary>
         /// Draws the loading screen.
         /// </summary>
@@ -109,8 +97,7 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
             // method, rather than in Update, because it isn't enough just for the
             // screens to be gone: in order for the transition to look good we must
             // have actually drawn a frame without them before we perform the load.
-            if ((ScreenState == ScreenState.Active) &&
-                (ScreenManager.GetScreens().Length == 1))
+            if ((ScreenState == ScreenState.Active) && (ScreenManager.GetScreens().Length == 1))
             {
                 otherScreensAreGone = true;
             }
@@ -133,8 +120,7 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
                 //Color color = new Color(255, 255, 255, TransitionAlpha);
 
                 spriteBatch.Begin();
-                spriteBatch.Draw(loadingBlackTexture, loadingBlackTextureDestination,
-                    Color.White);
+                spriteBatch.Draw(loadingBlackTexture, loadingBlackTextureDestination, Color.White);
                 spriteBatch.Draw(loadingTexture, loadingPosition, Color.White);
                 spriteBatch.End();
             }

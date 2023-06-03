@@ -69,7 +69,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             }
             else if (saveGameDescription != null)
             {
-                Session.LoadSession(saveGameDescription, ScreenManager, this);
+                //Session.LoadSession(saveGameDescription, ScreenManager, this);
             }
 
             // once the load has finished, we use ResetElapsedTime to tell the game's

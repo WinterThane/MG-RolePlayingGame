@@ -2,9 +2,11 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using RolePlayingGame.Characters;
+using RolePlayingGame.Combat;
 using RolePlayingGame.Data;
 using RolePlayingGame.GearObjects;
 using RolePlayingGame.InputsManager;
+using RolePlayingGame.SessionObjects;
 using RolePlayingGame.TextFonts;
 using System;
 using System.Collections.Generic;
@@ -119,8 +121,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
                 isUseAllowed = true;
                 if (usedGear != null)
                 {
-                    isUseAllowed = usedGear.CheckRestrictions(
-                        Session.Party.Players[selectionMark]);
+                    isUseAllowed = usedGear.CheckRestrictions(Session.Party.Players[selectionMark]);
                 }
 
                 CalculateSelectedPlayers();

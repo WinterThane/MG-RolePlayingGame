@@ -308,8 +308,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             spriteBatch.Draw(inn.ShopkeeperTexture, innKeeperPosition, Color.White);
             // Draw the cost to stay
             costString = "Cost: " + GetChargeForParty(Session.Party) + " Gold";
-            spriteBatch.DrawString(Fonts.DescriptionFont, costString, costPosition,
-                Color.DarkRed);
+            spriteBatch.DrawString(Fonts.DescriptionFont, costString, costPosition, Color.DarkRed);
             // Draw the innkeeper dialog
             for (int i = 0; i < endIndex; i++)
             {

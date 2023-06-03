@@ -52,31 +52,23 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
         {
             ContentManager content = ScreenManager.Game.Content;
 
-            backgroundTexture = content.Load<Texture2D>(@"Textures\MainMenu\Confirm");
-            backTexture = content.Load<Texture2D>(@"Textures\Buttons\BButton");
-            selectTexture = content.Load<Texture2D>(@"Textures\Buttons\AButton");
-            loadingBlackTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\FadeScreen");
+            backgroundTexture = content.Load<Texture2D>("Textures/MainMenu/Confirm");
+            backTexture = content.Load<Texture2D>("Textures/Buttons/BButton");
+            selectTexture = content.Load<Texture2D>("Textures/Buttons/AButton");
+            loadingBlackTexture = content.Load<Texture2D>("Textures/GameScreens/FadeScreen");
 
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
-            backgroundPosition = new Vector2(
-                (viewport.Width - backgroundTexture.Width) / 2,
-                (viewport.Height - backgroundTexture.Height) / 2);
-            loadingBlackTextureDestination = new Rectangle(viewport.X, viewport.Y,
-                viewport.Width, viewport.Height);
+            backgroundPosition = new Vector2((viewport.Width - backgroundTexture.Width) / 2, (viewport.Height - backgroundTexture.Height) / 2); 
+            loadingBlackTextureDestination = new Rectangle(viewport.X, viewport.Y, viewport.Width, viewport.Height);
 
-            backPosition = backgroundPosition + new Vector2(50f,
-                backgroundTexture.Height - 100);
-            selectPosition = backgroundPosition + new Vector2(
-                backgroundTexture.Width - 100, backgroundTexture.Height - 100);
+            backPosition = backgroundPosition + new Vector2(50f, backgroundTexture.Height - 100);
+            selectPosition = backgroundPosition + new Vector2(backgroundTexture.Width - 100, backgroundTexture.Height - 100);
 
-            confirmPosition.X = backgroundPosition.X + (backgroundTexture.Width -
-                Fonts.HeaderFont.MeasureString("Confirmation").X) / 2f;
+            confirmPosition.X = backgroundPosition.X + (backgroundTexture.Width - Fonts.HeaderFont.MeasureString("Confirmation").X) / 2f;
             confirmPosition.Y = backgroundPosition.Y + 47;
 
             message = Fonts.BreakTextIntoLines(message, 36, 10);
-            messagePosition.X = backgroundPosition.X + (int)((backgroundTexture.Width -
-                Fonts.GearInfoFont.MeasureString(message).X) / 2);
+            messagePosition.X = backgroundPosition.X + (int)((backgroundTexture.Width - Fonts.GearInfoFont.MeasureString(message).X) / 2);
             messagePosition.Y = (backgroundPosition.Y * 2) - 20;
         }
 
@@ -112,22 +104,14 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(loadingBlackTexture, loadingBlackTextureDestination,
-                Color.White);
+            spriteBatch.Draw(loadingBlackTexture, loadingBlackTextureDestination, Color.White);
             spriteBatch.Draw(backgroundTexture, backgroundPosition, Color.White);
             spriteBatch.Draw(backTexture, backPosition, Color.White);
             spriteBatch.Draw(selectTexture, selectPosition, Color.White);
-            spriteBatch.DrawString(Fonts.ButtonNamesFont, "No",
-                new Vector2(backPosition.X + backTexture.Width + 5, backPosition.Y + 5),
-                Color.White);
-            spriteBatch.DrawString(Fonts.ButtonNamesFont, "Yes",
-                new Vector2(
-                selectPosition.X - Fonts.ButtonNamesFont.MeasureString("Yes").X,
-                selectPosition.Y + 5), Color.White);
-            spriteBatch.DrawString(Fonts.HeaderFont, "Confirmation", confirmPosition,
-                Fonts.CountColor);
-            spriteBatch.DrawString(Fonts.GearInfoFont, message, messagePosition,
-                Fonts.CountColor);
+            spriteBatch.DrawString(Fonts.ButtonNamesFont, "No", new Vector2(backPosition.X + backTexture.Width + 5, backPosition.Y + 5), Color.White);
+            spriteBatch.DrawString(Fonts.ButtonNamesFont, "Yes", new Vector2(selectPosition.X - Fonts.ButtonNamesFont.MeasureString("Yes").X, selectPosition.Y + 5), Color.White);
+            spriteBatch.DrawString(Fonts.HeaderFont, "Confirmation", confirmPosition, Fonts.CountColor);
+            spriteBatch.DrawString(Fonts.GearInfoFont, message, messagePosition, Fonts.CountColor);
 
             spriteBatch.End();
         }

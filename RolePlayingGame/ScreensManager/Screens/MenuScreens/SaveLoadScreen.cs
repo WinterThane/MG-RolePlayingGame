@@ -62,7 +62,7 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
             this.mode = mode;
 
             // refresh the save game descriptions
-            Session.RefreshSaveGameDescriptions();
+            //Session.RefreshSaveGameDescriptions();
         }
 
 
@@ -161,14 +161,12 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
                         {
                             if (currentSlot == Session.SaveGameDescriptions.Count)
                             {
-                                ConfirmSaveMessageBoxAccepted(null, EventArgs.Empty);
+                                //ConfirmSaveMessageBoxAccepted(null, EventArgs.Empty);
                             }
                             else
                             {
-                                MessageBoxScreen messageBoxScreen = new MessageBoxScreen(
-                                   "Are you sure you want to overwrite this save game?");
-                                messageBoxScreen.Accepted +=
-                                    ConfirmSaveMessageBoxAccepted;
+                                MessageBoxScreen messageBoxScreen = new MessageBoxScreen("Are you sure you want to overwrite this save game?");
+                                //messageBoxScreen.Accepted += ConfirmSaveMessageBoxAccepted;
                                 ScreenManager.AddScreen(messageBoxScreen);
                             }
                         }
@@ -220,22 +218,22 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
         /// <summary>
         /// Callback for the Save Game confirmation message box.
         /// </summary>
-        void ConfirmSaveMessageBoxAccepted(object sender, EventArgs e)
-        {
-            if ((currentSlot >= 0) &&
-                (currentSlot <= Session.SaveGameDescriptions.Count))
-            {
-                if (currentSlot == Session.SaveGameDescriptions.Count)
-                {
-                    Session.SaveSession(null);
-                }
-                else
-                {
-                    Session.SaveSession(Session.SaveGameDescriptions[currentSlot]);
-                }
-                ExitScreen();
-            }
-        }
+        //void ConfirmSaveMessageBoxAccepted(object sender, EventArgs e)
+        //{
+        //    if ((currentSlot >= 0) &&
+        //        (currentSlot <= Session.SaveGameDescriptions.Count))
+        //    {
+        //        if (currentSlot == Session.SaveGameDescriptions.Count)
+        //        {
+        //            Session.SaveSession(null);
+        //        }
+        //        else
+        //        {
+        //            Session.SaveSession(Session.SaveGameDescriptions[currentSlot]);
+        //        }
+        //        ExitScreen();
+        //    }
+        //}
 
 
         /// <summary>
@@ -284,7 +282,7 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
                 (currentSlot < Session.SaveGameDescriptions.Count) &&
                 (Session.SaveGameDescriptions[currentSlot] != null))
             {
-                Session.DeleteSaveGame(Session.SaveGameDescriptions[currentSlot]);
+                //Session.DeleteSaveGame(Session.SaveGameDescriptions[currentSlot]);
             }
         }
 
