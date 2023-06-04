@@ -261,6 +261,441 @@
 /processorParam:TextureFormat=Color
 /build:Fonts/PlayerStatisticsFont.bmp
 
+#begin Gear/Armor/BronzeArmor.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/BronzeArmor.xml
+
+#begin Gear/Armor/BronzeBoots.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/BronzeBoots.xml
+
+#begin Gear/Armor/BronzeHelmet.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/BronzeHelmet.xml
+
+#begin Gear/Armor/BronzeShield.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/BronzeShield.xml
+
+#begin Gear/Armor/ChainBoots.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/ChainBoots.xml
+
+#begin Gear/Armor/ChainHelmet.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/ChainHelmet.xml
+
+#begin Gear/Armor/ChainMail.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/ChainMail.xml
+
+#begin Gear/Armor/ChainShield.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/ChainShield.xml
+
+#begin Gear/Armor/HideArmor.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/HideArmor.xml
+
+#begin Gear/Armor/HideBoots.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/HideBoots.xml
+
+#begin Gear/Armor/HideHelmet.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/HideHelmet.xml
+
+#begin Gear/Armor/HideShield.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/HideShield.xml
+
+#begin Gear/Armor/IronArmor.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/IronArmor.xml
+
+#begin Gear/Armor/IronBoots.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/IronBoots.xml
+
+#begin Gear/Armor/IronHelmet.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/IronHelmet.xml
+
+#begin Gear/Armor/IronShield.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/IronShield.xml
+
+#begin Gear/Armor/IronShieldPlus.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/IronShieldPlus.xml
+
+#begin Gear/Armor/LeatherArmor.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/LeatherArmor.xml
+
+#begin Gear/Armor/LeatherArmorPlus.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/LeatherArmorPlus.xml
+
+#begin Gear/Armor/LeatherBoots.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/LeatherBoots.xml
+
+#begin Gear/Armor/LeatherBootsPlus.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/LeatherBootsPlus.xml
+
+#begin Gear/Armor/LeatherHelmet.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/LeatherHelmet.xml
+
+#begin Gear/Armor/LeatherHelmetPlus.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/LeatherHelmetPlus.xml
+
+#begin Gear/Armor/LeatherHide.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/LeatherHide.xml
+
+#begin Gear/Armor/LeatherShield.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/LeatherShield.xml
+
+#begin Gear/Armor/LeatherShieldPlus.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/LeatherShieldPlus.xml
+
+#begin Gear/Armor/LegendaryArmor.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/LegendaryArmor.xml
+
+#begin Gear/Armor/LegendaryBoots.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/LegendaryBoots.xml
+
+#begin Gear/Armor/LegendaryHelmet.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/LegendaryHelmet.xml
+
+#begin Gear/Armor/LegendaryHood.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/LegendaryHood.xml
+
+#begin Gear/Armor/LegendaryRobe.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/LegendaryRobe.xml
+
+#begin Gear/Armor/LegendaryShield.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/LegendaryShield.xml
+
+#begin Gear/Armor/MageBoots.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/MageBoots.xml
+
+#begin Gear/Armor/MageHood.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/MageHood.xml
+
+#begin Gear/Armor/MagicMageBoots.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/MagicMageBoots.xml
+
+#begin Gear/Armor/MagicMageHood.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/MagicMageHood.xml
+
+#begin Gear/Armor/MagicRobe.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/MagicRobe.xml
+
+#begin Gear/Armor/Robe.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/Robe.xml
+
+#begin Gear/Armor/SageBoots.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/SageBoots.xml
+
+#begin Gear/Armor/SageHood.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/SageHood.xml
+
+#begin Gear/Armor/SageRobe.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/SageRobe.xml
+
+#begin Gear/Armor/SteelArmor.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/SteelArmor.xml
+
+#begin Gear/Armor/SteelBoots.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/SteelBoots.xml
+
+#begin Gear/Armor/SteelHelmet.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/SteelHelmet.xml
+
+#begin Gear/Armor/SteelShield.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/SteelShield.xml
+
+#begin Gear/Armor/TamarArmor.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/TamarArmor.xml
+
+#begin Gear/Armor/TamarBoots.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/TamarBoots.xml
+
+#begin Gear/Armor/TamarHelmet.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/TamarHelmet.xml
+
+#begin Gear/Armor/TamarShield.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/TamarShield.xml
+
+#begin Gear/Armor/WornMageBoots.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/WornMageBoots.xml
+
+#begin Gear/Armor/WornMageHood.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/WornMageHood.xml
+
+#begin Gear/Armor/WornRobe.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Armor/WornRobe.xml
+
+#begin Gear/Items/FireBallScroll.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Items/FireBallScroll.xml
+
+#begin Gear/Items/FireBoltScroll.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Items/FireBoltScroll.xml
+
+#begin Gear/Items/GlimmeringRuby.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Items/GlimmeringRuby.xml
+
+#begin Gear/Items/HealingPotion.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Items/HealingPotion.xml
+
+#begin Gear/Items/MagicPotion.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Items/MagicPotion.xml
+
+#begin Gear/Items/MajorHealingPotion.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Items/MajorHealingPotion.xml
+
+#begin Gear/Items/MajorMagicPotion.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Items/MajorMagicPotion.xml
+
+#begin Gear/Items/MDElixir.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Items/MDElixir.xml
+
+#begin Gear/Items/MinorHealingPotion.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Items/MinorHealingPotion.xml
+
+#begin Gear/Items/MinorMagicPotion.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Items/MinorMagicPotion.xml
+
+#begin Gear/Items/MOElixir.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Items/MOElixir.xml
+
+#begin Gear/Items/PDElixir.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Items/PDElixir.xml
+
+#begin Gear/Items/POElixir.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Items/POElixir.xml
+
+#begin Gear/Weapons/BoStaff.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/BoStaff.xml
+
+#begin Gear/Weapons/Claymore.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/Claymore.xml
+
+#begin Gear/Weapons/ClaymorePlus.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/ClaymorePlus.xml
+
+#begin Gear/Weapons/Club.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/Club.xml
+
+#begin Gear/Weapons/Dagger.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/Dagger.xml
+
+#begin Gear/Weapons/GiantClub.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/GiantClub.xml
+
+#begin Gear/Weapons/GiantClubPlus.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/GiantClubPlus.xml
+
+#begin Gear/Weapons/LegendaryBlade.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/LegendaryBlade.xml
+
+#begin Gear/Weapons/LegendaryClub.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/LegendaryClub.xml
+
+#begin Gear/Weapons/LegendaryStaff.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/LegendaryStaff.xml
+
+#begin Gear/Weapons/LongBlade.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/LongBlade.xml
+
+#begin Gear/Weapons/LongSword.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/LongSword.xml
+
+#begin Gear/Weapons/MagicStaff.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/MagicStaff.xml
+
+#begin Gear/Weapons/MysticalStaff.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/MysticalStaff.xml
+
+#begin Gear/Weapons/PersianBlade.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/PersianBlade.xml
+
+#begin Gear/Weapons/PersianSword.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/PersianSword.xml
+
+#begin Gear/Weapons/SageStaff.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/SageStaff.xml
+
+#begin Gear/Weapons/ShortSword.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/ShortSword.xml
+
+#begin Gear/Weapons/ShortSwordPlus.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/ShortSwordPlus.xml
+
+#begin Gear/Weapons/SpikedClub.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/SpikedClub.xml
+
+#begin Gear/Weapons/TamarBlade.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/TamarBlade.xml
+
+#begin Gear/Weapons/WornStaff.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Gear/Weapons/WornStaff.xml
+
 #begin MainGameDescription.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor

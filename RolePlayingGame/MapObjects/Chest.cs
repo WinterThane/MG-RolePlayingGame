@@ -21,7 +21,7 @@ namespace RolePlayingGame.MapObjects
             set { gold = value; }
         }
 
-        private List<ContentEntry<Gear>> entries = new List<ContentEntry<Gear>>();
+        private List<ContentEntry<Gear>> entries = new();
         /// <summary>
         /// The gear in the chest, along with quantities.
         /// </summary>
@@ -88,7 +88,7 @@ namespace RolePlayingGame.MapObjects
                 chest.Entries.AddRange(input.ReadObject<List<ContentEntry<Gear>>>());
                 foreach (ContentEntry<Gear> contentEntry in chest.Entries)
                 {
-                    contentEntry.Content = input.ContentManager.Load<Gear>(System.IO.Path.Combine(@"Gear", contentEntry.ContentName));
+                    contentEntry.Content = input.ContentManager.Load<Gear>(System.IO.Path.Combine("Gear", contentEntry.ContentName));
                 }
 
                 chest.TextureName = input.ReadString();
