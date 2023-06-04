@@ -36,7 +36,7 @@ namespace RolePlayingGame.GearObjects
         /// </summary>
         public virtual string GetPowerText()
         {
-            return String.Empty;
+            return string.Empty;
         }
 
         /// <summary>
@@ -54,7 +54,6 @@ namespace RolePlayingGame.GearObjects
             get { return goldValue; }
             set { goldValue = value; }
         }
-
 
         /// <summary>
         /// If true, the gear can be dropped.  If false, it cannot ever be dropped.
@@ -89,7 +88,7 @@ namespace RolePlayingGame.GearObjects
         /// The list of the names of all supported classes.
         /// </summary>
         /// <remarks>Class names are compared case-insensitive.</remarks>
-        private List<string> supportedClasses = new List<string>();
+        private List<string> supportedClasses = new();
 
         /// <summary>
         /// The list of the names of all supported classes.
@@ -112,9 +111,7 @@ namespace RolePlayingGame.GearObjects
                 throw new ArgumentNullException("fightingCharacter");
             }
 
-            return ((fightingCharacter.CharacterLevel >= MinimumCharacterLevel) &&
-                   ((SupportedClasses.Count <= 0) ||
-                    SupportedClasses.Contains(fightingCharacter.CharacterClass.Name)));
+            return ((fightingCharacter.CharacterLevel >= MinimumCharacterLevel) && ((SupportedClasses.Count <= 0) || SupportedClasses.Contains(fightingCharacter.CharacterClass.Name)));
         }
 
 
@@ -123,7 +120,7 @@ namespace RolePlayingGame.GearObjects
         /// </summary>
         public virtual string GetRestrictionsText()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             // add the minimum character level, if any
             if (MinimumCharacterLevel > 0)
@@ -215,9 +212,7 @@ namespace RolePlayingGame.GearObjects
         /// The maximum length of a single line of text.
         /// </param>
         /// <param name="maximumLines">The maximum number of lines to draw.</param>
-        public virtual void DrawDescription(SpriteBatch spriteBatch,
-            SpriteFont spriteFont, Color color, Vector2 position,
-            int maximumCharactersPerLine, int maximumLines)
+        public virtual void DrawDescription(SpriteBatch spriteBatch, SpriteFont spriteFont, Color color, Vector2 position, int maximumCharactersPerLine, int maximumLines)
         {
             // check the parameters
             if (spriteBatch == null)
@@ -238,7 +233,7 @@ namespace RolePlayingGame.GearObjects
             }
 
             // if the string is trivial, then this is really easy
-            if (String.IsNullOrEmpty(description))
+            if (string.IsNullOrEmpty(description))
             {
                 return;
             }
@@ -251,11 +246,10 @@ namespace RolePlayingGame.GearObjects
             }
 
             // construct a new string with carriage returns
-            StringBuilder stringBuilder = new StringBuilder(description);
+            StringBuilder stringBuilder = new(description);
             int currentLine = 0;
             int newLineIndex = 0;
-            while (((description.Length - newLineIndex) > maximumCharactersPerLine) &&
-                (currentLine < maximumLines))
+            while (((description.Length - newLineIndex) > maximumCharactersPerLine) && (currentLine < maximumLines))
             {
                 description.IndexOf(' ', 0);
                 int nextIndex = newLineIndex;
@@ -269,8 +263,7 @@ namespace RolePlayingGame.GearObjects
             }
 
             // draw the string
-            spriteBatch.DrawString(spriteFont, stringBuilder.ToString(),
-                position, color);
+            spriteBatch.DrawString(spriteFont, stringBuilder.ToString(), position, color);
         }
 
         /// <summary>
@@ -299,8 +292,7 @@ namespace RolePlayingGame.GearObjects
                 gear.MinimumCharacterLevel = input.ReadInt32();
                 gear.SupportedClasses.AddRange(input.ReadObject<List<string>>());
                 gear.IconTextureName = input.ReadString();
-                gear.iconTexture = input.ContentManager.Load<Texture2D>(
-                    System.IO.Path.Combine(@"Textures\Gear", gear.IconTextureName));
+                gear.iconTexture = input.ContentManager.Load<Texture2D>(System.IO.Path.Combine("Textures/Gear", gear.IconTextureName));
 
                 return gear;
             }
