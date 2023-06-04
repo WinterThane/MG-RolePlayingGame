@@ -14,6 +14,126 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Characters/Players/Kolatt.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/Players/Kolatt.xml
+
+#begin Characters/Players/Nykkas.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/Players/Nykkas.xml
+
+#begin Characters/Players/Shenidd.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/Players/Shenidd.xml
+
+#begin Characters/Players/Tyjavus.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/Players/Tyjavus.xml
+
+#begin Characters/Players/Vashekk.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/Players/Vashekk.xml
+
+#begin Characters/QuestNPCs/Ayttas.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/QuestNPCs/Ayttas.xml
+
+#begin Characters/QuestNPCs/Dunkum.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/QuestNPCs/Dunkum.xml
+
+#begin Characters/QuestNPCs/Ekin.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/QuestNPCs/Ekin.xml
+
+#begin Characters/QuestNPCs/HealingInn.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/QuestNPCs/HealingInn.xml
+
+#begin Characters/QuestNPCs/HealTheSoul.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/QuestNPCs/HealTheSoul.xml
+
+#begin Characters/QuestNPCs/Itemania.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/QuestNPCs/Itemania.xml
+
+#begin Characters/QuestNPCs/JangElder.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/QuestNPCs/JangElder.xml
+
+#begin Characters/QuestNPCs/Kneevan.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/QuestNPCs/Kneevan.xml
+
+#begin Characters/QuestNPCs/Manny.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/QuestNPCs/Manny.xml
+
+#begin Characters/QuestNPCs/NewAgeInn.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/QuestNPCs/NewAgeInn.xml
+
+#begin Characters/QuestNPCs/Sheddarr.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/QuestNPCs/Sheddarr.xml
+
+#begin Characters/QuestNPCs/Shejarr.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/QuestNPCs/Shejarr.xml
+
+#begin Characters/QuestNPCs/Theaniv.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/QuestNPCs/Theaniv.xml
+
+#begin Characters/QuestNPCs/TheWeaponSmith.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/QuestNPCs/TheWeaponSmith.xml
+
+#begin Characters/QuestNPCs/ThisAnInn.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/QuestNPCs/ThisAnInn.xml
+
+#begin Characters/QuestNPCs/ToPlotTown.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/QuestNPCs/ToPlotTown.xml
+
+#begin Characters/QuestNPCs/Ujar.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/QuestNPCs/Ujar.xml
+
+#begin Characters/QuestNPCs/Vejnas.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/QuestNPCs/Vejnas.xml
+
+#begin Characters/QuestNPCs/WhoMe.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Characters/QuestNPCs/WhoMe.xml
+
 #begin Fonts/ButtonNamesFont.bmp
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -616,10 +736,65 @@
 /processor:PassThroughProcessor
 /build:Maps/FixedCombats/Tamar.xml
 
+#begin Maps/Inns/HealingInn.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/Inns/HealingInn.xml
+
+#begin Maps/Inns/NewAgeInn.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/Inns/NewAgeInn.xml
+
+#begin Maps/Inns/SanctuaryInn.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/Inns/SanctuaryInn.xml
+
+#begin Maps/Inns/ThisAnInn.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/Inns/ThisAnInn.xml
+
 #begin Maps/Map001.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
 /build:Maps/Map001.xml
+
+#begin Maps/Stores/GearMan.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/Stores/GearMan.xml
+
+#begin Maps/Stores/Gearrific.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/Stores/Gearrific.xml
+
+#begin Maps/Stores/HealTheSoul.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/Stores/HealTheSoul.xml
+
+#begin Maps/Stores/Itemania.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/Stores/Itemania.xml
+
+#begin Maps/Stores/PotionsGalore.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/Stores/PotionsGalore.xml
+
+#begin Maps/Stores/TheWeaponsmith.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/Stores/TheWeaponsmith.xml
+
+#begin Maps/Stores/WhoMeShop.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/Stores/WhoMeShop.xml
 
 #begin Textures/Buttons/AButton.png
 /importer:TextureImporter

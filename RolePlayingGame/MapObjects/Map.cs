@@ -435,13 +435,13 @@ namespace RolePlayingGame.MapObjects
                 map.InnEntries.AddRange(input.ReadObject<List<MapEntry<Inn>>>());
                 foreach (MapEntry<Inn> innEntry in map.innEntries)
                 {
-                    innEntry.Content = input.ContentManager.Load<Inn>(System.IO.Path.Combine(@"Maps\Inns", innEntry.ContentName));
+                    innEntry.Content = input.ContentManager.Load<Inn>(System.IO.Path.Combine("Maps/Inns", innEntry.ContentName));
                 }
 
                 map.StoreEntries.AddRange(input.ReadObject<List<MapEntry<Store>>>());
                 foreach (MapEntry<Store> storeEntry in map.storeEntries)
                 {
-                    storeEntry.Content = input.ContentManager.Load<Store>(System.IO.Path.Combine(@"Maps\Stores", storeEntry.ContentName));
+                    storeEntry.Content = input.ContentManager.Load<Store>(System.IO.Path.Combine("Maps/Stores", storeEntry.ContentName));
                 }
 
                 return map;

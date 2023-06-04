@@ -73,8 +73,7 @@ namespace RolePlayingGame.MapObjects
         /// </summary>
         public class ChestReader : ContentTypeReader<Chest>
         {
-            protected override Chest Read(ContentReader input,
-                Chest existingInstance)
+            protected override Chest Read(ContentReader input, Chest existingInstance)
             {
                 Chest chest = existingInstance;
                 if (chest == null)
@@ -86,18 +85,14 @@ namespace RolePlayingGame.MapObjects
 
                 chest.Gold = input.ReadInt32();
 
-                chest.Entries.AddRange(
-                    input.ReadObject<List<ContentEntry<Gear>>>());
+                chest.Entries.AddRange(input.ReadObject<List<ContentEntry<Gear>>>());
                 foreach (ContentEntry<Gear> contentEntry in chest.Entries)
                 {
-                    contentEntry.Content = input.ContentManager.Load<Gear>(
-                        System.IO.Path.Combine(@"Gear",
-                        contentEntry.ContentName));
+                    contentEntry.Content = input.ContentManager.Load<Gear>(System.IO.Path.Combine(@"Gear", contentEntry.ContentName));
                 }
 
                 chest.TextureName = input.ReadString();
-                chest.Texture = input.ContentManager.Load<Texture2D>(
-                    System.IO.Path.Combine(@"Textures\Chests", chest.TextureName));
+                chest.Texture = input.ContentManager.Load<Texture2D>(System.IO.Path.Combine("Textures/Chests", chest.TextureName));
 
                 return chest;
             }
@@ -113,22 +108,23 @@ namespace RolePlayingGame.MapObjects
         public object Clone()
         {
             // create the new chest
-            Chest chest = new Chest();
-
-            // copy the data
-            chest.Gold = Gold;
-            chest.Name = Name;
-            chest.Texture = Texture;
-            chest.TextureName = TextureName;
-
-            // recreate the list and entries, as counts may have changed
-            chest.entries = new List<ContentEntry<Gear>>();
+            Chest chest = new()
+            {
+                Gold = Gold,
+                Name = Name,
+                Texture = Texture,
+                TextureName = TextureName,
+                // recreate the list and entries, as counts may have changed
+                entries = new List<ContentEntry<Gear>>()
+            };
             foreach (ContentEntry<Gear> originalEntry in Entries)
             {
-                ContentEntry<Gear> newEntry = new ContentEntry<Gear>();
-                newEntry.Count = originalEntry.Count;
-                newEntry.ContentName = originalEntry.ContentName;
-                newEntry.Content = originalEntry.Content;
+                ContentEntry<Gear> newEntry = new()
+                {
+                    Count = originalEntry.Count,
+                    ContentName = originalEntry.ContentName,
+                    Content = originalEntry.Content
+                };
                 chest.Entries.Add(newEntry);
             }
 
