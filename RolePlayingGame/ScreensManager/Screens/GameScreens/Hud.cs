@@ -92,40 +92,23 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         {
             ContentManager content = screenManager.Game.Content;
 
-            backgroundHudTexture =
-                content.Load<Texture2D>(@"Textures\HUD\HudBkgd");
-            topHudTexture =
-                content.Load<Texture2D>(@"Textures\HUD\CombatStateInfoStrip");
-            activeCharInfoTexture =
-                content.Load<Texture2D>(@"Textures\HUD\PlankActive");
-            inActiveCharInfoTexture =
-                content.Load<Texture2D>(@"Textures\HUD\PlankInActive");
-            cantUseCharInfoTexture =
-                content.Load<Texture2D>(@"Textures\HUD\PlankCantUse");
-            selectionBracketTexture =
-                content.Load<Texture2D>(@"Textures\HUD\SelectionBrackets");
-            deadPortraitTexture =
-                content.Load<Texture2D>(@"Textures\Characters\Portraits\Tombstone");
-            combatPopupTexture =
-                content.Load<Texture2D>(@"Textures\HUD\CombatPopup");
-            charSelFadeLeftTexture =
-                content.Load<Texture2D>(@"Textures\Buttons\CharSelectFadeLeft");
-            charSelFadeRightTexture =
-                content.Load<Texture2D>(@"Textures\Buttons\CharSelectFadeRight");
-            charSelArrowLeftTexture =
-                content.Load<Texture2D>(@"Textures\Buttons\CharSelectHlLeft");
-            charSelArrowRightTexture =
-                content.Load<Texture2D>(@"Textures\Buttons\CharSelectHlRight");
-            actionTexture =
-                content.Load<Texture2D>(@"Textures\HUD\HudSelectButton");
-            yButtonTexture =
-                content.Load<Texture2D>(@"Textures\Buttons\YButton");
-            startButtonTexture =
-                content.Load<Texture2D>(@"Textures\Buttons\StartButton");
-            menuTexture =
-                content.Load<Texture2D>(@"Textures\HUD\Menu");
-            statsTexture =
-                content.Load<Texture2D>(@"Textures\HUD\Stats");
+            backgroundHudTexture = content.Load<Texture2D>("Textures/HUD/HudBkgd");
+            topHudTexture = content.Load<Texture2D>("Textures/HUD/CombatStateInfoStrip");
+            activeCharInfoTexture = content.Load<Texture2D>("Textures/HUD/PlankActive");
+            inActiveCharInfoTexture = content.Load<Texture2D>("Textures/HUD/PlankInActive");
+            cantUseCharInfoTexture = content.Load<Texture2D>("Textures/HUD/PlankCantUse");
+            selectionBracketTexture = content.Load<Texture2D>("Textures/HUD/SelectionBrackets");
+            deadPortraitTexture = content.Load<Texture2D>("Textures/Characters/Portraits/Tombstone");
+            combatPopupTexture = content.Load<Texture2D>("Textures/HUD/CombatPopup");
+            charSelFadeLeftTexture = content.Load<Texture2D>("Textures/Buttons/CharSelectFadeLeft");
+            charSelFadeRightTexture = content.Load<Texture2D>("Textures/Buttons/CharSelectFadeRight");
+            charSelArrowLeftTexture = content.Load<Texture2D>("Textures/Buttons/CharSelectHlLeft");
+            charSelArrowRightTexture = content.Load<Texture2D>("Textures/Buttons/CharSelectHlRight");
+            actionTexture = content.Load<Texture2D>("Textures/HUD/HudSelectButton");
+            yButtonTexture = content.Load<Texture2D>("Textures/Buttons/YButton");
+            startButtonTexture = content.Load<Texture2D>("Textures/Buttons/StartButton");
+            menuTexture = content.Load<Texture2D>("Textures/HUD/Menu");
+            statsTexture = content.Load<Texture2D>("Textures/HUD/Stats");
         }
 
         /// <summary>

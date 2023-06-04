@@ -42,10 +42,12 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
         public MainMenuScreen() : base()
         {
             // add the New Game entry
-            newGameMenuEntry = new MenuEntry("New Game");
-            newGameMenuEntry.Description = "Start a New Game";
-            newGameMenuEntry.Font = Fonts.HeaderFont;
-            newGameMenuEntry.Position = new Vector2(715, 0f);
+            newGameMenuEntry = new MenuEntry("New Game")
+            {
+                Description = "Start a New Game",
+                Font = Fonts.HeaderFont,
+                Position = new Vector2(715, 0f)
+            };
             newGameMenuEntry.Selected += NewGameMenuEntrySelected;
             MenuEntries.Add(newGameMenuEntry);
 
@@ -53,10 +55,12 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
             // if the game has started but is not in combat
             if (Session.IsActive && !CombatEngine.IsActive)
             {
-                saveGameMenuEntry = new MenuEntry("Save Game");
-                saveGameMenuEntry.Description = "Save the Game";
-                saveGameMenuEntry.Font = Fonts.HeaderFont;
-                saveGameMenuEntry.Position = new Vector2(730, 0f);
+                saveGameMenuEntry = new MenuEntry("Save Game")
+                {
+                    Description = "Save the Game",
+                    Font = Fonts.HeaderFont,
+                    Position = new Vector2(730, 0f)
+                };
                 saveGameMenuEntry.Selected += SaveGameMenuEntrySelected;
                 MenuEntries.Add(saveGameMenuEntry);
             }
@@ -108,7 +112,6 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
             // start the menu music
             AudioManager.PushMusic("MainTheme");
         }
-
 
         /// <summary>
         /// Load the graphics content for this screen.
@@ -170,7 +173,6 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
             base.HandleInput();
         }
 
-
         /// <summary>
         /// Event handler for when the New Game menu entry is selected.
         /// </summary>
@@ -185,7 +187,6 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
             LoadingScreen.Load(ScreenManager, true, new GameplayScreen(content.Load<GameStartDescription>("MainGameDescription")));
         }
 
-
         /// <summary>
         /// Event handler for when the Save Game menu entry is selected.
         /// </summary>
@@ -194,17 +195,15 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
             ScreenManager.AddScreen(new SaveLoadScreen(SaveLoadScreen.SaveLoadScreenMode.Save));
         }
 
-
         /// <summary>
         /// Event handler for when the Load Game menu entry is selected.
         /// </summary>
         void LoadGameMenuEntrySelected(object sender, EventArgs e)
         {
-            SaveLoadScreen loadGameScreen = new SaveLoadScreen(SaveLoadScreen.SaveLoadScreenMode.Load);
+            SaveLoadScreen loadGameScreen = new(SaveLoadScreen.SaveLoadScreenMode.Load);
             loadGameScreen.LoadingSaveGame += new SaveLoadScreen.LoadingSaveGameHandler(loadGameScreen_LoadingSaveGame);
             ScreenManager.AddScreen(loadGameScreen);
         }
-
 
         /// <summary>
         /// Handle save-game-to-load-selected events from the SaveLoadScreen.
@@ -218,7 +217,6 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
             LoadingScreen.Load(ScreenManager, true, new GameplayScreen(saveGameDescription));
         }
 
-
         /// <summary>
         /// Event handler for when the Controls menu entry is selected.
         /// </summary>
@@ -227,7 +225,6 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
             ScreenManager.AddScreen(new ControlsScreen());
         }
 
-
         /// <summary>
         /// Event handler for when the Help menu entry is selected.
         /// </summary>
@@ -235,7 +232,6 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
         {
             ScreenManager.AddScreen(new HelpScreen());
         }
-
 
         /// <summary>
         /// When the user cancels the main menu,
@@ -257,7 +253,6 @@ namespace RolePlayingGame.ScreensManager.Screens.MenuScreens
             confirmExitMessageBox.Accepted += ConfirmExitMessageBoxAccepted;
             ScreenManager.AddScreen(confirmExitMessageBox);
         }
-
 
         /// <summary>
         /// Event handler for when the user selects Yes 

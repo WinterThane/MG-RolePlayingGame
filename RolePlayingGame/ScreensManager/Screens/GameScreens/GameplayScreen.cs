@@ -16,22 +16,20 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// <summary>
         /// Create a new GameplayScreen object.
         /// </summary>
-        private GameplayScreen()
-            : base()
+        private GameplayScreen() : base()
         {
             CombatEngine.ClearCombat();
-            this.Exiting += new EventHandler(GameplayScreen_Exiting);
+            Exiting += new EventHandler(GameplayScreen_Exiting);
         }
 
 
         /// <summary>
         /// Create a new GameplayScreen object from a new-game description.
         /// </summary>
-        public GameplayScreen(GameStartDescription gameStartDescription)
-            : this()
+        public GameplayScreen(GameStartDescription gameStartDescription) : this()
         {
             this.gameStartDescription = gameStartDescription;
-            this.saveGameDescription = null;
+            saveGameDescription = null;
         }
 
 
@@ -41,7 +39,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         public GameplayScreen(SaveGameDescription saveGameDescription)
             : this()
         {
-            this.gameStartDescription = null;
+            gameStartDescription = null;
             this.saveGameDescription = saveGameDescription;
         }
 
@@ -83,8 +81,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// property, so the game will stop updating when the pause menu is active,
         /// or if you tab away to a different application.
         /// </summary>
-        public override void Update(GameTime gameTime, bool otherScreenHasFocus,
-                                                       bool coveredByOtherScreen)
+        public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
 
@@ -110,21 +107,18 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             if (InputManager.IsActionTriggered(InputManager.Action.ExitGame))
             {
                 // add a confirmation message box
-                const string message =
-                    "Are you sure you want to exit?  All unsaved progress will be lost.";
-                MessageBoxScreen confirmExitMessageBox = new MessageBoxScreen(message);
+                const string message = "Are you sure you want to exit?  All unsaved progress will be lost.";
+                MessageBoxScreen confirmExitMessageBox = new(message);
                 confirmExitMessageBox.Accepted += ConfirmExitMessageBoxAccepted;
                 ScreenManager.AddScreen(confirmExitMessageBox);
                 return;
             }
-            if (!CombatEngine.IsActive &&
-                InputManager.IsActionTriggered(InputManager.Action.CharacterManagement))
+            if (!CombatEngine.IsActive && InputManager.IsActionTriggered(InputManager.Action.CharacterManagement))
             {
                 ScreenManager.AddScreen(new StatisticsScreen(Session.Party.Players[0]));
                 return;
             }
         }
-
 
         /// <summary>
         /// Event handler for when the user selects Yes 
@@ -134,7 +128,6 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         {
             ScreenManager.Game.Exit();
         }
-
 
         /// <summary>
         /// Draws the gameplay screen.
