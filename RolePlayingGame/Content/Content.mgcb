@@ -366,6 +366,256 @@
 /processor:PassThroughProcessor
 /build:Maps/Chests/SteelShield.xml
 
+#begin Maps/FixedCombats/BanditLeaders5.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/BanditLeaders5.xml
+
+#begin Maps/FixedCombats/BanditMage2.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/BanditMage2.xml
+
+#begin Maps/FixedCombats/BanditMage3.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/BanditMage3.xml
+
+#begin Maps/FixedCombats/BanditMage5.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/BanditMage5.xml
+
+#begin Maps/FixedCombats/BanditMasters5.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/BanditMasters5.xml
+
+#begin Maps/FixedCombats/BanditMinor2.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/BanditMinor2.xml
+
+#begin Maps/FixedCombats/BanditMinor3.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/BanditMinor3.xml
+
+#begin Maps/FixedCombats/BanditMinor5.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/BanditMinor5.xml
+
+#begin Maps/FixedCombats/BanditMisc3.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/BanditMisc3.xml
+
+#begin Maps/FixedCombats/BanditMisc5.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/BanditMisc5.xml
+
+#begin Maps/FixedCombats/BanditMisc5a.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/BanditMisc5a.xml
+
+#begin Maps/FixedCombats/BanditMisc5b.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/BanditMisc5b.xml
+
+#begin Maps/FixedCombats/BanditMisc5c.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/BanditMisc5c.xml
+
+#begin Maps/FixedCombats/BruteMasters1.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/BruteMasters1.xml
+
+#begin Maps/FixedCombats/Brutes1.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/Brutes1.xml
+
+#begin Maps/FixedCombats/GoblinGrunts.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/GoblinGrunts.xml
+
+#begin Maps/FixedCombats/GoblinGrunts2.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/GoblinGrunts2.xml
+
+#begin Maps/FixedCombats/GoblinGrunts3.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/GoblinGrunts3.xml
+
+#begin Maps/FixedCombats/GoblinGrunts5.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/GoblinGrunts5.xml
+
+#begin Maps/FixedCombats/GoblinMages3.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/GoblinMages3.xml
+
+#begin Maps/FixedCombats/GoblinMages5.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/GoblinMages5.xml
+
+#begin Maps/FixedCombats/Goblins.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/Goblins.xml
+
+#begin Maps/FixedCombats/GoblinsMisc3.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/GoblinsMisc3.xml
+
+#begin Maps/FixedCombats/GoblinsMisc5.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/GoblinsMisc5.xml
+
+#begin Maps/FixedCombats/GoblinsMisc5a.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/GoblinsMisc5a.xml
+
+#begin Maps/FixedCombats/GoblinSoldiers5.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/GoblinSoldiers5.xml
+
+#begin Maps/FixedCombats/Misc1.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/Misc1.xml
+
+#begin Maps/FixedCombats/Misc4.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/Misc4.xml
+
+#begin Maps/FixedCombats/Misc5.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/Misc5.xml
+
+#begin Maps/FixedCombats/OrcBrutes1.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/OrcBrutes1.xml
+
+#begin Maps/FixedCombats/OrcBrutes2.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/OrcBrutes2.xml
+
+#begin Maps/FixedCombats/OrcBrutes3.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/OrcBrutes3.xml
+
+#begin Maps/FixedCombats/OrcBrutes5.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/OrcBrutes5.xml
+
+#begin Maps/FixedCombats/OrcCaptains1.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/OrcCaptains1.xml
+
+#begin Maps/FixedCombats/OrcCaptains3.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/OrcCaptains3.xml
+
+#begin Maps/FixedCombats/OrcCaptains5.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/OrcCaptains5.xml
+
+#begin Maps/FixedCombats/OrcGrunts3.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/OrcGrunts3.xml
+
+#begin Maps/FixedCombats/OrcGrunts5.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/OrcGrunts5.xml
+
+#begin Maps/FixedCombats/OrcMisc3.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/OrcMisc3.xml
+
+#begin Maps/FixedCombats/OrcMisc3a.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/OrcMisc3a.xml
+
+#begin Maps/FixedCombats/OrcMisc3b.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/OrcMisc3b.xml
+
+#begin Maps/FixedCombats/OrcMisc3c.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/OrcMisc3c.xml
+
+#begin Maps/FixedCombats/OrcMisc3d.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/OrcMisc3d.xml
+
+#begin Maps/FixedCombats/OrcMisc5.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/OrcMisc5.xml
+
+#begin Maps/FixedCombats/OrcMisc5a.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/OrcMisc5a.xml
+
+#begin Maps/FixedCombats/OrcMisc5b.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/OrcMisc5b.xml
+
+#begin Maps/FixedCombats/OrcSoldiers3.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/OrcSoldiers3.xml
+
+#begin Maps/FixedCombats/OrcSoldiers5.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/OrcSoldiers5.xml
+
+#begin Maps/FixedCombats/SirShire.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/SirShire.xml
+
+#begin Maps/FixedCombats/Tamar.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/FixedCombats/Tamar.xml
+
 #begin Maps/Map001.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor

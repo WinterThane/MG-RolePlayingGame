@@ -404,7 +404,7 @@ namespace RolePlayingGame.MapObjects
                 map.FixedCombatEntries.AddRange(input.ReadObject<List<MapEntry<FixedCombat>>>());
                 foreach (MapEntry<FixedCombat> fixedCombatEntry in map.fixedCombatEntries)
                 {
-                    fixedCombatEntry.Content = input.ContentManager.Load<FixedCombat>(System.IO.Path.Combine(@"Maps\FixedCombats", fixedCombatEntry.ContentName));
+                    fixedCombatEntry.Content = input.ContentManager.Load<FixedCombat>(System.IO.Path.Combine("Maps/FixedCombats", fixedCombatEntry.ContentName));
                     // clone the map sprite in the entry, as there may be many entries
                     // per FixedCombat
                     fixedCombatEntry.MapSprite = fixedCombatEntry.Content.Entries[0].Content.MapSprite.Clone() as AnimatingSprite;
@@ -416,11 +416,10 @@ namespace RolePlayingGame.MapObjects
 
                 map.RandomCombat = input.ReadObject<RandomCombat>();
 
-                map.QuestNpcEntries.AddRange(
-                    input.ReadObject<List<MapEntry<QuestNpc>>>());
+                map.QuestNpcEntries.AddRange(input.ReadObject<List<MapEntry<QuestNpc>>>());
                 foreach (MapEntry<QuestNpc> questNpcEntry in map.questNpcEntries)
                 {
-                    questNpcEntry.Content = input.ContentManager.Load<QuestNpc>(System.IO.Path.Combine(@"Characters\QuestNpcs", questNpcEntry.ContentName));
+                    questNpcEntry.Content = input.ContentManager.Load<QuestNpc>(System.IO.Path.Combine("Characters/QuestNpcs", questNpcEntry.ContentName));
                     questNpcEntry.Content.MapPosition = questNpcEntry.MapPosition;
                     questNpcEntry.Content.Direction = questNpcEntry.Direction;
                 }
@@ -428,7 +427,7 @@ namespace RolePlayingGame.MapObjects
                 map.PlayerNpcEntries.AddRange(input.ReadObject<List<MapEntry<Player>>>());
                 foreach (MapEntry<Player> playerNpcEntry in map.playerNpcEntries)
                 {
-                    playerNpcEntry.Content = input.ContentManager.Load<Player>(System.IO.Path.Combine(@"Characters\Players", playerNpcEntry.ContentName)).Clone() as Player;
+                    playerNpcEntry.Content = input.ContentManager.Load<Player>(System.IO.Path.Combine("Characters/Players", playerNpcEntry.ContentName)).Clone() as Player;
                     playerNpcEntry.Content.MapPosition = playerNpcEntry.MapPosition;
                     playerNpcEntry.Content.Direction = playerNpcEntry.Direction;
                 }
