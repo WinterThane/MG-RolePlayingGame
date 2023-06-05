@@ -14,6 +14,36 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin CharacterClasses/Barbarian.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:CharacterClasses/Barbarian.xml
+
+#begin CharacterClasses/Mystic.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:CharacterClasses/Mystic.xml
+
+#begin CharacterClasses/Paladin.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:CharacterClasses/Paladin.xml
+
+#begin CharacterClasses/RedMage.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:CharacterClasses/RedMage.xml
+
+#begin CharacterClasses/Warrior.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:CharacterClasses/Warrior.xml
+
+#begin CharacterClasses/Wizard.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:CharacterClasses/Wizard.xml
+
 #begin Characters/Players/Kolatt.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor

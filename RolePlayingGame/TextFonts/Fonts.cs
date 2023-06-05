@@ -166,8 +166,8 @@ namespace RolePlayingGame.TextFonts
             StringBuilder stringBuilder = new(text);
             int currentLine = 0;
             int newLineIndex = 0;
-            while (((text.Length - newLineIndex) > maximumCharactersPerLine) &&
-                (currentLine < maximumLines))
+
+            while (((text.Length - newLineIndex) > maximumCharactersPerLine) && (currentLine < maximumLines))
             {
                 text.IndexOf(' ', 0);
                 int nextIndex = newLineIndex;
@@ -215,6 +215,7 @@ namespace RolePlayingGame.TextFonts
             StringBuilder stringBuilder = new(text);
             int currentLine = 0;
             int newLineIndex = 0;
+
             while (((text.Length - newLineIndex) > maximumCharactersPerLine))
             {
                 text.IndexOf(' ', 0);
@@ -283,9 +284,7 @@ namespace RolePlayingGame.TextFonts
                     {
                         testLine += words[currentWord];
                     }
-                    else if ((testLine[testLine.Length - 1] == '.') ||
-                        (testLine[testLine.Length - 1] == '?') ||
-                        (testLine[testLine.Length - 1] == '!'))
+                    else if ((testLine[testLine.Length - 1] == '.') || (testLine[testLine.Length - 1] == '?') || (testLine[testLine.Length - 1] == '!'))
                     {
                         testLine += "  " + words[currentWord];
                     }
@@ -343,7 +342,7 @@ namespace RolePlayingGame.TextFonts
 
             // calculate the centered position
             Vector2 textSize = font.MeasureString(text);
-            Vector2 centeredPosition = new Vector2(position.X - (int)textSize.X / 2, position.Y - (int)textSize.Y / 2);
+            Vector2 centeredPosition = new(position.X - (int)textSize.X / 2, position.Y - (int)textSize.Y / 2);
 
             // draw the string
             spriteBatch.DrawString(font, text, centeredPosition, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f - position.Y / 720f);

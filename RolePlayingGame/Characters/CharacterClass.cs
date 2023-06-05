@@ -26,7 +26,7 @@ namespace RolePlayingGame.Characters
         /// <summary>
         /// The initial statistics of characters that use this class.
         /// </summary>
-        private StatisticsValue initialStatistics = new StatisticsValue();
+        private StatisticsValue initialStatistics = new();
 
         /// <summary>
         /// The initial statistics of characters that use this class.
@@ -55,8 +55,7 @@ namespace RolePlayingGame.Characters
         /// <summary>
         /// Entries of the requirements and rewards for each level of this class.
         /// </summary>
-        private List<CharacterLevelDescription> levelEntries =
-            new List<CharacterLevelDescription>();
+        private List<CharacterLevelDescription> levelEntries = new();
 
         /// <summary>
         /// Entries of the requirements and rewards for each level of this class.
@@ -85,33 +84,27 @@ namespace RolePlayingGame.Characters
             // add each level of leveling statistics
             for (int i = 1; i < characterLevel; i++)
             {
-                if ((levelingStatistics.LevelsPerHealthPointsIncrease > 0) &&
-                    ((i % levelingStatistics.LevelsPerHealthPointsIncrease) == 0))
+                if ((levelingStatistics.LevelsPerHealthPointsIncrease > 0) && ((i % levelingStatistics.LevelsPerHealthPointsIncrease) == 0))
                 {
                     output.HealthPoints += levelingStatistics.HealthPointsIncrease;
                 }
-                if ((levelingStatistics.LevelsPerMagicPointsIncrease > 0) &&
-                    ((i % levelingStatistics.LevelsPerMagicPointsIncrease) == 0))
+                if ((levelingStatistics.LevelsPerMagicPointsIncrease > 0) && ((i % levelingStatistics.LevelsPerMagicPointsIncrease) == 0))
                 {
                     output.MagicPoints += levelingStatistics.MagicPointsIncrease;
                 }
-                if ((levelingStatistics.LevelsPerPhysicalOffenseIncrease > 0) &&
-                    ((i % levelingStatistics.LevelsPerPhysicalOffenseIncrease) == 0))
+                if ((levelingStatistics.LevelsPerPhysicalOffenseIncrease > 0) && ((i % levelingStatistics.LevelsPerPhysicalOffenseIncrease) == 0))
                 {
                     output.PhysicalOffense += levelingStatistics.PhysicalOffenseIncrease;
                 }
-                if ((levelingStatistics.LevelsPerPhysicalDefenseIncrease > 0) &&
-                    ((i % levelingStatistics.LevelsPerPhysicalDefenseIncrease) == 0))
+                if ((levelingStatistics.LevelsPerPhysicalDefenseIncrease > 0) && ((i % levelingStatistics.LevelsPerPhysicalDefenseIncrease) == 0))
                 {
                     output.PhysicalDefense += levelingStatistics.PhysicalDefenseIncrease;
                 }
-                if ((levelingStatistics.LevelsPerMagicalOffenseIncrease > 0) &&
-                    ((i % levelingStatistics.LevelsPerMagicalOffenseIncrease) == 0))
+                if ((levelingStatistics.LevelsPerMagicalOffenseIncrease > 0) && ((i % levelingStatistics.LevelsPerMagicalOffenseIncrease) == 0))
                 {
                     output.MagicalOffense += levelingStatistics.MagicalOffenseIncrease;
                 }
-                if ((levelingStatistics.LevelsPerMagicalDefenseIncrease > 0) &&
-                    ((i % levelingStatistics.LevelsPerMagicalDefenseIncrease) == 0))
+                if ((levelingStatistics.LevelsPerMagicalDefenseIncrease > 0) && ((i % levelingStatistics.LevelsPerMagicalDefenseIncrease) == 0))
                 {
                     output.MagicalDefense += levelingStatistics.MagicalDefenseIncrease;
                 }
@@ -134,7 +127,7 @@ namespace RolePlayingGame.Characters
             }
 
             // go through each level and add the spells to the output list
-            List<Spell> spells = new List<Spell>();
+            List<Spell> spells = new();
 
             for (int i = 0; i < characterLevel; i++)
             {
@@ -146,11 +139,10 @@ namespace RolePlayingGame.Characters
                 // add new spells, and level up existing ones
                 foreach (Spell spell in levelEntries[i].Spells)
                 {
-                    Spell existingSpell = spells.Find(
-                        delegate (Spell testSpell)
-                        {
-                            return spell.AssetName == testSpell.AssetName;
-                        });
+                    Spell existingSpell = spells.Find(delegate (Spell testSpell)
+                    {
+                        return spell.AssetName == testSpell.AssetName;
+                    });
                     if (existingSpell == null)
                     {
                         spells.Add(spell.Clone() as Spell);
@@ -206,8 +198,7 @@ namespace RolePlayingGame.Characters
             /// <summary>
             /// Reads a CharacterClass object from the content pipeline.
             /// </summary>
-            protected override CharacterClass Read(ContentReader input,
-                CharacterClass existingInstance)
+            protected override CharacterClass Read(ContentReader input, CharacterClass existingInstance)
             {
                 CharacterClass characterClass = existingInstance;
                 if (characterClass == null)
@@ -218,12 +209,9 @@ namespace RolePlayingGame.Characters
                 characterClass.AssetName = input.AssetName;
 
                 characterClass.Name = input.ReadString();
-                characterClass.InitialStatistics =
-                    input.ReadObject<StatisticsValue>();
-                characterClass.LevelingStatistics =
-                    input.ReadObject<CharacterLevelingStatistics>();
-                characterClass.LevelEntries.AddRange(
-                    input.ReadObject<List<CharacterLevelDescription>>());
+                characterClass.InitialStatistics = input.ReadObject<StatisticsValue>();
+                characterClass.LevelingStatistics = input.ReadObject<CharacterLevelingStatistics>();
+                characterClass.LevelEntries.AddRange(input.ReadObject<List<CharacterLevelDescription>>());
                 characterClass.BaseExperienceValue = input.ReadInt32();
                 characterClass.BaseGoldValue = input.ReadInt32();
 

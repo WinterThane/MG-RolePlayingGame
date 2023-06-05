@@ -62,7 +62,9 @@ namespace RolePlayingGame.ScreensManager
             ScreensToUpdateList.Clear();
 
             foreach (GameScreen screen in ScreenList)
+            {
                 ScreensToUpdateList.Add(screen);
+            }                
 
             bool otherScreenHasFocus = !Game.IsActive;
             bool coveredByOtherScreen = false;
@@ -78,36 +80,40 @@ namespace RolePlayingGame.ScreensManager
                 // Update the screen.
                 screen.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
 
-                if (screen.ScreenState == ScreenState.TransitionOn ||
-                    screen.ScreenState == ScreenState.Active)
+                if (screen.ScreenState == ScreenState.TransitionOn || screen.ScreenState == ScreenState.Active)
                 {
                     // If this is the first active screen we came across,
                     // give it a chance to handle input.
                     if (!otherScreenHasFocus)
                     {
                         screen.HandleInput();
-
                         otherScreenHasFocus = true;
                     }
 
                     // If this is an active non-popup, inform any subsequent
                     // screens that they are covered by it.
                     if (!screen.IsPopup)
+                    {
                         coveredByOtherScreen = true;
+                    }                        
                 }
             }
 
             // Print debug trace?
             if (_traceEnabled)
+            {
                 TraceScreens();
+            }                
         }
 
         void TraceScreens()
         {
-            List<string> screenNames = new List<string>();
+            List<string> screenNames = new();
 
             foreach (GameScreen screen in ScreenList)
+            {
                 screenNames.Add(screen.GetType().Name);
+            }                
 
 #if WINDOWS
             Trace.WriteLine(string.Join(", ", screenNames.ToArray()));
@@ -118,8 +124,7 @@ namespace RolePlayingGame.ScreensManager
         {
             foreach (GameScreen screen in ScreenList)
             {
-                if (screen.ScreenState == ScreenState.Hidden)
-                    continue;
+                if (screen.ScreenState == ScreenState.Hidden) continue;
 
                 screen.Draw(gameTime);
             }

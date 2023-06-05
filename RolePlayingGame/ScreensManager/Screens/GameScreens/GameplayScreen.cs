@@ -22,7 +22,6 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             Exiting += new EventHandler(GameplayScreen_Exiting);
         }
 
-
         /// <summary>
         /// Create a new GameplayScreen object from a new-game description.
         /// </summary>
@@ -32,17 +31,14 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             saveGameDescription = null;
         }
 
-
         /// <summary>
         /// Create a new GameplayScreen object from a saved-game description.
         /// </summary>
-        public GameplayScreen(SaveGameDescription saveGameDescription)
-            : this()
+        public GameplayScreen(SaveGameDescription saveGameDescription) : this()
         {
             gameStartDescription = null;
             this.saveGameDescription = saveGameDescription;
         }
-
 
         /// <summary>
         /// Handle the closing of this screen.
@@ -54,7 +50,6 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             //    making this screen close itself
             Session.EndSession();
         }
-
 
         /// <summary>
         /// Load graphics content for the game.
@@ -90,7 +85,6 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
                 Session.Update(gameTime);
             }
         }
-
 
         /// <summary>
         /// Lets the game respond to player input. Unlike the Update method,
