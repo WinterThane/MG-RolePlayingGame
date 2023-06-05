@@ -35,8 +35,7 @@ namespace RolePlayingGame.Engine
             /// <summary>
             /// Reads a ContentEntry object from the content pipeline.
             /// </summary>
-            protected override ContentEntry<T> Read(ContentReader input,
-                ContentEntry<T> existingInstance)
+            protected override ContentEntry<T> Read(ContentReader input, ContentEntry<T> existingInstance)
             {
                 ContentEntry<T> member = existingInstance;
                 if (member == null)

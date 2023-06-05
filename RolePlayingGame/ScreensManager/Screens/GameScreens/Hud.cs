@@ -37,30 +37,30 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         private Texture2D yButtonTexture;
         private Texture2D startButtonTexture;
 
-        private Vector2 topHudPosition = new Vector2(353f, 30f);
-        private Vector2 charSelLeftPosition = new Vector2(70f, 600f);
-        private Vector2 charSelRightPosition = new Vector2(1170f, 600f);
-        private Vector2 yButtonPosition = new Vector2(0f, 560f + 20f);
-        private Vector2 startButtonPosition = new Vector2(0f, 560f + 35f);
-        private Vector2 yTextPosition = new Vector2(0f, 560f + 70f);
-        private Vector2 startTextPosition = new Vector2(0f, 560f + 70f);
-        private Vector2 actionTextPosition = new Vector2(640f, 55f);
-        private Vector2 backgroundHudPosition = new Vector2(0f, 525f);
-        private Vector2 portraitPosition = new Vector2(640f, 55f);
-        private Vector2 startingInfoPosition = new Vector2(0f, 550f);
+        private Vector2 topHudPosition = new(353f, 30f);
+        private Vector2 charSelLeftPosition = new(70f, 600f);
+        private Vector2 charSelRightPosition = new(1170f, 600f);
+        private Vector2 yButtonPosition = new(0f, 560f + 20f);
+        private Vector2 startButtonPosition = new(0f, 560f + 35f);
+        private Vector2 yTextPosition = new(0f, 560f + 70f);
+        private Vector2 startTextPosition = new(0f, 560f + 70f);
+        private Vector2 actionTextPosition = new(640f, 55f);
+        private Vector2 backgroundHudPosition = new(0f, 525f);
+        private Vector2 portraitPosition = new(640f, 55f);
+        private Vector2 startingInfoPosition = new(0f, 550f);
         private Vector2 namePosition;
         private Vector2 levelPosition;
         private Vector2 detailPosition;
 
-        private readonly Color activeNameColor = new Color(200, 200, 200);
-        private readonly Color inActiveNameColor = new Color(100, 100, 100);
-        private readonly Color nonSelColor = new Color(86, 26, 5);
-        private readonly Color selColor = new Color(229, 206, 144);
+        private readonly Color activeNameColor = new(200, 200, 200);
+        private readonly Color inActiveNameColor = new(100, 100, 100);
+        private readonly Color nonSelColor = new(86, 26, 5);
+        private readonly Color selColor = new(229, 206, 144);
 
         /// <summary>
         /// The text that is shown in the action bar at the top of the combat screen.
         /// </summary>
-        private string actionText = String.Empty;
+        private string actionText = string.Empty;
 
         /// <summary>
         /// The text that is shown in the action bar at the top of the combat screen.
@@ -117,12 +117,11 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         public void Draw()
         {
             SpriteBatch spriteBatch = screenManager.SpriteBatch;
-
             spriteBatch.Begin();
 
             startingInfoPosition.X = 640f;
-
             startingInfoPosition.X -= Session.Party.Players.Count / 2 * 200f;
+
             if (Session.Party.Players.Count % 2 != 0)
             {
                 startingInfoPosition.X -= 100f;
@@ -157,34 +156,27 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
                 position.X += activeCharInfoTexture.Width - 6f;
             }
 
-            charSelLeftPosition.X = startingInfoPosition.X - 5f -
-                charSelArrowLeftTexture.Width;
+            charSelLeftPosition.X = startingInfoPosition.X - 5f - charSelArrowLeftTexture.Width;
             charSelRightPosition.X = position.X + 5f;
             // Draw character Selection Arrows
             if (CombatEngine.IsPlayersTurn)
             {
-                spriteBatch.Draw(charSelArrowLeftTexture, charSelLeftPosition,
-                    Color.White);
-                spriteBatch.Draw(charSelArrowRightTexture, charSelRightPosition,
-                    Color.White);
+                spriteBatch.Draw(charSelArrowLeftTexture, charSelLeftPosition, Color.White);
+                spriteBatch.Draw(charSelArrowRightTexture, charSelRightPosition, Color.White);
             }
             else
             {
-                spriteBatch.Draw(charSelFadeLeftTexture, charSelLeftPosition,
-                    Color.White);
-                spriteBatch.Draw(charSelFadeRightTexture, charSelRightPosition,
-                    Color.White);
+                spriteBatch.Draw(charSelFadeLeftTexture, charSelLeftPosition, Color.White);
+                spriteBatch.Draw(charSelFadeRightTexture, charSelRightPosition, Color.White);
             }
 
             if (actionText.Length > 0)
             {
                 spriteBatch.Draw(topHudTexture, topHudPosition, Color.White);
                 // Draw Action Text
-                Fonts.DrawCenteredText(spriteBatch, Fonts.PlayerStatisticsFont,
-                    actionText, actionTextPosition, Color.Black);
+                Fonts.DrawCenteredText(spriteBatch, Fonts.PlayerStatisticsFont, actionText, actionTextPosition, Color.Black);
             }
         }
-
 
         /// <summary>
         /// Draws HUD for non Combat Mode
@@ -192,13 +184,11 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         private void DrawForNonCombat()
         {
             SpriteBatch spriteBatch = screenManager.SpriteBatch;
-
             Vector2 position = startingInfoPosition;
 
             foreach (Player player in Session.Party.Players)
             {
                 DrawNonCombatPlayerDetails(player, position);
-
                 position.X += inActiveCharInfoTexture.Width - 6f;
             }
 
@@ -209,16 +199,13 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             spriteBatch.Draw(statsTexture, yTextPosition, Color.White);
             spriteBatch.Draw(yButtonTexture, yButtonPosition, Color.White);
 
-            startTextPosition.X = startingInfoPosition.X -
-                startButtonTexture.Width - 25f;
-            startButtonPosition.X = startingInfoPosition.X -
-                startButtonTexture.Width - 10f;
+            startTextPosition.X = startingInfoPosition.X - startButtonTexture.Width - 25f;
+            startButtonPosition.X = startingInfoPosition.X - startButtonTexture.Width - 10f;
 
             // Draw Back Button
             spriteBatch.Draw(menuTexture, startTextPosition, Color.White);
             spriteBatch.Draw(startButtonTexture, startButtonPosition, Color.White);
         }
-
 
         enum PlankState
         {
@@ -226,7 +213,6 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             InActive,
             CantUse,
         }
-
 
         /// <summary>
         /// Draws Player Details
@@ -260,19 +246,15 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             if (player.IsTurnTaken)
             {
                 plankState = PlankState.CantUse;
-
                 isPortraitActive = false;
             }
             else
             {
                 plankState = PlankState.InActive;
-
                 isPortraitActive = true;
             }
 
-            if (((CombatEngine.HighlightedCombatant == player) && !player.IsTurnTaken) ||
-                (CombatEngine.PrimaryTargetedCombatant == player) ||
-                (CombatEngine.SecondaryTargetedCombatants.Contains(player)))
+            if (((CombatEngine.HighlightedCombatant == player) && !player.IsTurnTaken) || (CombatEngine.PrimaryTargetedCombatant == player) || (CombatEngine.SecondaryTargetedCombatants.Contains(player)))
             {
                 plankState = PlankState.Active;
             }
@@ -288,7 +270,6 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             if (plankState == PlankState.Active)
             {
                 color = activeNameColor;
-
                 spriteBatch.Draw(activeCharInfoTexture, position, Color.White);
 
                 // Draw Brackets
@@ -297,10 +278,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
                     spriteBatch.Draw(selectionBracketTexture, position, Color.White);
                 }
 
-                if (isPortraitActive &&
-                    (CombatEngine.HighlightedCombatant == player) &&
-                    (CombatEngine.HighlightedCombatant.CombatAction == null) &&
-                    !CombatEngine.IsDelaying)
+                if (isPortraitActive && (CombatEngine.HighlightedCombatant == player) && (CombatEngine.HighlightedCombatant.CombatAction == null) && !CombatEngine.IsDelaying)
                 {
                     position.X += activeCharInfoTexture.Width / 2;
                     position.X -= combatPopupTexture.Width / 2;
@@ -331,28 +309,15 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             }
 
             // Draw Player Name
-            spriteBatch.DrawString(Fonts.PlayerStatisticsFont,
-                player.Player.Name,
-                namePosition, color);
-
+            spriteBatch.DrawString(Fonts.PlayerStatisticsFont, player.Player.Name, namePosition, color);
             color = Color.Black;
             // Draw Player Details
-            spriteBatch.DrawString(Fonts.HudDetailFont,
-                "Lvl: " + player.Player.CharacterLevel,
-                levelPosition, color);
-
-            spriteBatch.DrawString(Fonts.HudDetailFont,
-                "HP: " + player.Statistics.HealthPoints +
-                "/" + player.Player.CharacterStatistics.HealthPoints,
-                detailPosition, color);
+            spriteBatch.DrawString(Fonts.HudDetailFont, "Lvl: " + player.Player.CharacterLevel, levelPosition, color);
+            spriteBatch.DrawString(Fonts.HudDetailFont, "HP: " + player.Statistics.HealthPoints + "/" + player.Player.CharacterStatistics.HealthPoints, detailPosition, color);
 
             detailPosition.Y += 30f;
-            spriteBatch.DrawString(Fonts.HudDetailFont,
-                "MP: " + player.Statistics.MagicPoints +
-                "/" + player.Player.CharacterStatistics.MagicPoints,
-                detailPosition, color);
+            spriteBatch.DrawString(Fonts.HudDetailFont, "MP: " + player.Statistics.MagicPoints + "/" + player.Player.CharacterStatistics.MagicPoints, detailPosition, color);
         }
-
 
         /// <summary>
         /// Draws Player Details
@@ -388,7 +353,6 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             if (plankState == PlankState.Active)
             {
                 color = activeNameColor;
-
                 spriteBatch.Draw(activeCharInfoTexture, position, Color.White);
             }
             else if (plankState == PlankState.InActive)
@@ -413,34 +377,21 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             }
 
             // Draw Player Name
-            spriteBatch.DrawString(Fonts.PlayerStatisticsFont,
-                player.Name,
-                namePosition, color);
+            spriteBatch.DrawString(Fonts.PlayerStatisticsFont, player.Name, namePosition, color);
 
             color = Color.Black;
             // Draw Player Details
-            spriteBatch.DrawString(Fonts.HudDetailFont,
-                "Lvl: " + player.CharacterLevel,
-                levelPosition, color);
-
-            spriteBatch.DrawString(Fonts.HudDetailFont,
-                "HP: " + player.CurrentStatistics.HealthPoints +
-                "/" + player.CharacterStatistics.HealthPoints,
-                detailPosition, color);
+            spriteBatch.DrawString(Fonts.HudDetailFont, "Lvl: " + player.CharacterLevel, levelPosition, color);
+            spriteBatch.DrawString(Fonts.HudDetailFont, "HP: " + player.CurrentStatistics.HealthPoints + "/" + player.CharacterStatistics.HealthPoints, detailPosition, color);
 
             detailPosition.Y += 30f;
-            spriteBatch.DrawString(Fonts.HudDetailFont,
-                "MP: " + player.CurrentStatistics.MagicPoints +
-                "/" + player.CharacterStatistics.MagicPoints,
-                detailPosition, color);
+            spriteBatch.DrawString(Fonts.HudDetailFont, "MP: " + player.CurrentStatistics.MagicPoints + "/" + player.CharacterStatistics.MagicPoints, detailPosition, color);
         }
-
 
         /// <summary>
         /// Draw the portrait of the given player at the given position.
         /// </summary>
-        private void DrawPortrait(Player player, Vector2 position,
-            PlankState plankState)
+        private void DrawPortrait(Player player, Vector2 position, PlankState plankState)
         {
             switch (plankState)
             {
@@ -471,12 +422,10 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
                 "Flee",
             };
 
-
         /// <summary>
         /// The currently highlighted item.
         /// </summary>
         private int highlightedAction = 0;
-
 
         /// <summary>
         /// Handle user input to the actions menu.
@@ -509,31 +458,25 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
                     case "Attack":
                         {
                             ActionText = "Performing a Melee Attack";
-                            CombatEngine.HighlightedCombatant.CombatAction =
-                                new MeleeCombatAction(CombatEngine.HighlightedCombatant);
-                            CombatEngine.HighlightedCombatant.CombatAction.Target =
-                                CombatEngine.FirstEnemyTarget;
+                            CombatEngine.HighlightedCombatant.CombatAction = new MeleeCombatAction(CombatEngine.HighlightedCombatant)
+                            {
+                                Target = CombatEngine.FirstEnemyTarget
+                            };
                         }
                         break;
 
                     case "Spell":
                         {
-                            SpellbookScreen spellbookScreen = new SpellbookScreen(
-                                CombatEngine.HighlightedCombatant.Character,
-                                CombatEngine.HighlightedCombatant.Statistics);
-                            spellbookScreen.SpellSelected +=
-                                new SpellbookScreen.SpellSelectedHandler(
-                                spellbookScreen_SpellSelected);
+                            SpellbookScreen spellbookScreen = new(CombatEngine.HighlightedCombatant.Character, CombatEngine.HighlightedCombatant.Statistics);
+                            spellbookScreen.SpellSelected += new SpellbookScreen.SpellSelectedHandler(spellbookScreen_SpellSelected);
                             Session.ScreenManager.AddScreen(spellbookScreen);
                         }
                         break;
 
                     case "Item":
                         {
-                            InventoryScreen inventoryScreen = new InventoryScreen(true);
-                            inventoryScreen.GearSelected +=
-                                new InventoryScreen.GearSelectedHandler(
-                                inventoryScreen_GearSelected);
+                            InventoryScreen inventoryScreen = new(true);
+                            inventoryScreen.GearSelected += new InventoryScreen.GearSelectedHandler(inventoryScreen_GearSelected);
                             Session.ScreenManager.AddScreen(inventoryScreen);
                         }
                         break;
@@ -541,9 +484,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
                     case "Defend":
                         {
                             ActionText = "Defending";
-                            CombatEngine.HighlightedCombatant.CombatAction =
-                                new DefendCombatAction(
-                                CombatEngine.HighlightedCombatant);
+                            CombatEngine.HighlightedCombatant.CombatAction = new DefendCombatAction(CombatEngine.HighlightedCombatant);
                             CombatEngine.HighlightedCombatant.CombatAction.Start();
                         }
                         break;
@@ -556,7 +497,6 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             }
         }
 
-
         /// <summary>
         /// Recieves the spell from the Spellbook screen and casts it.
         /// </summary>
@@ -565,21 +505,17 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             if (spell != null)
             {
                 ActionText = "Casting " + spell.Name;
-                CombatEngine.HighlightedCombatant.CombatAction =
-                    new SpellCombatAction(CombatEngine.HighlightedCombatant, spell);
+                CombatEngine.HighlightedCombatant.CombatAction = new SpellCombatAction(CombatEngine.HighlightedCombatant, spell);
                 if (spell.IsOffensive)
                 {
-                    CombatEngine.HighlightedCombatant.CombatAction.Target =
-                        CombatEngine.FirstEnemyTarget;
+                    CombatEngine.HighlightedCombatant.CombatAction.Target = CombatEngine.FirstEnemyTarget;
                 }
                 else
                 {
-                    CombatEngine.HighlightedCombatant.CombatAction.Target =
-                        CombatEngine.HighlightedCombatant;
+                    CombatEngine.HighlightedCombatant.CombatAction.Target = CombatEngine.HighlightedCombatant;
                 }
             }
         }
-
 
         /// <summary>
         /// Receives the item back from the Inventory screen and uses it.
@@ -590,21 +526,17 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             if (item != null)
             {
                 ActionText = "Using " + item.Name;
-                CombatEngine.HighlightedCombatant.CombatAction =
-                    new ItemCombatAction(CombatEngine.HighlightedCombatant, item);
+                CombatEngine.HighlightedCombatant.CombatAction = new ItemCombatAction(CombatEngine.HighlightedCombatant, item);
                 if (item.IsOffensive)
                 {
-                    CombatEngine.HighlightedCombatant.CombatAction.Target =
-                        CombatEngine.FirstEnemyTarget;
+                    CombatEngine.HighlightedCombatant.CombatAction.Target = CombatEngine.FirstEnemyTarget;
                 }
                 else
                 {
-                    CombatEngine.HighlightedCombatant.CombatAction.Target =
-                        CombatEngine.HighlightedCombatant;
+                    CombatEngine.HighlightedCombatant.CombatAction.Target = CombatEngine.HighlightedCombatant;
                 }
             }
         }
-
 
         /// <summary>
         /// Draws the combat action menu.
@@ -635,8 +567,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             // Draw Action Text
             for (int i = 0; i < actionList.Length; i++)
             {
-                spriteBatch.DrawString(Fonts.GearInfoFont, actionList[i], position,
-                    i == highlightedAction ? selColor : nonSelColor);
+                spriteBatch.DrawString(Fonts.GearInfoFont, actionList[i], position, i == highlightedAction ? selColor : nonSelColor);
                 position.Y += height;
             }
         }

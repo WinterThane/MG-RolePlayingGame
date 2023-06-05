@@ -37,8 +37,7 @@ namespace RolePlayingGame.Engine
             }
         }
 
-        public static void CalculateMovement(Vector2 movement, ref Point TilePosition,
-            ref Vector2 TileOffset)
+        public static void CalculateMovement(Vector2 movement, ref Point TilePosition, ref Vector2 TileOffset)
         {
             // add the movement
             TileOffset += movement;
