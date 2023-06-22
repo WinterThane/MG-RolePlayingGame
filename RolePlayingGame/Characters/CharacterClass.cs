@@ -12,60 +12,58 @@ namespace RolePlayingGame.Characters
         /// <summary>
         /// The name of the character class.
         /// </summary>
-        private string name;
+        private string _name;
 
         /// <summary>
         /// The name of the character class.
         /// </summary>
         public string Name
         {
-            get { return name; }
-            set { name = value; }
+            get => _name;
+            set => _name = value;
         }
 
         /// <summary>
         /// The initial statistics of characters that use this class.
         /// </summary>
-        private StatisticsValue initialStatistics = new();
+        private StatisticsValue _initialStatistics = new();
 
         /// <summary>
         /// The initial statistics of characters that use this class.
         /// </summary>
         public StatisticsValue InitialStatistics
         {
-            get { return initialStatistics; }
-            set { initialStatistics = value; }
+            get => _initialStatistics;
+            set => _initialStatistics = value;
         }
 
         /// <summary>
         /// Statistics changes for leveling up characters that use this class.
         /// </summary>
-        private CharacterLevelingStatistics levelingStatistics;
+        private CharacterLevelingStatistics _levelingStatistics;
 
         /// <summary>
         /// Statistics changes for leveling up characters that use this class.
         /// </summary>
         public CharacterLevelingStatistics LevelingStatistics
         {
-            get { return levelingStatistics; }
-            set { levelingStatistics = value; }
+            get => _levelingStatistics;
+            set => _levelingStatistics = value;
         }
-
 
         /// <summary>
         /// Entries of the requirements and rewards for each level of this class.
         /// </summary>
-        private List<CharacterLevelDescription> levelEntries = new();
+        private List<CharacterLevelDescription> _levelEntries = new();
 
         /// <summary>
         /// Entries of the requirements and rewards for each level of this class.
         /// </summary>
         public List<CharacterLevelDescription> LevelEntries
         {
-            get { return levelEntries; }
-            set { levelEntries = value; }
+            get => _levelEntries;
+            set => _levelEntries = value;
         }
-
 
         /// <summary>
         /// Calculate the statistics of a character of this class and the given level.
@@ -79,40 +77,39 @@ namespace RolePlayingGame.Characters
             }
 
             // start with the initial statistics
-            StatisticsValue output = initialStatistics;
+            StatisticsValue output = _initialStatistics;
 
             // add each level of leveling statistics
             for (int i = 1; i < characterLevel; i++)
             {
-                if ((levelingStatistics.LevelsPerHealthPointsIncrease > 0) && ((i % levelingStatistics.LevelsPerHealthPointsIncrease) == 0))
+                if ((_levelingStatistics.LevelsPerHealthPointsIncrease > 0) && ((i % _levelingStatistics.LevelsPerHealthPointsIncrease) == 0))
                 {
-                    output.HealthPoints += levelingStatistics.HealthPointsIncrease;
+                    output.HealthPoints += _levelingStatistics.HealthPointsIncrease;
                 }
-                if ((levelingStatistics.LevelsPerMagicPointsIncrease > 0) && ((i % levelingStatistics.LevelsPerMagicPointsIncrease) == 0))
+                if ((_levelingStatistics.LevelsPerMagicPointsIncrease > 0) && ((i % _levelingStatistics.LevelsPerMagicPointsIncrease) == 0))
                 {
-                    output.MagicPoints += levelingStatistics.MagicPointsIncrease;
+                    output.MagicPoints += _levelingStatistics.MagicPointsIncrease;
                 }
-                if ((levelingStatistics.LevelsPerPhysicalOffenseIncrease > 0) && ((i % levelingStatistics.LevelsPerPhysicalOffenseIncrease) == 0))
+                if ((_levelingStatistics.LevelsPerPhysicalOffenseIncrease > 0) && ((i % _levelingStatistics.LevelsPerPhysicalOffenseIncrease) == 0))
                 {
-                    output.PhysicalOffense += levelingStatistics.PhysicalOffenseIncrease;
+                    output.PhysicalOffense += _levelingStatistics.PhysicalOffenseIncrease;
                 }
-                if ((levelingStatistics.LevelsPerPhysicalDefenseIncrease > 0) && ((i % levelingStatistics.LevelsPerPhysicalDefenseIncrease) == 0))
+                if ((_levelingStatistics.LevelsPerPhysicalDefenseIncrease > 0) && ((i % _levelingStatistics.LevelsPerPhysicalDefenseIncrease) == 0))
                 {
-                    output.PhysicalDefense += levelingStatistics.PhysicalDefenseIncrease;
+                    output.PhysicalDefense += _levelingStatistics.PhysicalDefenseIncrease;
                 }
-                if ((levelingStatistics.LevelsPerMagicalOffenseIncrease > 0) && ((i % levelingStatistics.LevelsPerMagicalOffenseIncrease) == 0))
+                if ((_levelingStatistics.LevelsPerMagicalOffenseIncrease > 0) && ((i % _levelingStatistics.LevelsPerMagicalOffenseIncrease) == 0))
                 {
-                    output.MagicalOffense += levelingStatistics.MagicalOffenseIncrease;
+                    output.MagicalOffense += _levelingStatistics.MagicalOffenseIncrease;
                 }
-                if ((levelingStatistics.LevelsPerMagicalDefenseIncrease > 0) && ((i % levelingStatistics.LevelsPerMagicalDefenseIncrease) == 0))
+                if ((_levelingStatistics.LevelsPerMagicalDefenseIncrease > 0) && ((i % _levelingStatistics.LevelsPerMagicalDefenseIncrease) == 0))
                 {
-                    output.MagicalDefense += levelingStatistics.MagicalDefenseIncrease;
+                    output.MagicalDefense += _levelingStatistics.MagicalDefenseIncrease;
                 }
             }
 
             return output;
         }
-
 
         /// <summary>
         /// Build a list of all spells available to a character 
@@ -131,18 +128,19 @@ namespace RolePlayingGame.Characters
 
             for (int i = 0; i < characterLevel; i++)
             {
-                if (i >= levelEntries.Count)
+                if (i >= _levelEntries.Count)
                 {
                     break;
                 }
 
                 // add new spells, and level up existing ones
-                foreach (Spell spell in levelEntries[i].Spells)
+                foreach (Spell spell in _levelEntries[i].Spells)
                 {
                     Spell existingSpell = spells.Find(delegate (Spell testSpell)
                     {
                         return spell.AssetName == testSpell.AssetName;
                     });
+
                     if (existingSpell == null)
                     {
                         spells.Add(spell.Clone() as Spell);
@@ -161,7 +159,7 @@ namespace RolePlayingGame.Characters
         /// The base experience value of Npcs of this character class.
         /// </summary>
         /// <remarks>Used for calculating combat rewards.</remarks>
-        private int baseExperienceValue;
+        private int _baseExperienceValue;
 
         /// <summary>
         /// The base experience value of Npcs of this character class.
@@ -169,16 +167,15 @@ namespace RolePlayingGame.Characters
         /// <remarks>Used for calculating combat rewards.</remarks>
         public int BaseExperienceValue
         {
-            get { return baseExperienceValue; }
-            set { baseExperienceValue = value; }
+            get => _baseExperienceValue;
+            set => _baseExperienceValue = value;
         }
-
 
         /// <summary>
         /// The base gold value of Npcs of this character class.
         /// </summary>
         /// <remarks>Used for calculating combat rewards.</remarks>
-        private int baseGoldValue;
+        private int _baseGoldValue;
 
         /// <summary>
         /// The base gold value of Npcs of this character class.
@@ -186,8 +183,8 @@ namespace RolePlayingGame.Characters
         /// <remarks>Used for calculating combat rewards.</remarks>
         public int BaseGoldValue
         {
-            get { return baseGoldValue; }
-            set { baseGoldValue = value; }
+            get { return _baseGoldValue; }
+            set { _baseGoldValue = value; }
         }
 
         /// <summary>

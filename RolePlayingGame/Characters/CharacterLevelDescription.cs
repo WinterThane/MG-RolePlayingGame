@@ -9,22 +9,22 @@ namespace RolePlayingGame.Characters
         /// <summary>
         /// The amount of additional experience necessary to achieve this level.
         /// </summary>
-        private int experiencePoints;
+        private int _experiencePoints;
 
         /// <summary>
         /// The amount of additional experience necessary to achieve this level.
         /// </summary>
         public int ExperiencePoints
         {
-            get { return experiencePoints; }
-            set { experiencePoints = value; }
+            get => _experiencePoints;
+            set => _experiencePoints = value;
         }
 
         /// <summary>
         /// The content names of the spells given to the character 
         /// when it reaches this level.
         /// </summary>
-        private List<string> spellContentNames = new List<string>();
+        private List<string> _spellContentNames = new();
 
         /// <summary>
         /// The content names of the spells given to the character 
@@ -32,15 +32,14 @@ namespace RolePlayingGame.Characters
         /// </summary>
         public List<string> SpellContentNames
         {
-            get { return spellContentNames; }
-            set { spellContentNames = value; }
+            get => _spellContentNames;
+            set => _spellContentNames = value;
         }
-
 
         /// <summary>
         /// Spells given to the character when it reaches this level.
         /// </summary>
-        private List<Spell> spells = new List<Spell>();
+        private List<Spell> _spells = new();
 
         /// <summary>
         /// Spells given to the character when it reaches this level.
@@ -48,21 +47,19 @@ namespace RolePlayingGame.Characters
         [ContentSerializerIgnore]
         public List<Spell> Spells
         {
-            get { return spells; }
-            set { spells = value; }
+            get => _spells;
+            set => _spells = value;
         }
 
         /// <summary>
         /// Read a CharacterLevelDescription object from the content pipeline.
         /// </summary>
-        public class CharacterLevelDescriptionReader :
-            ContentTypeReader<CharacterLevelDescription>
+        public class CharacterLevelDescriptionReader : ContentTypeReader<CharacterLevelDescription>
         {
             /// <summary>
             /// Read a CharacterLevelDescription object from the content pipeline.
             /// </summary>
-            protected override CharacterLevelDescription Read(ContentReader input,
-                CharacterLevelDescription existingInstance)
+            protected override CharacterLevelDescription Read(ContentReader input, CharacterLevelDescription existingInstance)
             {
                 CharacterLevelDescription desc = existingInstance;
                 if (desc == null)
@@ -76,8 +73,7 @@ namespace RolePlayingGame.Characters
                 // load all of the spells immediately
                 foreach (string spellContentName in desc.SpellContentNames)
                 {
-                    desc.spells.Add(input.ContentManager.Load<Spell>(
-                        System.IO.Path.Combine("Spells", spellContentName)));
+                    desc._spells.Add(input.ContentManager.Load<Spell>(System.IO.Path.Combine("Spells", spellContentName)));
                 }
 
                 return desc;

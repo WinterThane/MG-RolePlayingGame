@@ -9,87 +9,83 @@ namespace RolePlayingGame.MapObjects
         /// <summary>
         /// The amount that the party has to pay for each member to stay.
         /// </summary>
-        private int chargePerPlayer;
+        private int _chargePerPlayer;
 
         /// <summary>
         /// The amount that the party has to pay for each member to stay.
         /// </summary>
         public int ChargePerPlayer
         {
-            get { return chargePerPlayer; }
-            set { chargePerPlayer = value; }
+            get => _chargePerPlayer;
+            set => _chargePerPlayer = value;
         }
 
         /// <summary>
         /// The message shown when the player enters the inn.
         /// </summary>
-        private string welcomeMessage;
+        private string _welcomeMessage;
 
         /// <summary>
         /// The message shown when the player enters the inn.
         /// </summary>
         public string WelcomeMessage
         {
-            get { return welcomeMessage; }
-            set { welcomeMessage = value; }
+            get => _welcomeMessage;
+            set => _welcomeMessage = value;
         }
 
         /// <summary>
         /// The message shown when the party successfully pays to stay the night.
         /// </summary>
-        private string paidMessage;
+        private string _paidMessage;
 
         /// <summary>
         /// The message shown when the party successfully pays to stay the night.
         /// </summary>
         public string PaidMessage
         {
-            get { return paidMessage; }
-            set { paidMessage = value; }
+            get => _paidMessage;
+            set => _paidMessage = value;
         }
 
         /// <summary>
         /// The message shown when the party tries to stay but lacks the funds.
         /// </summary>
-        private string notEnoughGoldMessage;
+        private string _notEnoughGoldMessage;
 
         /// <summary>
         /// The message shown when the party tries to stay but lacks the funds.
         /// </summary>
         public string NotEnoughGoldMessage
         {
-            get { return notEnoughGoldMessage; }
-            set { notEnoughGoldMessage = value; }
+            get => _notEnoughGoldMessage;
+            set => _notEnoughGoldMessage = value;
         }
 
         /// <summary>
         /// The content name of the texture for the shopkeeper.
         /// </summary>
-        private string shopkeeperTextureName;
+        private string _shopkeeperTextureName;
 
         /// <summary>
         /// The content name of the texture for the shopkeeper.
         /// </summary>
         public string ShopkeeperTextureName
         {
-            get { return shopkeeperTextureName; }
-            set { shopkeeperTextureName = value; }
+            get => _shopkeeperTextureName;
+            set => _shopkeeperTextureName = value;
         }
-
 
         /// <summary>
         /// The texture for the shopkeeper.
         /// </summary>
-        private Texture2D shopkeeperTexture;
+        private Texture2D _shopkeeperTexture;
 
         /// <summary>
         /// The texture for the shopkeeper.
         /// </summary>
         [ContentSerializerIgnore]
-        public Texture2D ShopkeeperTexture
-        {
-            get { return shopkeeperTexture; }
-        }
+        public Texture2D ShopkeeperTexture => _shopkeeperTexture;
 
         /// <summary>
         /// Reads an Inn object from the content pipeline.
@@ -111,9 +107,7 @@ namespace RolePlayingGame.MapObjects
                 inn.PaidMessage = input.ReadString();
                 inn.NotEnoughGoldMessage = input.ReadString();
                 inn.ShopkeeperTextureName = input.ReadString();
-                inn.shopkeeperTexture = input.ContentManager.Load<Texture2D>(
-                    System.IO.Path.Combine(@"Textures\Characters\Portraits",
-                    inn.ShopkeeperTextureName));
+                inn._shopkeeperTexture = input.ContentManager.Load<Texture2D>(System.IO.Path.Combine("Textures/Characters/Portraits", inn.ShopkeeperTextureName));
 
                 return inn;
             }

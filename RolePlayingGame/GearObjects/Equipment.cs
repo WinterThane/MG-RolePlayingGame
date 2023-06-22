@@ -10,7 +10,7 @@ namespace RolePlayingGame.GearObjects
         /// The statistics buff applied by this equipment to its owner.
         /// </summary>
         /// <remarks>Buff values are positive, and will be added.</remarks>
-        private StatisticsValue ownerBuffStatistics = new StatisticsValue();
+        private StatisticsValue _ownerBuffStatistics = new();
 
         /// <summary>
         /// The statistics buff applied by this equipment to its owner.
@@ -19,8 +19,8 @@ namespace RolePlayingGame.GearObjects
         [ContentSerializer(Optional = true)]
         public StatisticsValue OwnerBuffStatistics
         {
-            get { return ownerBuffStatistics; }
-            set { ownerBuffStatistics = value; }
+            get => _ownerBuffStatistics;
+            set => _ownerBuffStatistics = value;
         }
 
         // <summary>
@@ -31,15 +31,13 @@ namespace RolePlayingGame.GearObjects
             /// <summary>
             /// Read the Equipment type from the content pipeline.
             /// </summary>
-            protected override Equipment Read(ContentReader input,
-                Equipment existingInstance)
+            protected override Equipment Read(ContentReader input, Equipment existingInstance)
             {
                 Equipment equipment = existingInstance;
 
                 if (equipment == null)
                 {
-                    throw new ArgumentException(
-                        "Unable to create new Equipment objects.");
+                    throw new ArgumentException("Unable to create new Equipment objects.");
                 }
 
                 // read the gear settings

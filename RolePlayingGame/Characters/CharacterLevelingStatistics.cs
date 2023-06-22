@@ -74,14 +74,12 @@ namespace RolePlayingGame.Characters
         /// <summary>
         /// Reads a CharacterLevelingStatistics object from the content pipeline.
         /// </summary>
-        public class CharacterLevelingStatisticsReader :
-            ContentTypeReader<CharacterLevelingStatistics>
+        public class CharacterLevelingStatisticsReader : ContentTypeReader<CharacterLevelingStatistics>
         {
             /// <summary>
             /// Reads a CharacterLevelingStatistics object from the content pipeline.
             /// </summary>
-            protected override CharacterLevelingStatistics Read(ContentReader input,
-                CharacterLevelingStatistics existingInstance)
+            protected override CharacterLevelingStatistics Read(ContentReader input, CharacterLevelingStatistics existingInstance)
             {
                 CharacterLevelingStatistics stats = existingInstance;
 

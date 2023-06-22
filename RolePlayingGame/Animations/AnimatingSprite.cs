@@ -13,22 +13,21 @@ namespace RolePlayingGame.Animations
         /// <summary>
         /// The content path and name of the texture for this spell animation.
         /// </summary>
-        private string textureName;
+        private string _textureName;
 
         /// <summary>
         /// The content path and name of the texture for this spell animation.
         /// </summary>
         public string TextureName
         {
-            get { return textureName; }
-            set { textureName = value; }
+            get => _textureName;
+            set => _textureName = value;
         }
-
 
         /// <summary>
         /// The texture for this spell animation.
         /// </summary>
-        private Texture2D texture;
+        private Texture2D _texture;
 
         /// <summary>
         /// The texture for this spell animation.
@@ -36,55 +35,52 @@ namespace RolePlayingGame.Animations
         [ContentSerializerIgnore]
         public Texture2D Texture
         {
-            get { return texture; }
-            set { texture = value; }
+            get => _texture;
+            set => _texture = value;
         }
 
         /// <summary>
         /// The dimensions of a single frame of animation.
         /// </summary>
-        private Point frameDimensions;
+        private Point _frameDimensions;
 
         /// <summary>
         /// The width of a single frame of animation.
         /// </summary>
         public Point FrameDimensions
         {
-            get { return frameDimensions; }
+            get => _frameDimensions;
             set
             {
-                frameDimensions = value;
-                frameOrigin.X = frameDimensions.X / 2;
-                frameOrigin.Y = frameDimensions.Y / 2;
+                _frameDimensions = value;
+                _frameOrigin.X = _frameDimensions.X / 2;
+                _frameOrigin.Y = _frameDimensions.Y / 2;
             }
         }
-
 
         /// <summary>
         /// The origin of the sprite, within a frame.
         /// </summary>
-        private Point frameOrigin;
-
+        private Point _frameOrigin;
 
         /// <summary>
         /// The number of frames in a row in this sprite.
         /// </summary>
-        private int framesPerRow;
+        private int _framesPerRow;
 
         /// <summary>
         /// The number of frames in a row in this sprite.
         /// </summary>
         public int FramesPerRow
         {
-            get { return framesPerRow; }
-            set { framesPerRow = value; }
+            get => _framesPerRow;
+            set => _framesPerRow = value;
         }
-
 
         /// <summary>
         /// The offset of this sprite from the position it's drawn at.
         /// </summary>
-        private Vector2 sourceOffset;
+        private Vector2 _sourceOffset;
 
         /// <summary>
         /// The offset of this sprite from the position it's drawn at.
@@ -92,22 +88,22 @@ namespace RolePlayingGame.Animations
         [ContentSerializer(Optional = true)]
         public Vector2 SourceOffset
         {
-            get { return sourceOffset; }
-            set { sourceOffset = value; }
+            get => _sourceOffset;
+            set => _sourceOffset = value;
         }
 
         /// <summary>
         /// The animations defined for this sprite.
         /// </summary>
-        private List<Animation> animations = new List<Animation>();
+        private List<Animation> _animations = new();
 
         /// <summary>
         /// The animations defined for this sprite.
         /// </summary>
         public List<Animation> Animations
         {
-            get { return animations; }
-            set { animations = value; }
+            get => _animations;
+            set => _animations = value;
         }
 
         /// <summary>
@@ -119,13 +115,13 @@ namespace RolePlayingGame.Animations
         {
             get
             {
-                if (String.IsNullOrEmpty(animationName))
+                if (string.IsNullOrEmpty(animationName))
                 {
                     return null;
                 }
-                foreach (Animation animation in animations)
+                foreach (Animation animation in _animations)
                 {
-                    if (String.Compare(animation.Name, animationName, StringComparison.OrdinalIgnoreCase) == 0)
+                    if (string.Compare(animation.Name, animationName, StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         return animation;
                     }
@@ -133,7 +129,6 @@ namespace RolePlayingGame.Animations
                 return null;
             }
         }
-
 
         /// <summary>
         /// Add the animation to the list, checking for name collisions.
@@ -143,7 +138,7 @@ namespace RolePlayingGame.Animations
         {
             if ((animation != null) && (this[animation.Name] == null))
             {
-                animations.Add(animation);
+                _animations.Add(animation);
                 return true;
             }
 
@@ -153,32 +148,28 @@ namespace RolePlayingGame.Animations
         /// <summary>
         /// The animation currently playing back on this sprite.
         /// </summary>
-        private Animation currentAnimation = null;
+        private Animation _currentAnimation = null;
 
         /// <summary>
         /// The current frame in the current animation.
         /// </summary>
-        private int currentFrame;
+        private int _currentFrame;
 
         /// <summary>
         /// The elapsed time since the last frame switch.
         /// </summary>
-        private float elapsedTime;
+        private float _elapsedTime;
 
 
         /// <summary>
         /// The source rectangle of the current frame of animation.
         /// </summary>
-        private Rectangle sourceRectangle;
+        private Rectangle _sourceRectangle;
 
         /// <summary>
         /// The source rectangle of the current frame of animation.
         /// </summary>
-        public Rectangle SourceRectangle
-        {
-            get { return sourceRectangle; }
-        }
-
+        public Rectangle SourceRectangle => _sourceRectangle;
 
         /// <summary>
         /// Play the given animation on the sprite.
@@ -187,13 +178,12 @@ namespace RolePlayingGame.Animations
         public void PlayAnimation(Animation animation)
         {
             // start the new animation, ignoring redundant Plays
-            if (animation != currentAnimation)
+            if (animation != _currentAnimation)
             {
-                currentAnimation = animation;
+                _currentAnimation = animation;
                 ResetAnimation();
             }
         }
-
 
         /// <summary>
         /// Play an animation given by index.
@@ -201,14 +191,13 @@ namespace RolePlayingGame.Animations
         public void PlayAnimation(int index)
         {
             // check the parameter
-            if ((index < 0) || (index >= animations.Count))
+            if ((index < 0) || (index >= _animations.Count))
             {
                 throw new ArgumentOutOfRangeException("index");
             }
 
-            PlayAnimation(this.animations[index]);
+            PlayAnimation(_animations[index]);
         }
-
 
         /// <summary>
         /// Play an animation given by name.
@@ -216,14 +205,13 @@ namespace RolePlayingGame.Animations
         public void PlayAnimation(string name)
         {
             // check the parameter
-            if (String.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentNullException("name");
             }
 
             PlayAnimation(this[name]);
         }
-
 
         /// <summary>
         /// Play a given animation name, with the given direction suffix.
@@ -235,7 +223,7 @@ namespace RolePlayingGame.Animations
         public void PlayAnimation(string name, Direction direction)
         {
             // check the parameter
-            if (String.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentNullException("name");
             }
@@ -243,44 +231,40 @@ namespace RolePlayingGame.Animations
             PlayAnimation(name + direction.ToString());
         }
 
-
         /// <summary>
         /// Reset the animation back to its starting position.
         /// </summary>
         public void ResetAnimation()
         {
-            elapsedTime = 0f;
-            if (currentAnimation != null)
+            _elapsedTime = 0f;
+            if (_currentAnimation != null)
             {
-                currentFrame = currentAnimation.StartingFrame;
+                _currentFrame = _currentAnimation.StartingFrame;
                 // calculate the source rectangle by updating the animation
                 UpdateAnimation(0f);
             }
         }
-
 
         /// <summary>
         /// Advance the current animation to the final sprite.
         /// </summary>
         public void AdvanceToEnd()
         {
-            if (currentAnimation != null)
+            if (_currentAnimation != null)
             {
-                currentFrame = currentAnimation.EndingFrame;
+                _currentFrame = _currentAnimation.EndingFrame;
                 // calculate the source rectangle by updating the animation
                 UpdateAnimation(0f);
             }
         }
-
 
         /// <summary>
         /// Stop any animation playing on the sprite.
         /// </summary>
         public void StopAnimation()
         {
-            currentAnimation = null;
+            _currentAnimation = null;
         }
-
 
         /// <summary>
         /// Returns true if playback on the current animation is complete, or if
@@ -290,9 +274,7 @@ namespace RolePlayingGame.Animations
         {
             get
             {
-                return ((currentAnimation == null) ||
-                    (!currentAnimation.IsLoop &&
-                    (currentFrame > currentAnimation.EndingFrame)));
+                return (_currentAnimation == null) || (!_currentAnimation.IsLoop && (_currentFrame > _currentAnimation.EndingFrame));
             }
         }
 
@@ -307,26 +289,26 @@ namespace RolePlayingGame.Animations
             }
 
             // loop the animation if needed
-            if (currentAnimation.IsLoop && (currentFrame > currentAnimation.EndingFrame))
+            if (_currentAnimation.IsLoop && (_currentFrame > _currentAnimation.EndingFrame))
             {
-                currentFrame = currentAnimation.StartingFrame;
+                _currentFrame = _currentAnimation.StartingFrame;
             }
 
             // update the source rectangle
-            int column = (currentFrame - 1) / framesPerRow;
-            sourceRectangle = new Rectangle(
-                (currentFrame - 1 - (column * framesPerRow)) * frameDimensions.X,
-                column * frameDimensions.Y,
-                frameDimensions.X, frameDimensions.Y);
+            int column = (_currentFrame - 1) / _framesPerRow;
+            _sourceRectangle = new Rectangle(
+                (_currentFrame - 1 - (column * _framesPerRow)) * _frameDimensions.X,
+                column * _frameDimensions.Y,
+                _frameDimensions.X, _frameDimensions.Y);
 
             // update the elapsed time
-            elapsedTime += elapsedSeconds;
+            _elapsedTime += elapsedSeconds;
 
             // advance to the next frame if ready
-            while (elapsedTime * 1000f > (float)currentAnimation.Interval)
+            while (_elapsedTime * 1000f > (float)_currentAnimation.Interval)
             {
-                currentFrame++;
-                elapsedTime -= (float)currentAnimation.Interval / 1000f;
+                _currentFrame++;
+                _elapsedTime -= (float)_currentAnimation.Interval / 1000f;
             }
         }
 
@@ -341,7 +323,6 @@ namespace RolePlayingGame.Animations
             Draw(spriteBatch, position, layerDepth, SpriteEffects.None);
         }
 
-
         /// <summary>
         /// Draw the sprite at the given position.
         /// </summary>
@@ -349,8 +330,7 @@ namespace RolePlayingGame.Animations
         /// <param name="position">The position of the sprite on-screen.</param>
         /// <param name="layerDepth">The depth at which the sprite is drawn.</param>
         /// <param name="spriteEffect">The sprite-effect applied.</param>
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, float layerDepth,
-            SpriteEffects spriteEffect)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, float layerDepth, SpriteEffects spriteEffect)
         {
             // check the parameters
             if (spriteBatch == null)
@@ -358,11 +338,9 @@ namespace RolePlayingGame.Animations
                 throw new ArgumentNullException("spriteBatch");
             }
 
-            if (texture != null)
+            if (_texture != null)
             {
-                spriteBatch.Draw(texture, position, sourceRectangle, Color.White, 0f,
-                    sourceOffset, 1f, spriteEffect,
-                    MathHelper.Clamp(layerDepth, 0f, 1f));
+                spriteBatch.Draw(_texture, position, _sourceRectangle, Color.White, 0f, _sourceOffset, 1f, spriteEffect, MathHelper.Clamp(layerDepth, 0f, 1f));
             }
         }
 
@@ -374,8 +352,7 @@ namespace RolePlayingGame.Animations
             /// <summary>
             /// Read an AnimatingSprite object from the content pipeline.
             /// </summary>
-            protected override AnimatingSprite Read(ContentReader input,
-                AnimatingSprite existingInstance)
+            protected override AnimatingSprite Read(ContentReader input, AnimatingSprite existingInstance)
             {
                 AnimatingSprite animatingSprite = existingInstance;
                 if (animatingSprite == null)
@@ -386,15 +363,11 @@ namespace RolePlayingGame.Animations
                 animatingSprite.AssetName = input.AssetName;
 
                 animatingSprite.TextureName = input.ReadString();
-                animatingSprite.Texture =
-                    input.ContentManager.Load<Texture2D>(
-                        System.IO.Path.Combine(@"Textures",
-                        animatingSprite.TextureName));
+                animatingSprite.Texture = input.ContentManager.Load<Texture2D>(System.IO.Path.Combine("Textures", animatingSprite.TextureName));
                 animatingSprite.FrameDimensions = input.ReadObject<Point>();
                 animatingSprite.FramesPerRow = input.ReadInt32();
                 animatingSprite.SourceOffset = input.ReadObject<Vector2>();
-                animatingSprite.Animations.AddRange(
-                    input.ReadObject<List<Animation>>());
+                animatingSprite.Animations.AddRange(input.ReadObject<List<Animation>>());
 
                 return animatingSprite;
             }
@@ -405,19 +378,19 @@ namespace RolePlayingGame.Animations
         /// </summary>
         public object Clone()
         {
-            AnimatingSprite animatingSprite = new AnimatingSprite();
+            AnimatingSprite animatingSprite = new();
 
-            animatingSprite.animations.AddRange(animations);
-            animatingSprite.currentAnimation = currentAnimation;
-            animatingSprite.currentFrame = currentFrame;
-            animatingSprite.elapsedTime = elapsedTime;
-            animatingSprite.frameDimensions = frameDimensions;
-            animatingSprite.frameOrigin = frameOrigin;
-            animatingSprite.framesPerRow = framesPerRow;
-            animatingSprite.sourceOffset = sourceOffset;
-            animatingSprite.sourceRectangle = sourceRectangle;
-            animatingSprite.texture = texture;
-            animatingSprite.textureName = textureName;
+            animatingSprite._animations.AddRange(_animations);
+            animatingSprite._currentAnimation = _currentAnimation;
+            animatingSprite._currentFrame = _currentFrame;
+            animatingSprite._elapsedTime = _elapsedTime;
+            animatingSprite._frameDimensions = _frameDimensions;
+            animatingSprite._frameOrigin = _frameOrigin;
+            animatingSprite._framesPerRow = _framesPerRow;
+            animatingSprite._sourceOffset = _sourceOffset;
+            animatingSprite._sourceRectangle = _sourceRectangle;
+            animatingSprite._texture = _texture;
+            animatingSprite._textureName = _textureName;
 
             return animatingSprite;
         }

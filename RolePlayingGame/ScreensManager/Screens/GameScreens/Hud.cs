@@ -15,60 +15,60 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
 {
     public class Hud
     {
-        private ScreenManager screenManager;
+        private ScreenManager _screenManager;
 
         public const int HudHeight = 183;
 
-        private Texture2D backgroundHudTexture;
-        private Texture2D topHudTexture;
-        private Texture2D combatPopupTexture;
-        private Texture2D activeCharInfoTexture;
-        private Texture2D inActiveCharInfoTexture;
-        private Texture2D cantUseCharInfoTexture;
-        private Texture2D selectionBracketTexture;
-        private Texture2D menuTexture;
-        private Texture2D statsTexture;
-        private Texture2D deadPortraitTexture;
-        private Texture2D charSelFadeLeftTexture;
-        private Texture2D charSelFadeRightTexture;
-        private Texture2D charSelArrowLeftTexture;
-        private Texture2D charSelArrowRightTexture;
-        private Texture2D actionTexture;
-        private Texture2D yButtonTexture;
-        private Texture2D startButtonTexture;
+        private Texture2D _backgroundHudTexture;
+        private Texture2D _topHudTexture;
+        private Texture2D _combatPopupTexture;
+        private Texture2D _activeCharInfoTexture;
+        private Texture2D _inActiveCharInfoTexture;
+        private Texture2D _cantUseCharInfoTexture;
+        private Texture2D _selectionBracketTexture;
+        private Texture2D _menuTexture;
+        private Texture2D _statsTexture;
+        private Texture2D _deadPortraitTexture;
+        private Texture2D _charSelFadeLeftTexture;
+        private Texture2D _charSelFadeRightTexture;
+        private Texture2D _charSelArrowLeftTexture;
+        private Texture2D _charSelArrowRightTexture;
+        private Texture2D _actionTexture;
+        private Texture2D _yButtonTexture;
+        private Texture2D _startButtonTexture;
 
-        private Vector2 topHudPosition = new(353f, 30f);
-        private Vector2 charSelLeftPosition = new(70f, 600f);
-        private Vector2 charSelRightPosition = new(1170f, 600f);
-        private Vector2 yButtonPosition = new(0f, 560f + 20f);
-        private Vector2 startButtonPosition = new(0f, 560f + 35f);
-        private Vector2 yTextPosition = new(0f, 560f + 70f);
-        private Vector2 startTextPosition = new(0f, 560f + 70f);
-        private Vector2 actionTextPosition = new(640f, 55f);
-        private Vector2 backgroundHudPosition = new(0f, 525f);
-        private Vector2 portraitPosition = new(640f, 55f);
-        private Vector2 startingInfoPosition = new(0f, 550f);
-        private Vector2 namePosition;
-        private Vector2 levelPosition;
-        private Vector2 detailPosition;
+        private Vector2 _topHudPosition = new(353f, 30f);
+        private Vector2 _charSelLeftPosition = new(70f, 600f);
+        private Vector2 _charSelRightPosition = new(1170f, 600f);
+        private Vector2 _yButtonPosition = new(0f, 560f + 20f);
+        private Vector2 _startButtonPosition = new(0f, 560f + 35f);
+        private Vector2 _yTextPosition = new(0f, 560f + 70f);
+        private Vector2 _startTextPosition = new(0f, 560f + 70f);
+        private Vector2 _actionTextPosition = new(640f, 55f);
+        private Vector2 _backgroundHudPosition = new(0f, 525f);
+        private Vector2 _portraitPosition = new(640f, 55f);
+        private Vector2 _startingInfoPosition = new(0f, 550f);
+        private Vector2 _namePosition;
+        private Vector2 _levelPosition;
+        private Vector2 _detailPosition;
 
-        private readonly Color activeNameColor = new(200, 200, 200);
-        private readonly Color inActiveNameColor = new(100, 100, 100);
-        private readonly Color nonSelColor = new(86, 26, 5);
-        private readonly Color selColor = new(229, 206, 144);
+        private readonly Color _activeNameColor = new(200, 200, 200);
+        private readonly Color _inActiveNameColor = new(100, 100, 100);
+        private readonly Color _nonSelColor = new(86, 26, 5);
+        private readonly Color _selColor = new(229, 206, 144);
 
         /// <summary>
         /// The text that is shown in the action bar at the top of the combat screen.
         /// </summary>
-        private string actionText = string.Empty;
+        private string _actionText = string.Empty;
 
         /// <summary>
         /// The text that is shown in the action bar at the top of the combat screen.
         /// </summary>
         public string ActionText
         {
-            get { return actionText; }
-            set { actionText = value; }
+            get => _actionText;
+            set => _actionText = value;
         }
 
         /// <summary>
@@ -81,34 +81,33 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             {
                 throw new ArgumentNullException("screenManager");
             }
-            this.screenManager = screenManager;
+            _screenManager = screenManager;
         }
-
 
         /// <summary>
         /// Load the graphics content from the content manager.
         /// </summary>
         public void LoadContent()
         {
-            ContentManager content = screenManager.Game.Content;
+            ContentManager content = _screenManager.Game.Content;
 
-            backgroundHudTexture = content.Load<Texture2D>("Textures/HUD/HudBkgd");
-            topHudTexture = content.Load<Texture2D>("Textures/HUD/CombatStateInfoStrip");
-            activeCharInfoTexture = content.Load<Texture2D>("Textures/HUD/PlankActive");
-            inActiveCharInfoTexture = content.Load<Texture2D>("Textures/HUD/PlankInActive");
-            cantUseCharInfoTexture = content.Load<Texture2D>("Textures/HUD/PlankCantUse");
-            selectionBracketTexture = content.Load<Texture2D>("Textures/HUD/SelectionBrackets");
-            deadPortraitTexture = content.Load<Texture2D>("Textures/Characters/Portraits/Tombstone");
-            combatPopupTexture = content.Load<Texture2D>("Textures/HUD/CombatPopup");
-            charSelFadeLeftTexture = content.Load<Texture2D>("Textures/Buttons/CharSelectFadeLeft");
-            charSelFadeRightTexture = content.Load<Texture2D>("Textures/Buttons/CharSelectFadeRight");
-            charSelArrowLeftTexture = content.Load<Texture2D>("Textures/Buttons/CharSelectHlLeft");
-            charSelArrowRightTexture = content.Load<Texture2D>("Textures/Buttons/CharSelectHlRight");
-            actionTexture = content.Load<Texture2D>("Textures/HUD/HudSelectButton");
-            yButtonTexture = content.Load<Texture2D>("Textures/Buttons/YButton");
-            startButtonTexture = content.Load<Texture2D>("Textures/Buttons/StartButton");
-            menuTexture = content.Load<Texture2D>("Textures/HUD/Menu");
-            statsTexture = content.Load<Texture2D>("Textures/HUD/Stats");
+            _backgroundHudTexture = content.Load<Texture2D>("Textures/HUD/HudBkgd");
+            _topHudTexture = content.Load<Texture2D>("Textures/HUD/CombatStateInfoStrip");
+            _activeCharInfoTexture = content.Load<Texture2D>("Textures/HUD/PlankActive");
+            _inActiveCharInfoTexture = content.Load<Texture2D>("Textures/HUD/PlankInActive");
+            _cantUseCharInfoTexture = content.Load<Texture2D>("Textures/HUD/PlankCantUse");
+            _selectionBracketTexture = content.Load<Texture2D>("Textures/HUD/SelectionBrackets");
+            _deadPortraitTexture = content.Load<Texture2D>("Textures/Characters/Portraits/Tombstone");
+            _combatPopupTexture = content.Load<Texture2D>("Textures/HUD/CombatPopup");
+            _charSelFadeLeftTexture = content.Load<Texture2D>("Textures/Buttons/CharSelectFadeLeft");
+            _charSelFadeRightTexture = content.Load<Texture2D>("Textures/Buttons/CharSelectFadeRight");
+            _charSelArrowLeftTexture = content.Load<Texture2D>("Textures/Buttons/CharSelectHlLeft");
+            _charSelArrowRightTexture = content.Load<Texture2D>("Textures/Buttons/CharSelectHlRight");
+            _actionTexture = content.Load<Texture2D>("Textures/HUD/HudSelectButton");
+            _yButtonTexture = content.Load<Texture2D>("Textures/Buttons/YButton");
+            _startButtonTexture = content.Load<Texture2D>("Textures/Buttons/StartButton");
+            _menuTexture = content.Load<Texture2D>("Textures/HUD/Menu");
+            _statsTexture = content.Load<Texture2D>("Textures/HUD/Stats");
         }
 
         /// <summary>
@@ -116,18 +115,18 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// </summary>
         public void Draw()
         {
-            SpriteBatch spriteBatch = screenManager.SpriteBatch;
+            SpriteBatch spriteBatch = _screenManager.SpriteBatch;
             spriteBatch.Begin();
 
-            startingInfoPosition.X = 640f;
-            startingInfoPosition.X -= Session.Party.Players.Count / 2 * 200f;
+            _startingInfoPosition.X = 640f;
+            _startingInfoPosition.X -= Session.Party.Players.Count / 2 * 200f;
 
             if (Session.Party.Players.Count % 2 != 0)
             {
-                startingInfoPosition.X -= 100f;
+                _startingInfoPosition.X -= 100f;
             }
 
-            spriteBatch.Draw(backgroundHudTexture, backgroundHudPosition, Color.White);
+            spriteBatch.Draw(_backgroundHudTexture, _backgroundHudPosition, Color.White);
 
             if (CombatEngine.IsActive)
             {
@@ -141,40 +140,39 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             spriteBatch.End();
         }
 
-
         /// <summary>
         /// Draws HUD for Combat Mode
         /// </summary>
         private void DrawForCombat()
         {
-            SpriteBatch spriteBatch = screenManager.SpriteBatch;
-            Vector2 position = startingInfoPosition;
+            SpriteBatch spriteBatch = _screenManager.SpriteBatch;
+            Vector2 position = _startingInfoPosition;
 
             foreach (CombatantPlayer combatantPlayer in CombatEngine.Players)
             {
                 DrawCombatPlayerDetails(combatantPlayer, position);
-                position.X += activeCharInfoTexture.Width - 6f;
+                position.X += _activeCharInfoTexture.Width - 6f;
             }
 
-            charSelLeftPosition.X = startingInfoPosition.X - 5f - charSelArrowLeftTexture.Width;
-            charSelRightPosition.X = position.X + 5f;
+            _charSelLeftPosition.X = _startingInfoPosition.X - 5f - _charSelArrowLeftTexture.Width;
+            _charSelRightPosition.X = position.X + 5f;
             // Draw character Selection Arrows
             if (CombatEngine.IsPlayersTurn)
             {
-                spriteBatch.Draw(charSelArrowLeftTexture, charSelLeftPosition, Color.White);
-                spriteBatch.Draw(charSelArrowRightTexture, charSelRightPosition, Color.White);
+                spriteBatch.Draw(_charSelArrowLeftTexture, _charSelLeftPosition, Color.White);
+                spriteBatch.Draw(_charSelArrowRightTexture, _charSelRightPosition, Color.White);
             }
             else
             {
-                spriteBatch.Draw(charSelFadeLeftTexture, charSelLeftPosition, Color.White);
-                spriteBatch.Draw(charSelFadeRightTexture, charSelRightPosition, Color.White);
+                spriteBatch.Draw(_charSelFadeLeftTexture, _charSelLeftPosition, Color.White);
+                spriteBatch.Draw(_charSelFadeRightTexture, _charSelRightPosition, Color.White);
             }
 
-            if (actionText.Length > 0)
+            if (_actionText.Length > 0)
             {
-                spriteBatch.Draw(topHudTexture, topHudPosition, Color.White);
+                spriteBatch.Draw(_topHudTexture, _topHudPosition, Color.White);
                 // Draw Action Text
-                Fonts.DrawCenteredText(spriteBatch, Fonts.PlayerStatisticsFont, actionText, actionTextPosition, Color.Black);
+                Fonts.DrawCenteredText(spriteBatch, Fonts.PlayerStatisticsFont, _actionText, _actionTextPosition, Color.Black);
             }
         }
 
@@ -183,28 +181,28 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// </summary>
         private void DrawForNonCombat()
         {
-            SpriteBatch spriteBatch = screenManager.SpriteBatch;
-            Vector2 position = startingInfoPosition;
+            SpriteBatch spriteBatch = _screenManager.SpriteBatch;
+            Vector2 position = _startingInfoPosition;
 
             foreach (Player player in Session.Party.Players)
             {
                 DrawNonCombatPlayerDetails(player, position);
-                position.X += inActiveCharInfoTexture.Width - 6f;
+                position.X += _inActiveCharInfoTexture.Width - 6f;
             }
 
-            yTextPosition.X = position.X + 5f;
-            yButtonPosition.X = position.X + 9f;
+            _yTextPosition.X = position.X + 5f;
+            _yButtonPosition.X = position.X + 9f;
 
             // Draw Select Button
-            spriteBatch.Draw(statsTexture, yTextPosition, Color.White);
-            spriteBatch.Draw(yButtonTexture, yButtonPosition, Color.White);
+            spriteBatch.Draw(_statsTexture, _yTextPosition, Color.White);
+            spriteBatch.Draw(_yButtonTexture, _yButtonPosition, Color.White);
 
-            startTextPosition.X = startingInfoPosition.X - startButtonTexture.Width - 25f;
-            startButtonPosition.X = startingInfoPosition.X - startButtonTexture.Width - 10f;
+            _startTextPosition.X = _startingInfoPosition.X - _startButtonTexture.Width - 25f;
+            _startButtonPosition.X = _startingInfoPosition.X - _startButtonTexture.Width - 10f;
 
             // Draw Back Button
-            spriteBatch.Draw(menuTexture, startTextPosition, Color.White);
-            spriteBatch.Draw(startButtonTexture, startButtonPosition, Color.White);
+            spriteBatch.Draw(_menuTexture, _startTextPosition, Color.White);
+            spriteBatch.Draw(_startButtonTexture, _startButtonPosition, Color.White);
         }
 
         enum PlankState
@@ -221,24 +219,24 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// <param name="position">Position where to draw</param>
         private void DrawCombatPlayerDetails(CombatantPlayer player, Vector2 position)
         {
-            SpriteBatch spriteBatch = screenManager.SpriteBatch;
+            SpriteBatch spriteBatch = _screenManager.SpriteBatch;
 
             PlankState plankState;
             bool isPortraitActive = false;
             bool isCharDead = false;
             Color color;
 
-            portraitPosition.X = position.X + 7f;
-            portraitPosition.Y = position.Y + 7f;
+            _portraitPosition.X = position.X + 7f;
+            _portraitPosition.Y = position.Y + 7f;
 
-            namePosition.X = position.X + 84f;
-            namePosition.Y = position.Y + 12f;
+            _namePosition.X = position.X + 84f;
+            _namePosition.Y = position.Y + 12f;
 
-            levelPosition.X = position.X + 84f;
-            levelPosition.Y = position.Y + 39f;
+            _levelPosition.X = position.X + 84f;
+            _levelPosition.Y = position.Y + 39f;
 
-            detailPosition.X = position.X + 25f;
-            detailPosition.Y = position.Y + 66f;
+            _detailPosition.X = position.X + 25f;
+            _detailPosition.Y = position.Y + 66f;
 
             position.X -= 2;
             position.Y -= 4;
@@ -269,54 +267,54 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             // Draw Info Slab
             if (plankState == PlankState.Active)
             {
-                color = activeNameColor;
-                spriteBatch.Draw(activeCharInfoTexture, position, Color.White);
+                color = _activeNameColor;
+                spriteBatch.Draw(_activeCharInfoTexture, position, Color.White);
 
                 // Draw Brackets
                 if ((CombatEngine.HighlightedCombatant == player) && !player.IsTurnTaken)
                 {
-                    spriteBatch.Draw(selectionBracketTexture, position, Color.White);
+                    spriteBatch.Draw(_selectionBracketTexture, position, Color.White);
                 }
 
                 if (isPortraitActive && (CombatEngine.HighlightedCombatant == player) && (CombatEngine.HighlightedCombatant.CombatAction == null) && !CombatEngine.IsDelaying)
                 {
-                    position.X += activeCharInfoTexture.Width / 2;
-                    position.X -= combatPopupTexture.Width / 2;
-                    position.Y -= combatPopupTexture.Height;
+                    position.X += _activeCharInfoTexture.Width / 2;
+                    position.X -= _combatPopupTexture.Width / 2;
+                    position.Y -= _combatPopupTexture.Height;
                     // Draw Action
                     DrawActionsMenu(position);
                 }
             }
             else if (plankState == PlankState.InActive)
             {
-                color = inActiveNameColor;
-                spriteBatch.Draw(inActiveCharInfoTexture, position, Color.White);
+                color = _inActiveNameColor;
+                spriteBatch.Draw(_inActiveCharInfoTexture, position, Color.White);
             }
             else
             {
                 color = Color.Black;
-                spriteBatch.Draw(cantUseCharInfoTexture, position, Color.White);
+                spriteBatch.Draw(_cantUseCharInfoTexture, position, Color.White);
             }
 
             if (isCharDead)
             {
-                spriteBatch.Draw(deadPortraitTexture, portraitPosition, Color.White);
+                spriteBatch.Draw(_deadPortraitTexture, _portraitPosition, Color.White);
             }
             else
             {
                 // Draw Player Portrait
-                DrawPortrait(player.Player, portraitPosition, plankState);
+                DrawPortrait(player.Player, _portraitPosition, plankState);
             }
 
             // Draw Player Name
-            spriteBatch.DrawString(Fonts.PlayerStatisticsFont, player.Player.Name, namePosition, color);
+            spriteBatch.DrawString(Fonts.PlayerStatisticsFont, player.Player.Name, _namePosition, color);
             color = Color.Black;
             // Draw Player Details
-            spriteBatch.DrawString(Fonts.HudDetailFont, "Lvl: " + player.Player.CharacterLevel, levelPosition, color);
-            spriteBatch.DrawString(Fonts.HudDetailFont, "HP: " + player.Statistics.HealthPoints + "/" + player.Player.CharacterStatistics.HealthPoints, detailPosition, color);
+            spriteBatch.DrawString(Fonts.HudDetailFont, "Lvl: " + player.Player.CharacterLevel, _levelPosition, color);
+            spriteBatch.DrawString(Fonts.HudDetailFont, "HP: " + player.Statistics.HealthPoints + "/" + player.Player.CharacterStatistics.HealthPoints, _detailPosition, color);
 
-            detailPosition.Y += 30f;
-            spriteBatch.DrawString(Fonts.HudDetailFont, "MP: " + player.Statistics.MagicPoints + "/" + player.Player.CharacterStatistics.MagicPoints, detailPosition, color);
+            _detailPosition.Y += 30f;
+            spriteBatch.DrawString(Fonts.HudDetailFont, "MP: " + player.Statistics.MagicPoints + "/" + player.Player.CharacterStatistics.MagicPoints, _detailPosition, color);
         }
 
         /// <summary>
@@ -326,23 +324,23 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// <param name="position">Position where to draw</param>
         private void DrawNonCombatPlayerDetails(Player player, Vector2 position)
         {
-            SpriteBatch spriteBatch = screenManager.SpriteBatch;
+            SpriteBatch spriteBatch = _screenManager.SpriteBatch;
 
             PlankState plankState;
             bool isCharDead = false;
             Color color;
 
-            portraitPosition.X = position.X + 7f;
-            portraitPosition.Y = position.Y + 7f;
+            _portraitPosition.X = position.X + 7f;
+            _portraitPosition.Y = position.Y + 7f;
 
-            namePosition.X = position.X + 84f;
-            namePosition.Y = position.Y + 12f;
+            _namePosition.X = position.X + 84f;
+            _namePosition.Y = position.Y + 12f;
 
-            levelPosition.X = position.X + 84f;
-            levelPosition.Y = position.Y + 39f;
+            _levelPosition.X = position.X + 84f;
+            _levelPosition.Y = position.Y + 39f;
 
-            detailPosition.X = position.X + 25f;
-            detailPosition.Y = position.Y + 66f;
+            _detailPosition.X = position.X + 25f;
+            _detailPosition.Y = position.Y + 66f;
 
             position.X -= 2;
             position.Y -= 4;
@@ -352,40 +350,40 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             // Draw Info Slab
             if (plankState == PlankState.Active)
             {
-                color = activeNameColor;
-                spriteBatch.Draw(activeCharInfoTexture, position, Color.White);
+                color = _activeNameColor;
+                spriteBatch.Draw(_activeCharInfoTexture, position, Color.White);
             }
             else if (plankState == PlankState.InActive)
             {
-                color = inActiveNameColor;
-                spriteBatch.Draw(inActiveCharInfoTexture, position, Color.White);
+                color = _inActiveNameColor;
+                spriteBatch.Draw(_inActiveCharInfoTexture, position, Color.White);
             }
             else
             {
                 color = Color.Black;
-                spriteBatch.Draw(cantUseCharInfoTexture, position, Color.White);
+                spriteBatch.Draw(_cantUseCharInfoTexture, position, Color.White);
             }
 
             if (isCharDead)
             {
-                spriteBatch.Draw(deadPortraitTexture, portraitPosition, Color.White);
+                spriteBatch.Draw(_deadPortraitTexture, _portraitPosition, Color.White);
             }
             else
             {
                 // Draw Player Portrait
-                DrawPortrait(player, portraitPosition, plankState);
+                DrawPortrait(player, _portraitPosition, plankState);
             }
 
             // Draw Player Name
-            spriteBatch.DrawString(Fonts.PlayerStatisticsFont, player.Name, namePosition, color);
+            spriteBatch.DrawString(Fonts.PlayerStatisticsFont, player.Name, _namePosition, color);
 
             color = Color.Black;
             // Draw Player Details
-            spriteBatch.DrawString(Fonts.HudDetailFont, "Lvl: " + player.CharacterLevel, levelPosition, color);
-            spriteBatch.DrawString(Fonts.HudDetailFont, "HP: " + player.CurrentStatistics.HealthPoints + "/" + player.CharacterStatistics.HealthPoints, detailPosition, color);
+            spriteBatch.DrawString(Fonts.HudDetailFont, "Lvl: " + player.CharacterLevel, _levelPosition, color);
+            spriteBatch.DrawString(Fonts.HudDetailFont, "HP: " + player.CurrentStatistics.HealthPoints + "/" + player.CharacterStatistics.HealthPoints, _detailPosition, color);
 
-            detailPosition.Y += 30f;
-            spriteBatch.DrawString(Fonts.HudDetailFont, "MP: " + player.CurrentStatistics.MagicPoints + "/" + player.CharacterStatistics.MagicPoints, detailPosition, color);
+            _detailPosition.Y += 30f;
+            spriteBatch.DrawString(Fonts.HudDetailFont, "MP: " + player.CurrentStatistics.MagicPoints + "/" + player.CharacterStatistics.MagicPoints, _detailPosition, color);
         }
 
         /// <summary>
@@ -396,16 +394,13 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             switch (plankState)
             {
                 case PlankState.Active:
-                    screenManager.SpriteBatch.Draw(player.ActivePortraitTexture,
-                        position, Color.White);
+                    _screenManager.SpriteBatch.Draw(player.ActivePortraitTexture, position, Color.White);
                     break;
                 case PlankState.InActive:
-                    screenManager.SpriteBatch.Draw(player.InactivePortraitTexture,
-                        position, Color.White);
+                    _screenManager.SpriteBatch.Draw(player.InactivePortraitTexture, position, Color.White);
                     break;
                 case PlankState.CantUse:
-                    screenManager.SpriteBatch.Draw(player.UnselectablePortraitTexture,
-                        position, Color.White);
+                    _screenManager.SpriteBatch.Draw(player.UnselectablePortraitTexture, position, Color.White);
                     break;
             }
         }
@@ -413,19 +408,19 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// <summary>
         /// The list of entries in the combat action menu.
         /// </summary>
-        private string[] actionList = new string[5]
-            {
-                "Attack",
-                "Spell",
-                "Item",
-                "Defend",
-                "Flee",
-            };
+        private string[] _actionList = new string[5]
+        {
+            "Attack",
+            "Spell",
+            "Item",
+            "Defend",
+            "Flee",
+        };
 
         /// <summary>
         /// The currently highlighted item.
         /// </summary>
-        private int highlightedAction = 0;
+        private int _highlightedAction = 0;
 
         /// <summary>
         /// Handle user input to the actions menu.
@@ -435,25 +430,25 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             // cursor up
             if (InputManager.IsActionTriggered(InputManager.Action.CursorUp))
             {
-                if (highlightedAction > 0)
+                if (_highlightedAction > 0)
                 {
-                    highlightedAction--;
+                    _highlightedAction--;
                 }
                 return;
             }
             // cursor down
             if (InputManager.IsActionTriggered(InputManager.Action.CursorDown))
             {
-                if (highlightedAction < actionList.Length - 1)
+                if (_highlightedAction < _actionList.Length - 1)
                 {
-                    highlightedAction++;
+                    _highlightedAction++;
                 }
                 return;
             }
             // select an action
             if (InputManager.IsActionTriggered(InputManager.Action.Ok))
             {
-                switch (actionList[highlightedAction])
+                switch (_actionList[_highlightedAction])
                 {
                     case "Attack":
                         {
@@ -546,28 +541,28 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         {
             ActionText = "Choose an Action";
 
-            SpriteBatch spriteBatch = screenManager.SpriteBatch;
+            SpriteBatch spriteBatch = _screenManager.SpriteBatch;
 
             Vector2 arrowPosition;
             float height = 25f;
 
-            spriteBatch.Draw(combatPopupTexture, position, Color.White);
+            spriteBatch.Draw(_combatPopupTexture, position, Color.White);
 
             position.Y += 21f;
             arrowPosition = position;
 
             arrowPosition.X += 10f;
             arrowPosition.Y += 2f;
-            arrowPosition.Y += height * (int)highlightedAction;
-            spriteBatch.Draw(actionTexture, arrowPosition, Color.White);
+            arrowPosition.Y += height * _highlightedAction;
+            spriteBatch.Draw(_actionTexture, arrowPosition, Color.White);
 
             position.Y += 4f;
             position.X += 50f;
 
             // Draw Action Text
-            for (int i = 0; i < actionList.Length; i++)
+            for (int i = 0; i < _actionList.Length; i++)
             {
-                spriteBatch.DrawString(Fonts.GearInfoFont, actionList[i], position, i == highlightedAction ? selColor : nonSelColor);
+                spriteBatch.DrawString(Fonts.GearInfoFont, _actionList[i], position, i == _highlightedAction ? _selColor : _nonSelColor);
                 position.Y += height;
             }
         }

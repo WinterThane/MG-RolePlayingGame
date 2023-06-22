@@ -10,62 +10,56 @@ namespace RolePlayingGame.MapObjects
 {
     public class Chest : WorldObject, ICloneable
     {
-        private int gold = 0;
+        private int _gold = 0;
         /// <summary>
         /// The amount of gold in the chest.
         /// </summary>
         [ContentSerializer(Optional = true)]
         public int Gold
         {
-            get { return gold; }
-            set { gold = value; }
+            get => _gold;
+            set => _gold = value;
         }
 
-        private List<ContentEntry<Gear>> entries = new();
+        private List<ContentEntry<Gear>> _entries = new();
         /// <summary>
         /// The gear in the chest, along with quantities.
         /// </summary>
         public List<ContentEntry<Gear>> Entries
         {
-            get { return entries; }
-            set { entries = value; }
+            get => _entries;
+            set => _entries = value;
         }
 
         /// <summary>
         /// Array accessor for the chest's contents.
         /// </summary>
-        public ContentEntry<Gear> this[int index]
-        {
-            get { return entries[index]; }
-        }
+        public ContentEntry<Gear> this[int index] => _entries[index];
 
         /// <summary>
         /// Returns true if the chest is empty.
         /// </summary>
-        public bool IsEmpty
-        {
-            get { return ((gold <= 0) && (entries.Count <= 0)); }
-        }
+        public bool IsEmpty => (_gold <= 0) && (_entries.Count <= 0);
 
-        private string textureName;
+        private string _textureName;
         /// <summary>
         /// The content name of the texture for this chest.
         /// </summary>
         public string TextureName
         {
-            get { return textureName; }
-            set { textureName = value; }
+            get => _textureName;
+            set => _textureName = value;
         }
 
-        private Texture2D texture;
+        private Texture2D _texture;
         /// <summary>
         /// The texture for this chest.
         /// </summary>
         [ContentSerializerIgnore]
         public Texture2D Texture
         {
-            get { return texture; }
-            set { texture = value; }
+            get => _texture;
+            set => _texture = value;
         }
 
         /// <summary>
@@ -115,7 +109,7 @@ namespace RolePlayingGame.MapObjects
                 Texture = Texture,
                 TextureName = TextureName,
                 // recreate the list and entries, as counts may have changed
-                entries = new List<ContentEntry<Gear>>()
+                _entries = new List<ContentEntry<Gear>>()
             };
             foreach (ContentEntry<Gear> originalEntry in Entries)
             {

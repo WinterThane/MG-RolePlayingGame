@@ -7,19 +7,12 @@ namespace RolePlayingGame.Combat.Actions
         /// <summary>
         /// Returns true if the action is offensive, targeting the opponents.
         /// </summary>
-        public override bool IsOffensive
-        {
-            get { return false; }
-        }
-
+        public override bool IsOffensive => false;
 
         /// <summary>
         /// Returns true if this action requires a target.
         /// </summary>
-        public override bool IsTargetNeeded
-        {
-            get { return false; }
-        }
+        public override bool IsTargetNeeded => false;
 
         /// <summary>
         /// Starts a new combat stage.  Called right after the stage changes.
@@ -34,9 +27,7 @@ namespace RolePlayingGame.Combat.Actions
                     break;
 
                 case CombatActionStage.Executing:
-                    Combatant.CombatEffects.AddStatistics(new StatisticsValue(
-                        0, 0, 0, Combatant.Character.CharacterStatistics.PhysicalDefense,
-                        0, Combatant.Character.CharacterStatistics.MagicalDefense), 1);
+                    Combatant.CombatEffects.AddStatistics(new StatisticsValue(0, 0, 0, Combatant.Character.CharacterStatistics.PhysicalDefense, 0, Combatant.Character.CharacterStatistics.MagicalDefense), 1);
                     break;
             }
         }
@@ -44,19 +35,12 @@ namespace RolePlayingGame.Combat.Actions
         /// <summary>
         /// The heuristic used to compare actions of this type to similar ones.
         /// </summary>
-        public override int Heuristic
-        {
-            get
-            {
-                return 0;
-            }
-        }
+        public override int Heuristic => 0;
 
         /// <summary>
         /// Constructs a new DefendCombatAction object.
         /// </summary>
         /// <param name="character">The character performing the action.</param>
-        public DefendCombatAction(Combatant combatant)
-            : base(combatant) { }
+        public DefendCombatAction(Combatant combatant) : base(combatant) { }
     }
 }

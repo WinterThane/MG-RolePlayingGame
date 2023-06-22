@@ -13,48 +13,37 @@ namespace RolePlayingGame.Combat.Actions
         /// <summary>
         /// Returns true if the action is offensive, targeting the opponents.
         /// </summary>
-        public override bool IsOffensive
-        {
-            get { return true; }
-        }
-
+        public override bool IsOffensive => true;
 
         /// <summary>
         /// Returns true if this action requires a target.
         /// </summary>
-        public override bool IsTargetNeeded
-        {
-            get { return true; }
-        }
+        public override bool IsTargetNeeded => true;
 
         /// <summary>
         /// The speed at which the advancing character moves, in units per second.
         /// </summary>
-        private const float advanceSpeed = 300f;
-
+        private const float _advanceSpeed = 300f;
 
         /// <summary>
         /// The offset from the advance destination to the target position
         /// </summary>
-        private static readonly Vector2 advanceOffset = new Vector2(85f, 0f);
-
+        private static readonly Vector2 _advanceOffset = new Vector2(85f, 0f);
 
         /// <summary>
         /// The direction of the advancement.
         /// </summary>
-        private Vector2 advanceDirection;
-
+        private Vector2 _advanceDirection;
 
         /// <summary>
         /// The distance covered so far by the advance/return action
         /// </summary>
-        private float advanceDistanceCovered = 0f;
-
+        private float _advanceDistanceCovered = 0f;
 
         /// <summary>
         /// The total distance between the original combatant position and the target.
         /// </summary>
-        private float totalAdvanceDistance;
+        private float _totalAdvanceDistance;
 
         /// <summary>
         /// Starts a new combat stage.  Called right after the stage changes.
@@ -67,37 +56,35 @@ namespace RolePlayingGame.Combat.Actions
                 case CombatActionStage.Preparing: // called from Start()
                     {
                         // play the animation
-                        combatant.CombatSprite.PlayAnimation("Idle");
+                        _combatant.CombatSprite.PlayAnimation("Idle");
                     }
                     break;
 
                 case CombatActionStage.Advancing:
                     {
                         // play the animation
-                        combatant.CombatSprite.PlayAnimation("Walk");
+                        _combatant.CombatSprite.PlayAnimation("Walk");
                         // calculate the advancing destination
                         if (Target.Position.X > Combatant.Position.X)
                         {
-                            advanceDirection = Target.Position -
-                                Combatant.OriginalPosition - advanceOffset;
+                            _advanceDirection = Target.Position - Combatant.OriginalPosition - _advanceOffset;
                         }
                         else
                         {
-                            advanceDirection = Target.Position -
-                                Combatant.OriginalPosition + advanceOffset;
+                            _advanceDirection = Target.Position - Combatant.OriginalPosition + _advanceOffset;
                         }
-                        totalAdvanceDistance = advanceDirection.Length();
-                        advanceDirection.Normalize();
-                        advanceDistanceCovered = 0f;
+                        _totalAdvanceDistance = _advanceDirection.Length();
+                        _advanceDirection.Normalize();
+                        _advanceDistanceCovered = 0f;
                     }
                     break;
 
                 case CombatActionStage.Executing:
                     {
                         // play the animation
-                        combatant.CombatSprite.PlayAnimation("Attack");
+                        _combatant.CombatSprite.PlayAnimation("Attack");
                         // play the audio
-                        Weapon weapon = combatant.Character.GetEquippedWeapon();
+                        Weapon weapon = _combatant.Character.GetEquippedWeapon();
                         if (weapon != null)
                         {
                             AudioManager.PlayCue(weapon.SwingCueName);
@@ -112,20 +99,16 @@ namespace RolePlayingGame.Combat.Actions
                 case CombatActionStage.Returning:
                     {
                         // play the animation
-                        combatant.CombatSprite.PlayAnimation("Walk");
+                        _combatant.CombatSprite.PlayAnimation("Walk");
                         // calculate the damage
-                        Int32Range damageRange = combatant.Character.TargetDamageRange +
-                            combatant.Statistics.PhysicalOffense;
-                        Int32Range defenseRange = Target.Character.HealthDefenseRange +
-                            Target.Statistics.PhysicalDefense;
-                        int damage = Math.Max(0,
-                            damageRange.GenerateValue(Session.Random) -
-                            defenseRange.GenerateValue(Session.Random));
+                        Int32Range damageRange = _combatant.Character.TargetDamageRange + _combatant.Statistics.PhysicalOffense;
+                        Int32Range defenseRange = Target.Character.HealthDefenseRange + Target.Statistics.PhysicalDefense;
+                        int damage = Math.Max(0, damageRange.GenerateValue(Session.Random) - defenseRange.GenerateValue(Session.Random));
                         // apply the damage
                         if (damage > 0)
                         {
                             // play the audio
-                            Weapon weapon = combatant.Character.GetEquippedWeapon();
+                            Weapon weapon = _combatant.Character.GetEquippedWeapon();
                             if (weapon != null)
                             {
                                 AudioManager.PlayCue(weapon.HitCueName);
@@ -148,19 +131,18 @@ namespace RolePlayingGame.Combat.Actions
                 case CombatActionStage.Finishing:
                     {
                         // play the animation
-                        combatant.CombatSprite.PlayAnimation("Idle");
+                        _combatant.CombatSprite.PlayAnimation("Idle");
                     }
                     break;
 
                 case CombatActionStage.Complete:
                     {
                         // play the animation
-                        combatant.CombatSprite.PlayAnimation("Idle");
+                        _combatant.CombatSprite.PlayAnimation("Idle");
                     }
                     break;
             }
         }
-
 
         /// <summary>
         /// Update the action for the current stage.
@@ -177,31 +159,27 @@ namespace RolePlayingGame.Combat.Actions
                 case CombatActionStage.Advancing:
                     {
                         // move to the destination
-                        if (advanceDistanceCovered < totalAdvanceDistance)
+                        if (_advanceDistanceCovered < _totalAdvanceDistance)
                         {
-                            advanceDistanceCovered = Math.Min(advanceDistanceCovered +
-                                advanceSpeed * elapsedSeconds, totalAdvanceDistance);
+                            _advanceDistanceCovered = Math.Min(_advanceDistanceCovered + _advanceSpeed * elapsedSeconds, _totalAdvanceDistance);
                         }
                         // update the combatant's position
-                        combatant.Position = combatant.OriginalPosition +
-                            advanceDirection * advanceDistanceCovered;
+                        _combatant.Position = _combatant.OriginalPosition + _advanceDirection * _advanceDistanceCovered;
                     }
                     break;
 
                 case CombatActionStage.Returning:
                     {
                         // move to the destination
-                        if (advanceDistanceCovered > 0f)
+                        if (_advanceDistanceCovered > 0f)
                         {
-                            advanceDistanceCovered -= advanceSpeed * elapsedSeconds;
+                            _advanceDistanceCovered -= _advanceSpeed * elapsedSeconds;
                         }
-                        combatant.Position = combatant.OriginalPosition +
-                            advanceDirection * advanceDistanceCovered;
+                        _combatant.Position = _combatant.OriginalPosition + _advanceDirection * _advanceDistanceCovered;
                     }
                     break;
             }
         }
-
 
         /// <summary>
         /// Returns true if the combat action is ready to proceed to the next stage.
@@ -216,11 +194,10 @@ namespace RolePlayingGame.Combat.Actions
                         return true;
 
                     case CombatActionStage.Advancing: // ready to execute?
-                        if (advanceDistanceCovered >= totalAdvanceDistance)
+                        if (_advanceDistanceCovered >= _totalAdvanceDistance)
                         {
-                            advanceDistanceCovered = totalAdvanceDistance;
-                            combatant.Position = combatant.OriginalPosition +
-                                advanceDirection * totalAdvanceDistance;
+                            _advanceDistanceCovered = _totalAdvanceDistance;
+                            _combatant.Position = _combatant.OriginalPosition + _advanceDirection * _totalAdvanceDistance;
                             return true;
                         }
                         else
@@ -229,13 +206,13 @@ namespace RolePlayingGame.Combat.Actions
                         }
 
                     case CombatActionStage.Executing: // ready to return?
-                        return combatant.CombatSprite.IsPlaybackComplete;
+                        return _combatant.CombatSprite.IsPlaybackComplete;
 
                     case CombatActionStage.Returning: // ready to finish?
-                        if (advanceDistanceCovered <= 0f)
+                        if (_advanceDistanceCovered <= 0f)
                         {
-                            advanceDistanceCovered = 0f;
-                            combatant.Position = combatant.OriginalPosition;
+                            _advanceDistanceCovered = 0f;
+                            _combatant.Position = _combatant.OriginalPosition;
                             return true;
                         }
                         else
@@ -255,20 +232,13 @@ namespace RolePlayingGame.Combat.Actions
         /// <summary>
         /// The heuristic used to compare actions of this type to similar ones.
         /// </summary>
-        public override int Heuristic
-        {
-            get
-            {
-                return combatant.Character.TargetDamageRange.Average;
-            }
-        }
+        public override int Heuristic => _combatant.Character.TargetDamageRange.Average;
 
         /// <summary>
         /// Constructs a new MeleeCombatAction object.
         /// </summary>
         /// <param name="character">The character performing the action.</param>
-        public MeleeCombatAction(Combatant combatant)
-            : base(combatant) { }
+        public MeleeCombatAction(Combatant combatant) : base(combatant) { }
 
         /// <summary>
         /// Updates the action over time.
@@ -294,8 +264,7 @@ namespace RolePlayingGame.Combat.Actions
         {
             // draw the weapon overlay (typically blood)
             Weapon weapon = Combatant.Character.GetEquippedWeapon();
-            if (weapon != null && weapon.Overlay != null &&
-                !weapon.Overlay.IsPlaybackComplete)
+            if (weapon != null && weapon.Overlay != null && !weapon.Overlay.IsPlaybackComplete)
             {
                 weapon.Overlay.Draw(spriteBatch, Target.Position, 0f);
             }

@@ -38,13 +38,15 @@ namespace RolePlayingGame.Data
             }
 
             // generate the new value
-            StatisticsValue outputValue = new StatisticsValue();
-            outputValue.HealthPoints = HealthPointsRange.GenerateValue(usedRandom);
-            outputValue.MagicPoints = MagicPointsRange.GenerateValue(usedRandom);
-            outputValue.PhysicalOffense = PhysicalOffenseRange.GenerateValue(usedRandom);
-            outputValue.PhysicalDefense = PhysicalDefenseRange.GenerateValue(usedRandom);
-            outputValue.MagicalOffense = MagicalOffenseRange.GenerateValue(usedRandom);
-            outputValue.MagicalDefense = MagicalDefenseRange.GenerateValue(usedRandom);
+            StatisticsValue outputValue = new()
+            {
+                HealthPoints = HealthPointsRange.GenerateValue(usedRandom),
+                MagicPoints = MagicPointsRange.GenerateValue(usedRandom),
+                PhysicalOffense = PhysicalOffenseRange.GenerateValue(usedRandom),
+                PhysicalDefense = PhysicalDefenseRange.GenerateValue(usedRandom),
+                MagicalOffense = MagicalOffenseRange.GenerateValue(usedRandom),
+                MagicalDefense = MagicalDefenseRange.GenerateValue(usedRandom)
+            };
 
             return outputValue;
         }
@@ -54,7 +56,7 @@ namespace RolePlayingGame.Data
         /// </summary>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             sb.Append("HP:");
             sb.Append(HealthPointsRange.ToString());
@@ -82,7 +84,7 @@ namespace RolePlayingGame.Data
         /// </summary>
         public string GetModifierString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             bool firstStatistic = true;
 
             // add the health points value, if any
@@ -116,8 +118,7 @@ namespace RolePlayingGame.Data
             }
 
             // add the physical offense value, if any
-            if ((PhysicalOffenseRange.Minimum != 0) ||
-                (PhysicalOffenseRange.Maximum != 0))
+            if ((PhysicalOffenseRange.Minimum != 0) || (PhysicalOffenseRange.Maximum != 0))
             {
                 if (firstStatistic)
                 {
@@ -132,8 +133,7 @@ namespace RolePlayingGame.Data
             }
 
             // add the physical defense value, if any
-            if ((PhysicalDefenseRange.Minimum != 0) ||
-                (PhysicalDefenseRange.Maximum != 0))
+            if ((PhysicalDefenseRange.Minimum != 0) || (PhysicalDefenseRange.Maximum != 0))
             {
                 if (firstStatistic)
                 {
@@ -164,8 +164,7 @@ namespace RolePlayingGame.Data
             }
 
             // add the magical defense value, if any
-            if ((MagicalDefenseRange.Minimum != 0) ||
-                (MagicalDefenseRange.Maximum != 0))
+            if ((MagicalDefenseRange.Minimum != 0) || (MagicalDefenseRange.Maximum != 0))
             {
                 if (firstStatistic)
                 {
@@ -185,30 +184,24 @@ namespace RolePlayingGame.Data
         /// <summary>
         /// Add one value to another, piecewise, and return the result.
         /// </summary>
-        public static StatisticsRange Add(StatisticsRange value1,
-            StatisticsValue value2)
+        public static StatisticsRange Add(StatisticsRange value1, StatisticsValue value2)
         {
-            StatisticsRange outputRange = new StatisticsRange();
-            outputRange.HealthPointsRange =
-                value1.HealthPointsRange + value2.HealthPoints;
-            outputRange.MagicPointsRange =
-                value1.MagicPointsRange + value2.MagicPoints;
-            outputRange.PhysicalOffenseRange =
-                value1.PhysicalOffenseRange + value2.PhysicalOffense;
-            outputRange.PhysicalDefenseRange =
-                value1.PhysicalDefenseRange + value2.PhysicalDefense;
-            outputRange.MagicalOffenseRange =
-                value1.MagicalOffenseRange + value2.MagicalOffense;
-            outputRange.MagicalDefenseRange =
-                value1.MagicalDefenseRange + value2.MagicalDefense;
+            StatisticsRange outputRange = new()
+            {
+                HealthPointsRange = value1.HealthPointsRange + value2.HealthPoints,
+                MagicPointsRange = value1.MagicPointsRange + value2.MagicPoints,
+                PhysicalOffenseRange = value1.PhysicalOffenseRange + value2.PhysicalOffense,
+                PhysicalDefenseRange = value1.PhysicalDefenseRange + value2.PhysicalDefense,
+                MagicalOffenseRange = value1.MagicalOffenseRange + value2.MagicalOffense,
+                MagicalDefenseRange = value1.MagicalDefenseRange + value2.MagicalDefense
+            };
             return outputRange;
         }
 
         /// <summary>
         /// Add one value to another, piecewise, and return the result.
         /// </summary>
-        public static StatisticsRange operator +(StatisticsRange value1,
-            StatisticsValue value2)
+        public static StatisticsRange operator +(StatisticsRange value1, StatisticsValue value2)
         {
             return Add(value1, value2);
         }
@@ -218,17 +211,17 @@ namespace RolePlayingGame.Data
         /// </summary>
         public class StatisticsRangeReader : ContentTypeReader<StatisticsRange>
         {
-            protected override StatisticsRange Read(ContentReader input,
-                StatisticsRange existingInstance)
+            protected override StatisticsRange Read(ContentReader input, StatisticsRange existingInstance)
             {
-                StatisticsRange output = new StatisticsRange();
-
-                output.HealthPointsRange = input.ReadObject<Int32Range>();
-                output.MagicPointsRange = input.ReadObject<Int32Range>();
-                output.PhysicalOffenseRange = input.ReadObject<Int32Range>();
-                output.PhysicalDefenseRange = input.ReadObject<Int32Range>();
-                output.MagicalOffenseRange = input.ReadObject<Int32Range>();
-                output.MagicalDefenseRange = input.ReadObject<Int32Range>();
+                StatisticsRange output = new()
+                {
+                    HealthPointsRange = input.ReadObject<Int32Range>(),
+                    MagicPointsRange = input.ReadObject<Int32Range>(),
+                    PhysicalOffenseRange = input.ReadObject<Int32Range>(),
+                    PhysicalDefenseRange = input.ReadObject<Int32Range>(),
+                    MagicalOffenseRange = input.ReadObject<Int32Range>(),
+                    MagicalDefenseRange = input.ReadObject<Int32Range>()
+                };
 
                 return output;
             }

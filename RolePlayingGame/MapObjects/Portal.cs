@@ -6,38 +6,37 @@ namespace RolePlayingGame.MapObjects
 {
     public class Portal : ContentObject
     {
-        private string name;
+        private string _name;
         public string Name
         {
-            get { return name; }
-            set { name = value; }
+            get => _name;
+            set => _name = value;
         }
 
-        private Point landingMapPosition;
+        private Point _landingMapPosition;
         public Point LandingMapPosition
         {
-            get { return landingMapPosition; }
-            set { landingMapPosition = value; }
+            get => _landingMapPosition;
+            set => _landingMapPosition = value;
         }
 
-        private string destinationMapContentName;
+        private string _destinationMapContentName;
         public string DestinationMapContentName
         {
-            get { return destinationMapContentName; }
-            set { destinationMapContentName = value; }
+            get => _destinationMapContentName;
+            set => _destinationMapContentName = value;
         }
 
-        private string destinationMapPortalName;
+        private string _destinationMapPortalName;
         public string DestinationMapPortalName
         {
-            get { return destinationMapPortalName; }
-            set { destinationMapPortalName = value; }
+            get => _destinationMapPortalName;
+            set => _destinationMapPortalName = value;
         }
 
         public class PortalReader : ContentTypeReader<Portal>
         {
-            protected override Portal Read(ContentReader input,
-                Portal existingInstance)
+            protected override Portal Read(ContentReader input, Portal existingInstance)
             {
                 Portal portal = existingInstance;
                 if (portal == null)

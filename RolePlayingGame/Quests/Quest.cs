@@ -27,7 +27,7 @@ namespace RolePlayingGame.Quests
         /// <summary>
         /// The current stage of this quest.
         /// </summary>
-        private QuestStage stage = QuestStage.NotStarted;
+        private QuestStage _stage = QuestStage.NotStarted;
 
         /// <summary>
         /// The current stage of this quest.
@@ -35,45 +35,43 @@ namespace RolePlayingGame.Quests
         [ContentSerializerIgnore]
         public QuestStage Stage
         {
-            get { return stage; }
-            set { stage = value; }
+            get => _stage;
+            set => _stage = value;
         }
 
         /// <summary>
         /// The name of the quest.
         /// </summary>
-        private string name;
+        private string _name;
 
         /// <summary>
         /// The name of the quest.
         /// </summary>
         public string Name
         {
-            get { return name; }
-            set { name = value; }
+            get => _name;
+            set => _name = value;
         }
-
 
         /// <summary>
         /// A description of the quest.
         /// </summary>
-        private string description;
+        private string _description;
 
         /// <summary>
         /// A description of the quest.
         /// </summary>
         public string Description
         {
-            get { return description; }
-            set { description = value; }
+            get => _description;
+            set => _description = value;
         }
-
 
         /// <summary>
         /// A message describing the objective of the quest, 
         /// presented when the player receives the quest.
         /// </summary>
-        private string objectiveMessage;
+        private string _objectiveMessage;
 
         /// <summary>
         /// A message describing the objective of the quest, 
@@ -81,54 +79,49 @@ namespace RolePlayingGame.Quests
         /// </summary>
         public string ObjectiveMessage
         {
-            get { return objectiveMessage; }
-            set { objectiveMessage = value; }
+            get => _objectiveMessage;
+            set => _objectiveMessage = value;
         }
-
 
         /// <summary>
         /// A message announcing the completion of the quest, 
         /// presented when the player reaches the goals of the quest.
         /// </summary>
-        private string completionMessage;
+        private string _completionMessage;
 
         public string CompletionMessage
         {
-            get { return completionMessage; }
-            set { completionMessage = value; }
+            get => _completionMessage;
+            set => _completionMessage = value;
         }
 
         /// <summary>
         /// The gear that the player must have to finish the quest.
         /// </summary>
-        private List<QuestRequirement<Gear>> gearRequirements =
-            new List<QuestRequirement<Gear>>();
+        private List<QuestRequirement<Gear>> _gearRequirementsList = new();
 
         /// <summary>
         /// The gear that the player must have to finish the quest.
         /// </summary>
-        public List<QuestRequirement<Gear>> GearRequirements
+        public List<QuestRequirement<Gear>> GearRequirementsList
         {
-            get { return gearRequirements; }
-            set { gearRequirements = value; }
+            get => _gearRequirementsList;
+            set => _gearRequirementsList = value;
         }
-
 
         /// <summary>
         /// The monsters that must be killed to finish the quest.
         /// </summary>
-        private List<QuestRequirement<Monster>> monsterRequirements =
-            new List<QuestRequirement<Monster>>();
+        private List<QuestRequirement<Monster>> _monsterRequirementsList = new();
 
         /// <summary>
         /// The monsters that must be killed to finish the quest.
         /// </summary>
-        public List<QuestRequirement<Monster>> MonsterRequirements
+        public List<QuestRequirement<Monster>> MonsterRequirementsList
         {
-            get { return monsterRequirements; }
-            set { monsterRequirements = value; }
+            get => _monsterRequirementsList;
+            set => _monsterRequirementsList = value;
         }
-
 
         /// <summary>
         /// Returns true if all requirements for this quest have been met.
@@ -137,15 +130,14 @@ namespace RolePlayingGame.Quests
         {
             get
             {
-                foreach (QuestRequirement<Gear> gearRequirement in gearRequirements)
+                foreach (QuestRequirement<Gear> gearRequirement in _gearRequirementsList)
                 {
                     if (gearRequirement.CompletedCount < gearRequirement.Count)
                     {
                         return false;
                     }
                 }
-                foreach (QuestRequirement<Monster> monsterRequirement
-                    in monsterRequirements)
+                foreach (QuestRequirement<Monster> monsterRequirement in _monsterRequirementsList)
                 {
                     if (monsterRequirement.CompletedCount < monsterRequirement.Count)
                     {
@@ -159,37 +151,35 @@ namespace RolePlayingGame.Quests
         /// <summary>
         /// The fixed combat encounters added to the world when this quest is active.
         /// </summary>
-        private List<WorldEntry<FixedCombat>> fixedCombatEntries =
-            new List<WorldEntry<FixedCombat>>();
+        private List<WorldEntry<FixedCombat>> _fixedCombatEntriesList = new();
 
         /// <summary>
         /// The fixed combat encounters added to the world when this quest is active.
         /// </summary>
-        public List<WorldEntry<FixedCombat>> FixedCombatEntries
+        public List<WorldEntry<FixedCombat>> FixedCombatEntriesList
         {
-            get { return fixedCombatEntries; }
-            set { fixedCombatEntries = value; }
+            get => _fixedCombatEntriesList;
+            set => _fixedCombatEntriesList = value;
         }
 
+        /// <summary>
+        /// The chests added to thew orld when this quest is active.
+        /// </summary>
+        private List<WorldEntry<Chest>> _chestEntriesList = new();
 
         /// <summary>
         /// The chests added to thew orld when this quest is active.
         /// </summary>
-        private List<WorldEntry<Chest>> chestEntries = new List<WorldEntry<Chest>>();
-
-        /// <summary>
-        /// The chests added to thew orld when this quest is active.
-        /// </summary>
-        public List<WorldEntry<Chest>> ChestEntries
+        public List<WorldEntry<Chest>> ChestEntriesList
         {
-            get { return chestEntries; }
-            set { chestEntries = value; }
+            get => _chestEntriesList;
+            set => _chestEntriesList = value;
         }
 
         /// <summary>
         /// The map with the destination Npc, if any.
         /// </summary>
-        private string destinationMapContentName;
+        private string _destinationMapContentName;
 
         /// <summary>
         /// The map with the destination Npc, if any.
@@ -197,15 +187,14 @@ namespace RolePlayingGame.Quests
         [ContentSerializer(Optional = true)]
         public string DestinationMapContentName
         {
-            get { return destinationMapContentName; }
-            set { destinationMapContentName = value; }
+            get => _destinationMapContentName;
+            set => _destinationMapContentName = value;
         }
-
 
         /// <summary>
         /// The Npc that the party must visit to finish the quest, if any.
         /// </summary>
-        private string destinationNpcContentName;
+        private string _destinationNpcContentName;
 
         /// <summary>
         /// The Npc that the party must visit to finish the quest, if any.
@@ -213,15 +202,14 @@ namespace RolePlayingGame.Quests
         [ContentSerializer(Optional = true)]
         public string DestinationNpcContentName
         {
-            get { return destinationNpcContentName; }
-            set { destinationNpcContentName = value; }
+            get => _destinationNpcContentName;
+            set => _destinationNpcContentName = value;
         }
-
 
         /// <summary>
         /// The message shown when the party is eligible to complete the quest, if any.
         /// </summary>
-        private string destinationObjectiveMessage;
+        private string _destinationObjectiveMessage;
 
         /// <summary>
         /// The message shown when the party is eligible to complete the quest, if any.
@@ -229,14 +217,14 @@ namespace RolePlayingGame.Quests
         [ContentSerializer(Optional = true)]
         public string DestinationObjectiveMessage
         {
-            get { return destinationObjectiveMessage; }
-            set { destinationObjectiveMessage = value; }
+            get => _destinationObjectiveMessage;
+            set => _destinationObjectiveMessage = value;
         }
 
         /// <summary>
         /// The number of experience points given to each party member as a reward.
         /// </summary>
-        private int experienceReward;
+        private int _experienceReward;
 
         /// <summary>
         /// The number of experience points given to each party member as a reward.
@@ -244,15 +232,14 @@ namespace RolePlayingGame.Quests
         [ContentSerializer(Optional = true)]
         public int ExperienceReward
         {
-            get { return experienceReward; }
-            set { experienceReward = value; }
+            get => _experienceReward;
+            set => _experienceReward = value;
         }
-
 
         /// <summary>
         /// The amount of gold given to the party as a reward.
         /// </summary>
-        private int goldReward;
+        private int _goldReward;
 
         /// <summary>
         /// The amount of gold given to the party as a reward.
@@ -260,40 +247,38 @@ namespace RolePlayingGame.Quests
         [ContentSerializer(Optional = true)]
         public int GoldReward
         {
-            get { return goldReward; }
-            set { goldReward = value; }
+            get => _goldReward;
+            set => _goldReward = value;
         }
-
 
         /// <summary>
         /// The content names of the gear given to the party as a reward.
         /// </summary>
-        private List<string> gearRewardContentNames = new List<string>();
+        private List<string> _gearRewardContentNamesList = new();
 
         /// <summary>
         /// The content names of the gear given to the party as a reward.
         /// </summary>
         [ContentSerializer(Optional = true)]
-        public List<string> GearRewardContentNames
+        public List<string> GearRewardContentNamesList
         {
-            get { return gearRewardContentNames; }
-            set { gearRewardContentNames = value; }
+            get => _gearRewardContentNamesList;
+            set => _gearRewardContentNamesList = value;
         }
-
 
         /// <summary>
         /// The gear given to the party as a reward.
         /// </summary>
-        private List<Gear> gearRewards = new List<Gear>();
+        private List<Gear> _gearRewardsList = new();
 
         /// <summary>
         /// The gear given to the party as a reward.
         /// </summary>
         [ContentSerializerIgnore]
-        public List<Gear> GearRewards
+        public List<Gear> GearRewardsList
         {
-            get { return gearRewards; }
-            set { gearRewards = value; }
+            get => _gearRewardsList;
+            set => _gearRewardsList = value;
         }
 
         /// <summary>
@@ -319,57 +304,41 @@ namespace RolePlayingGame.Quests
                 quest.ObjectiveMessage = input.ReadString();
                 quest.CompletionMessage = input.ReadString();
 
-                quest.GearRequirements.AddRange(
-                    input.ReadObject<List<QuestRequirement<Gear>>>());
-                quest.MonsterRequirements.AddRange(
-                    input.ReadObject<List<QuestRequirement<Monster>>>());
+                quest.GearRequirementsList.AddRange(input.ReadObject<List<QuestRequirement<Gear>>>());
+                quest.MonsterRequirementsList.AddRange(input.ReadObject<List<QuestRequirement<Monster>>>());
 
                 // load the fixed combat entries
-                Random random = new Random();
-                quest.FixedCombatEntries.AddRange(
-                    input.ReadObject<List<WorldEntry<FixedCombat>>>());
-                foreach (WorldEntry<FixedCombat> fixedCombatEntry in
-                    quest.FixedCombatEntries)
+                Random random = new();
+                quest.FixedCombatEntriesList.AddRange(input.ReadObject<List<WorldEntry<FixedCombat>>>());
+                foreach (WorldEntry<FixedCombat> fixedCombatEntry in quest.FixedCombatEntriesList)
                 {
-                    fixedCombatEntry.Content =
-                        input.ContentManager.Load<FixedCombat>(
-                        System.IO.Path.Combine(@"Maps\FixedCombats",
-                        fixedCombatEntry.ContentName));
+                    fixedCombatEntry.Content = input.ContentManager.Load<FixedCombat>(Path.Combine("Maps/FixedCombats", fixedCombatEntry.ContentName));
                     // clone the map sprite in the entry, as there may be many entries
                     // per FixedCombat
-                    fixedCombatEntry.MapSprite =
-                        fixedCombatEntry.Content.Entries[0].Content.MapSprite.Clone()
-                        as AnimatingSprite;
+                    fixedCombatEntry.MapSprite = fixedCombatEntry.Content.Entries[0].Content.MapSprite.Clone() as AnimatingSprite;
                     // play the idle animation
-                    fixedCombatEntry.MapSprite.PlayAnimation("Idle",
-                        fixedCombatEntry.Direction);
+                    fixedCombatEntry.MapSprite.PlayAnimation("Idle", fixedCombatEntry.Direction);
                     // advance in a random amount so the animations aren't synchronized
-                    fixedCombatEntry.MapSprite.UpdateAnimation(
-                        4f * (float)random.NextDouble());
+                    fixedCombatEntry.MapSprite.UpdateAnimation(4f * (float)random.NextDouble());
                 }
 
-                quest.ChestEntries.AddRange(
-                    input.ReadObject<List<WorldEntry<Chest>>>());
-                foreach (WorldEntry<Chest> chestEntry in quest.ChestEntries)
+                quest.ChestEntriesList.AddRange(input.ReadObject<List<WorldEntry<Chest>>>());
+                foreach (WorldEntry<Chest> chestEntry in quest.ChestEntriesList)
                 {
-                    chestEntry.Content = input.ContentManager.Load<Chest>(
-                        System.IO.Path.Combine(@"Maps\Chests",
-                        chestEntry.ContentName)).Clone() as Chest;
+                    chestEntry.Content = input.ContentManager.Load<Chest>(Path.Combine("Maps/Chests", chestEntry.ContentName)).Clone() as Chest;
                 }
 
                 quest.DestinationMapContentName = input.ReadString();
                 quest.DestinationNpcContentName = input.ReadString();
                 quest.DestinationObjectiveMessage = input.ReadString();
 
-                quest.experienceReward = input.ReadInt32();
-                quest.goldReward = input.ReadInt32();
+                quest._experienceReward = input.ReadInt32();
+                quest._goldReward = input.ReadInt32();
 
-                quest.GearRewardContentNames.AddRange(
-                    input.ReadObject<List<string>>());
-                foreach (string contentName in quest.GearRewardContentNames)
+                quest.GearRewardContentNamesList.AddRange(input.ReadObject<List<string>>());
+                foreach (string contentName in quest.GearRewardContentNamesList)
                 {
-                    quest.GearRewards.Add(input.ContentManager.Load<Gear>(
-                        Path.Combine("Gear", contentName)));
+                    quest.GearRewardsList.Add(input.ContentManager.Load<Gear>(Path.Combine("Gear", contentName)));
                 }
 
                 return quest;
@@ -378,35 +347,39 @@ namespace RolePlayingGame.Quests
 
         public object Clone()
         {
-            Quest quest = new Quest();
-
-            quest.AssetName = AssetName;
-            foreach (WorldEntry<Chest> chestEntry in chestEntries)
+            Quest quest = new()
             {
-                WorldEntry<Chest> worldEntry = new WorldEntry<Chest>();
-                worldEntry.Content = chestEntry.Content.Clone() as Chest;
-                worldEntry.ContentName = chestEntry.ContentName;
-                worldEntry.Count = chestEntry.Count;
-                worldEntry.Direction = chestEntry.Direction;
-                worldEntry.MapContentName = chestEntry.MapContentName;
-                worldEntry.MapPosition = chestEntry.MapPosition;
-                quest.chestEntries.Add(worldEntry);
+                AssetName = AssetName
+            };
+
+            foreach (WorldEntry<Chest> chestEntry in _chestEntriesList)
+            {
+                WorldEntry<Chest> worldEntry = new()
+                {
+                    Content = chestEntry.Content.Clone() as Chest,
+                    ContentName = chestEntry.ContentName,
+                    Count = chestEntry.Count,
+                    Direction = chestEntry.Direction,
+                    MapContentName = chestEntry.MapContentName,
+                    MapPosition = chestEntry.MapPosition
+                };
+                quest._chestEntriesList.Add(worldEntry);
             }
-            quest.completionMessage = completionMessage;
-            quest.description = description;
-            quest.destinationMapContentName = destinationMapContentName;
-            quest.destinationNpcContentName = destinationNpcContentName;
-            quest.destinationObjectiveMessage = destinationObjectiveMessage;
-            quest.experienceReward = experienceReward;
-            quest.fixedCombatEntries.AddRange(fixedCombatEntries);
-            quest.gearRequirements.AddRange(gearRequirements);
-            quest.gearRewardContentNames.AddRange(gearRewardContentNames);
-            quest.gearRewards.AddRange(gearRewards);
-            quest.goldReward = goldReward;
-            quest.monsterRequirements.AddRange(monsterRequirements);
-            quest.name = name;
-            quest.objectiveMessage = objectiveMessage;
-            quest.stage = stage;
+            quest._completionMessage = _completionMessage;
+            quest._description = _description;
+            quest._destinationMapContentName = _destinationMapContentName;
+            quest._destinationNpcContentName = _destinationNpcContentName;
+            quest._destinationObjectiveMessage = _destinationObjectiveMessage;
+            quest._experienceReward = _experienceReward;
+            quest._fixedCombatEntriesList.AddRange(_fixedCombatEntriesList);
+            quest._gearRequirementsList.AddRange(_gearRequirementsList);
+            quest._gearRewardContentNamesList.AddRange(_gearRewardContentNamesList);
+            quest._gearRewardsList.AddRange(_gearRewardsList);
+            quest._goldReward = _goldReward;
+            quest._monsterRequirementsList.AddRange(_monsterRequirementsList);
+            quest._name = _name;
+            quest._objectiveMessage = _objectiveMessage;
+            quest._stage = _stage;
 
             return quest;
         }

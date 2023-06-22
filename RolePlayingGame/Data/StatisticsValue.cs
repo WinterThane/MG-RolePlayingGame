@@ -27,21 +27,12 @@ namespace RolePlayingGame.Data
         /// <summary>
         /// Returns true if this object is trivial - all values at zero.
         /// </summary>
-        public bool IsZero
-        {
-            get
-            {
-                return ((HealthPoints == 0) && (MagicPoints == 0) &&
-                    (PhysicalOffense == 0) && (PhysicalDefense == 0) &&
-                    (MagicalOffense == 0) && (MagicalDefense == 0));
-            }
-        }
+        public bool IsZero => (HealthPoints == 0) && (MagicPoints == 0) && (PhysicalOffense == 0) && (PhysicalDefense == 0) && (MagicalOffense == 0) && (MagicalDefense == 0);
 
         /// <summary>
         /// Create a new StatisticsValue object, fully specified by the parameters.
         /// </summary>
-        public StatisticsValue(int healthPoints, int magicPoints, int physicalOffense,
-            int physicalDefense, int magicalOffense, int magicalDefense)
+        public StatisticsValue(int healthPoints, int magicPoints, int physicalOffense, int physicalDefense, int magicalOffense, int magicalDefense)
         {
             HealthPoints = healthPoints;
             MagicPoints = magicPoints;
@@ -54,30 +45,24 @@ namespace RolePlayingGame.Data
         /// <summary>
         /// Add one value to another, piecewise, and return the result.
         /// </summary>
-        public static StatisticsValue Add(StatisticsValue value1,
-            StatisticsValue value2)
+        public static StatisticsValue Add(StatisticsValue value1, StatisticsValue value2)
         {
-            StatisticsValue outputValue = new StatisticsValue();
-            outputValue.HealthPoints =
-                value1.HealthPoints + value2.HealthPoints;
-            outputValue.MagicPoints =
-                value1.MagicPoints + value2.MagicPoints;
-            outputValue.PhysicalOffense =
-                value1.PhysicalOffense + value2.PhysicalOffense;
-            outputValue.PhysicalDefense =
-                value1.PhysicalDefense + value2.PhysicalDefense;
-            outputValue.MagicalOffense =
-                value1.MagicalOffense + value2.MagicalOffense;
-            outputValue.MagicalDefense =
-                value1.MagicalDefense + value2.MagicalDefense;
+            StatisticsValue outputValue = new()
+            {
+                HealthPoints = value1.HealthPoints + value2.HealthPoints,
+                MagicPoints = value1.MagicPoints + value2.MagicPoints,
+                PhysicalOffense = value1.PhysicalOffense + value2.PhysicalOffense,
+                PhysicalDefense = value1.PhysicalDefense + value2.PhysicalDefense,
+                MagicalOffense = value1.MagicalOffense + value2.MagicalOffense,
+                MagicalDefense = value1.MagicalDefense + value2.MagicalDefense
+            };
             return outputValue;
         }
 
         /// <summary>
         /// Add one value to another, piecewise, and return the result.
         /// </summary>
-        public static StatisticsValue operator +(StatisticsValue value1,
-            StatisticsValue value2)
+        public static StatisticsValue operator +(StatisticsValue value1, StatisticsValue value2)
         {
             return Add(value1, value2);
         }
@@ -85,30 +70,24 @@ namespace RolePlayingGame.Data
         /// <summary>
         /// Subtract one value from another, piecewise, and return the result.
         /// </summary>
-        public static StatisticsValue Subtract(StatisticsValue value1,
-            StatisticsValue value2)
+        public static StatisticsValue Subtract(StatisticsValue value1, StatisticsValue value2)
         {
-            StatisticsValue outputValue = new StatisticsValue();
-            outputValue.HealthPoints =
-                value1.HealthPoints - value2.HealthPoints;
-            outputValue.MagicPoints =
-                value1.MagicPoints - value2.MagicPoints;
-            outputValue.PhysicalOffense =
-                value1.PhysicalOffense - value2.PhysicalOffense;
-            outputValue.PhysicalDefense =
-                value1.PhysicalDefense - value2.PhysicalDefense;
-            outputValue.MagicalOffense =
-                value1.MagicalOffense - value2.MagicalOffense;
-            outputValue.MagicalDefense =
-                value1.MagicalDefense - value2.MagicalDefense;
+            StatisticsValue outputValue = new()
+            {
+                HealthPoints = value1.HealthPoints - value2.HealthPoints,
+                MagicPoints = value1.MagicPoints - value2.MagicPoints,
+                PhysicalOffense = value1.PhysicalOffense - value2.PhysicalOffense,
+                PhysicalDefense = value1.PhysicalDefense - value2.PhysicalDefense,
+                MagicalOffense = value1.MagicalOffense - value2.MagicalOffense,
+                MagicalDefense = value1.MagicalDefense - value2.MagicalDefense
+            };
             return outputValue;
         }
 
         /// <summary>
         /// Subtract one value from another, piecewise, and return the result.
         /// </summary>
-        public static StatisticsValue operator -(StatisticsValue value1,
-            StatisticsValue value2)
+        public static StatisticsValue operator -(StatisticsValue value1, StatisticsValue value2)
         {
             return Subtract(value1, value2);
         }
@@ -125,7 +104,6 @@ namespace RolePlayingGame.Data
             MagicalOffense = Math.Max(MagicalOffense, minimumValue.MagicalOffense);
             MagicalDefense = Math.Max(MagicalDefense, minimumValue.MagicalDefense);
         }
-
 
         /// <summary>
         /// Clamp all values piecewise with the provided maximum values.
@@ -145,7 +123,7 @@ namespace RolePlayingGame.Data
         /// </summary>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             sb.Append("HP:");
             sb.Append(HealthPoints.ToString());
@@ -168,13 +146,12 @@ namespace RolePlayingGame.Data
             return sb.ToString();
         }
 
-
         /// <summary>
         /// Builds a string that describes a modifier, where non-zero stats are skipped.
         /// </summary>
         public string GetModifierString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             bool firstStatistic = true;
 
             // add the health points value, if any
@@ -272,17 +249,17 @@ namespace RolePlayingGame.Data
 
         public class StatisticsValueReader : ContentTypeReader<StatisticsValue>
         {
-            protected override StatisticsValue Read(ContentReader input,
-                StatisticsValue existingInstance)
+            protected override StatisticsValue Read(ContentReader input, StatisticsValue existingInstance)
             {
-                StatisticsValue output = new StatisticsValue();
-
-                output.HealthPoints = input.ReadInt32();
-                output.MagicPoints = input.ReadInt32();
-                output.PhysicalOffense = input.ReadInt32();
-                output.PhysicalDefense = input.ReadInt32();
-                output.MagicalOffense = input.ReadInt32();
-                output.MagicalDefense = input.ReadInt32();
+                StatisticsValue output = new()
+                {
+                    HealthPoints = input.ReadInt32(),
+                    MagicPoints = input.ReadInt32(),
+                    PhysicalOffense = input.ReadInt32(),
+                    PhysicalDefense = input.ReadInt32(),
+                    MagicalOffense = input.ReadInt32(),
+                    MagicalDefense = input.ReadInt32()
+                };
 
                 return output;
             }

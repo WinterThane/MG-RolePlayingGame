@@ -14,7 +14,6 @@ namespace RolePlayingGame.Combat.Actions
             get;
         }
 
-
         /// <summary>
         /// Returns true if this action requires a target.
         /// </summary>
@@ -50,7 +49,6 @@ namespace RolePlayingGame.Combat.Actions
             /// </example>
             Advancing,
 
-
             /// <summary>
             /// The action is being applied to the target(s).
             /// </summary>
@@ -75,7 +73,6 @@ namespace RolePlayingGame.Combat.Actions
             Complete,
         };
 
-
         /// <summary>
         /// The current state of the action.
         /// </summary>
@@ -84,11 +81,7 @@ namespace RolePlayingGame.Combat.Actions
         /// <summary>
         /// The current state of the action.
         /// </summary>
-        public CombatActionStage Stage
-        {
-            get { return stage; }
-        }
-
+        public CombatActionStage Stage => stage;
 
         /// <summary>
         /// Starts a new combat stage.  Called right after the stage changes.
@@ -117,7 +110,6 @@ namespace RolePlayingGame.Combat.Actions
                     break;
             }
         }
-
 
         /// <summary>
         /// Update the action for the current stage.
@@ -152,7 +144,6 @@ namespace RolePlayingGame.Combat.Actions
             }
         }
 
-
         /// <summary>
         /// Returns true if the combat action is ready to proceed to the next stage.
         /// </summary>
@@ -186,43 +177,32 @@ namespace RolePlayingGame.Combat.Actions
         /// <summary>
         /// The character performing this action.
         /// </summary>
-        protected Combatant combatant;
+        protected Combatant _combatant;
 
         /// <summary>
         /// The character performing this action.
         /// </summary>
-        public Combatant Combatant
-        {
-            get { return combatant; }
-        }
-
+        public Combatant Combatant => _combatant;
 
         /// <summary>
         /// Returns true if the character can use this action.
         /// </summary>
-        public virtual bool IsCharacterValidUser
-        {
-            get { return true; }
-        }
+        public virtual bool IsCharacterValidUser => true;
 
         /// <summary>
         /// The target of the action.
         /// </summary>
         public Combatant Target = null;
 
+        /// <summary>
+        /// The number of adjacent targets in each direction that are affected.
+        /// </summary>
+        protected int _adjacentTargets = 0;
 
         /// <summary>
         /// The number of adjacent targets in each direction that are affected.
         /// </summary>
-        protected int adjacentTargets = 0;
-
-        /// <summary>
-        /// The number of adjacent targets in each direction that are affected.
-        /// </summary>
-        public int AdjacentTargets
-        {
-            get { return adjacentTargets; }
-        }
+        public int AdjacentTargets => _adjacentTargets;
 
         /// <summary>
         /// The heuristic used to compare actions of this type to similar ones.
@@ -232,12 +212,10 @@ namespace RolePlayingGame.Combat.Actions
             get;
         }
 
-
         /// <summary>
         /// Compares the combat actions by their heuristic, in descending order.
         /// </summary>
-        public static int CompareCombatActionsByHeuristic(
-            CombatAction a, CombatAction b)
+        public static int CompareCombatActionsByHeuristic(CombatAction a, CombatAction b)
         {
             return b.Heuristic.CompareTo(a.Heuristic);
         }
@@ -255,11 +233,10 @@ namespace RolePlayingGame.Combat.Actions
             }
 
             // assign the parameter
-            this.combatant = combatant;
+            _combatant = combatant;
 
             Reset();
         }
-
 
         /// <summary>
         /// Reset the action so that it may be started again.
@@ -269,7 +246,6 @@ namespace RolePlayingGame.Combat.Actions
             // set the state to not-started
             stage = CombatActionStage.NotStarted;
         }
-
 
         /// <summary>
         /// Start executing the combat action.
@@ -290,8 +266,7 @@ namespace RolePlayingGame.Combat.Actions
             UpdateCurrentStage(gameTime);
 
             // if the action is ready for the next stage, then advance
-            if ((stage != CombatActionStage.NotStarted) &&
-                (stage != CombatActionStage.Complete) && IsReadyForNextStage)
+            if ((stage != CombatActionStage.NotStarted) && (stage != CombatActionStage.Complete) && IsReadyForNextStage)
             {
                 switch (stage)
                 {

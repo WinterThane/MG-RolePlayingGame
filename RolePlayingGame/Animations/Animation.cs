@@ -8,7 +8,7 @@ namespace RolePlayingGame.Animations
         /// <summary>
         /// The name of the animation.
         /// </summary>
-        private string name;
+        private string _name;
 
         /// <summary>
         /// The name of the animation.
@@ -16,69 +16,64 @@ namespace RolePlayingGame.Animations
         [ContentSerializer(Optional = true)]
         public string Name
         {
-            get { return name; }
-            set { name = value; }
+            get => _name;
+            set => _name = value;
         }
-
-
 
         /// <summary>
         /// The first frame of the animation.
         /// </summary>
-        private int startingFrame;
+        private int _startingFrame;
 
         /// <summary>
         /// The first frame of the animation.
         /// </summary>
         public int StartingFrame
         {
-            get { return startingFrame; }
-            set { startingFrame = value; }
+            get => _startingFrame;
+            set => _startingFrame = value;
         }
-
 
         /// <summary>
         /// The last frame of the animation.
         /// </summary>
-        private int endingFrame;
+        private int _endingFrame;
 
         /// <summary>
         /// The last frame of the animation.
         /// </summary>
         public int EndingFrame
         {
-            get { return endingFrame; }
-            set { endingFrame = value; }
+            get => _endingFrame;
+            set => _endingFrame = value;
         }
-
 
         /// <summary>
         /// The interval between frames of the animation.
         /// </summary>
-        private int interval;
+        private int _interval;
 
         /// <summary>
         /// The interval between frames of the animation.
         /// </summary>
         public int Interval
         {
-            get { return interval; }
-            set { interval = value; }
+            get => _interval;
+            set => _interval = value;
         }
-
 
         /// <summary>
         /// If true, the animation loops.
         /// </summary>
-        private bool isLoop;
+        private bool _isLoop;
 
         /// <summary>
         /// If true, the animation loops.
         /// </summary>
         public bool IsLoop
         {
-            get { return isLoop; }
-            set { isLoop = value; }
+            get => _isLoop;
+            set => _isLoop = value;
         }
 
         /// <summary>
@@ -86,18 +81,16 @@ namespace RolePlayingGame.Animations
         /// </summary>
         public Animation() { }
 
-
         /// <summary>
         /// Creates a new Animation object by full specification.
         /// </summary>
-        public Animation(string name, int startingFrame, int endingFrame, int interval,
-            bool isLoop)
+        public Animation(string name, int startingFrame, int endingFrame, int interval, bool isLoop)
         {
-            this.Name = name;
-            this.StartingFrame = startingFrame;
-            this.EndingFrame = endingFrame;
-            this.Interval = interval;
-            this.IsLoop = isLoop;
+            Name = name;
+            StartingFrame = startingFrame;
+            EndingFrame = endingFrame;
+            Interval = interval;
+            IsLoop = isLoop;
         }
 
         /// <summary>
@@ -108,8 +101,7 @@ namespace RolePlayingGame.Animations
             /// <summary>
             /// Read an Animation object from the content pipeline.
             /// </summary>
-            protected override Animation Read(ContentReader input,
-                Animation existingInstance)
+            protected override Animation Read(ContentReader input, Animation existingInstance)
             {
                 Animation animation = existingInstance;
                 if (animation == null)

@@ -13,63 +13,59 @@ namespace RolePlayingGame.MapObjects
         /// <summary>
         /// The chance of a random combat starting with each step, from 1 to 100.
         /// </summary>
-        private int combatProbability;
+        private int _combatProbability;
 
         /// <summary>
         /// The chance of a random combat starting with each step, from 1 to 100.
         /// </summary>
         public int CombatProbability
         {
-            get { return combatProbability; }
-            set { combatProbability = value; }
+            get => _combatProbability;
+            set => _combatProbability = value;
         }
-
 
         /// <summary>
         /// The chance of a successful escape from a random combat, from 1 to 100.
         /// </summary>
-        private int fleeProbability;
+        private int _fleeProbability;
 
         /// <summary>
         /// The chance of a successful escape from a random combat, from 1 to 100.
         /// </summary>
         public int FleeProbability
         {
-            get { return fleeProbability; }
-            set { fleeProbability = value; }
+            get => _fleeProbability;
+            set => _fleeProbability = value;
         }
-
 
         /// <summary>
         /// The range of possible quantities of monsters in the random encounter.
         /// </summary>
-        private Int32Range monsterCountRange;
+        private Int32Range _monsterCountRange;
 
         /// <summary>
         /// The range of possible quantities of monsters in the random encounter.
         /// </summary>
         public Int32Range MonsterCountRange
         {
-            get { return monsterCountRange; }
-            set { monsterCountRange = value; }
+            get => _monsterCountRange;
+            set => _monsterCountRange = value;
         }
 
+        /// <summary>
+        /// The monsters that might be in the random encounter, 
+        /// along with quantity and weight.
+        /// </summary>
+        private List<WeightedContentEntry<Monster>> _entriesList = new();
 
         /// <summary>
         /// The monsters that might be in the random encounter, 
         /// along with quantity and weight.
         /// </summary>
-        private List<WeightedContentEntry<Monster>> entries =
-            new List<WeightedContentEntry<Monster>>();
-
-        /// <summary>
-        /// The monsters that might be in the random encounter, 
-        /// along with quantity and weight.
-        /// </summary>
-        public List<WeightedContentEntry<Monster>> Entries
+        public List<WeightedContentEntry<Monster>> EntriesList
         {
-            get { return entries; }
-            set { entries = value; }
+            get => _entriesList;
+            set => _entriesList = value;
         }
 
         /// <summary>
@@ -77,8 +73,7 @@ namespace RolePlayingGame.MapObjects
         /// </summary>
         public class RandomCombatReader : ContentTypeReader<RandomCombat>
         {
-            protected override RandomCombat Read(ContentReader input,
-                RandomCombat existingInstance)
+            protected override RandomCombat Read(ContentReader input, RandomCombat existingInstance)
             {
                 RandomCombat randomCombat = existingInstance;
                 if (randomCombat == null)
@@ -89,13 +84,10 @@ namespace RolePlayingGame.MapObjects
                 randomCombat.CombatProbability = input.ReadInt32();
                 randomCombat.FleeProbability = input.ReadInt32();
                 randomCombat.MonsterCountRange = input.ReadObject<Int32Range>();
-                randomCombat.Entries.AddRange(
-                    input.ReadObject<List<WeightedContentEntry<Monster>>>());
-                foreach (ContentEntry<Monster> randomCombatEntry in randomCombat.Entries)
+                randomCombat.EntriesList.AddRange(input.ReadObject<List<WeightedContentEntry<Monster>>>());
+                foreach (ContentEntry<Monster> randomCombatEntry in randomCombat.EntriesList)
                 {
-                    randomCombatEntry.Content = input.ContentManager.Load<Monster>(
-                        Path.Combine(@"Characters\Monsters",
-                            randomCombatEntry.ContentName));
+                    randomCombatEntry.Content = input.ContentManager.Load<Monster>(Path.Combine("Characters/Monsters", randomCombatEntry.ContentName));
                 }
 
                 return randomCombat;

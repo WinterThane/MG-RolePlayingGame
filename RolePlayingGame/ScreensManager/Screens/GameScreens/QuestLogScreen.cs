@@ -33,9 +33,9 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             List<Quest> quests = new List<Quest>();
             for (int i = 0; i <= Session.CurrentQuestIndex; i++)
             {
-                if (i < Session.QuestLine.Quests.Count)
+                if (i < Session.QuestLine.QuestsList.Count)
                 {
-                    quests.Add(Session.QuestLine.Quests[i]);
+                    quests.Add(Session.QuestLine.QuestsList[i]);
                 }
             }
 
@@ -52,13 +52,13 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             this.initialDetailQuest = initialDetailQuest;
 
             // configure the menu text
-            titleText = Session.QuestLine.Name;
-            selectButtonText = "Select";
-            backButtonText = "Back";
-            xButtonText = String.Empty;
-            yButtonText = String.Empty;
-            leftTriggerText = "Equipment";
-            rightTriggerText = "Statistics";
+            _titleText = Session.QuestLine.Name;
+            _selectButtonText = "Select";
+            _backButtonText = "Back";
+            _xButtonText = String.Empty;
+            _yButtonText = String.Empty;
+            _leftTriggerText = "Equipment";
+            _rightTriggerText = "Statistics";
 
             // select the current quest
             SelectedIndex = Session.CurrentQuestIndex;
@@ -75,7 +75,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             {
                 ScreenManager.AddScreen(new QuestDetailsScreen(initialDetailQuest));
                 // if the selected quest is in the list, make sure it's visible
-                SelectedIndex = Session.QuestLine.Quests.IndexOf(initialDetailQuest);
+                SelectedIndex = Session.QuestLine.QuestsList.IndexOf(initialDetailQuest);
                 // only open the screen once
                 initialDetailQuest = null;
             }
@@ -132,7 +132,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
 
             // draw the name
             Color color = isSelected ? Fonts.HighlightColor : Fonts.DisplayColor;
-            drawPosition.Y += listLineSpacing / 4;
+            drawPosition.Y += _listLineSpacing / 4;
             drawPosition.X += nameColumnInterval;
             spriteBatch.DrawString(Fonts.GearInfoFont, entry.Name, drawPosition, color);
 
@@ -162,7 +162,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             // turn on or off the select button
             if (isSelected)
             {
-                selectButtonText = "Select";
+                _selectButtonText = "Select";
             }
         }
 
@@ -179,7 +179,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         protected override void DrawColumnHeaders()
         {
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-            Vector2 position = listEntryStartPosition;
+            Vector2 position = _listEntryStartPosition;
 
             position.X += nameColumnInterval;
             if (!String.IsNullOrEmpty(nameColumnText))

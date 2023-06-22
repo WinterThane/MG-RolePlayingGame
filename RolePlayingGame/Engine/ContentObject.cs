@@ -9,8 +9,8 @@ namespace RolePlayingGame.Engine
         [ContentSerializerIgnore]
         public string AssetName
         {
-            get { return _assetName; }
-            set { _assetName = value; }
+            get => _assetName;
+            set => _assetName = value;
         }
     }
 }

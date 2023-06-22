@@ -91,7 +91,7 @@ namespace RolePlayingGame.SessionObjects
                  (singleton.quest.Stage == Quest.QuestStage.RequirementsMet)))
             {
                 MapEntry<FixedCombat> fixedCombatEntry =
-                    singleton.quest.FixedCombatEntries.Find(
+                    singleton.quest.FixedCombatEntriesList.Find(
                         delegate (WorldEntry<FixedCombat> worldEntry)
                         {
                             return
@@ -122,7 +122,7 @@ namespace RolePlayingGame.SessionObjects
             // look for chests from the current quest
             if (singleton.quest != null)
             {
-                MapEntry<Chest> chestEntry = singleton.quest.ChestEntries.Find(
+                MapEntry<Chest> chestEntry = singleton.quest.ChestEntriesList.Find(
                     delegate (WorldEntry<Chest> worldEntry)
                     {
                         return
@@ -383,12 +383,12 @@ namespace RolePlayingGame.SessionObjects
             get
             {
                 if ((singleton == null) || (singleton.questLine == null) ||
-                    (singleton.questLine.QuestContentNames == null))
+                    (singleton.questLine.QuestContentNamesList == null))
                 {
                     return false;
                 }
                 return singleton.currentQuestIndex >=
-                    singleton.questLine.QuestContentNames.Count;
+                    singleton.questLine.QuestContentNamesList.Count;
             }
         }
 
@@ -433,10 +433,10 @@ namespace RolePlayingGame.SessionObjects
             }
 
             // if we don't have a quest, then take the next one from teh list
-            if ((quest == null) && (questLine.Quests.Count > 0) &&
+            if ((quest == null) && (questLine.QuestsList.Count > 0) &&
                 !Session.IsQuestLineComplete)
             {
-                quest = questLine.Quests[currentQuestIndex];
+                quest = questLine.QuestsList[currentQuestIndex];
                 quest.Stage = Quest.QuestStage.NotStarted;
                 // clear the monster-kill record
                 party.MonsterKills.Clear();
@@ -464,7 +464,7 @@ namespace RolePlayingGame.SessionObjects
                     case Quest.QuestStage.InProgress:
                         // update monster requirements
                         foreach (QuestRequirement<Monster> monsterRequirement in
-                            quest.MonsterRequirements)
+                            quest.MonsterRequirementsList)
                         {
                             monsterRequirement.CompletedCount = 0;
                             Monster monster = monsterRequirement.Content;
@@ -476,7 +476,7 @@ namespace RolePlayingGame.SessionObjects
                         }
                         // update gear requirements
                         foreach (QuestRequirement<Gear> gearRequirement in
-                            quest.GearRequirements)
+                            quest.GearRequirementsList)
                         {
                             gearRequirement.CompletedCount = 0;
                             foreach (ContentEntry<Gear> entry in party.Inventory)
@@ -492,7 +492,7 @@ namespace RolePlayingGame.SessionObjects
                         {
                             // immediately remove the gear
                             foreach (QuestRequirement<Gear> gearRequirement in
-                                quest.GearRequirements)
+                                quest.GearRequirementsList)
                             {
                                 Gear gear = gearRequirement.Content;
                                 party.RemoveFromInventory(gear,
@@ -531,7 +531,7 @@ namespace RolePlayingGame.SessionObjects
                         // show the quest rewards screen
                         RewardsScreen rewardsScreen =
                             new RewardsScreen(RewardsScreen.RewardScreenMode.Quest,
-                            Quest.ExperienceReward, Quest.GoldReward, Quest.GearRewards);
+                            Quest.ExperienceReward, Quest.GoldReward, Quest.GearRewardsList);
                         screenManager.AddScreen(rewardsScreen);
                         // advance to the next quest
                         currentQuestIndex++;
@@ -590,7 +590,7 @@ namespace RolePlayingGame.SessionObjects
             // look for the map entry within the quest
             if (singleton.quest != null)
             {
-                int removedEntries = singleton.quest.ChestEntries.RemoveAll(
+                int removedEntries = singleton.quest.ChestEntriesList.RemoveAll(
                     delegate (WorldEntry<Chest> entry)
                     {
                         return ((entry.ContentName == mapEntry.ContentName) &&
@@ -662,7 +662,7 @@ namespace RolePlayingGame.SessionObjects
             // look for the map entry within the quest
             if (singleton.quest != null)
             {
-                int removedEntries = singleton.quest.FixedCombatEntries.RemoveAll(
+                int removedEntries = singleton.quest.FixedCombatEntriesList.RemoveAll(
                     delegate (WorldEntry<FixedCombat> entry)
                     {
                         return ((entry.ContentName == mapEntry.ContentName) &&
@@ -792,7 +792,7 @@ namespace RolePlayingGame.SessionObjects
 
 
             // look for the map entry within the quest
-            if ((singleton.quest != null) && singleton.quest.ChestEntries.Exists(
+            if ((singleton.quest != null) && singleton.quest.ChestEntriesList.Exists(
                 delegate (WorldEntry<Chest> entry)
                 {
                     return ((entry.ContentName == mapEntry.ContentName) &&
@@ -920,7 +920,7 @@ namespace RolePlayingGame.SessionObjects
             if ((removedQuestChests != null) && (removedQuestChests.Count > 0))
             {
                 // check each removed-content entry
-                quest.ChestEntries.RemoveAll(
+                quest.ChestEntriesList.RemoveAll(
                     delegate (WorldEntry<Chest> worldEntry)
                     {
                         return (removedQuestChests.Exists(
@@ -942,7 +942,7 @@ namespace RolePlayingGame.SessionObjects
                 (removedQuestFixedCombats.Count > 0))
             {
                 // check each removed-content entry
-                quest.FixedCombatEntries.RemoveAll(
+                quest.FixedCombatEntriesList.RemoveAll(
                     delegate (WorldEntry<FixedCombat> worldEntry)
                     {
                         return (removedQuestFixedCombats.Exists(
@@ -962,7 +962,7 @@ namespace RolePlayingGame.SessionObjects
             // replace the chest entries of modified chests - they are already clones
             if ((modifiedQuestChests != null) && (modifiedQuestChests.Count > 0))
             {
-                foreach (WorldEntry<Chest> entry in quest.ChestEntries)
+                foreach (WorldEntry<Chest> entry in quest.ChestEntriesList)
                 {
                     ModifiedChestEntry modifiedEntry = modifiedQuestChests.Find(
                         delegate (ModifiedChestEntry modifiedTestEntry)
@@ -1316,7 +1316,7 @@ namespace RolePlayingGame.SessionObjects
                 (quest.Stage == Quest.QuestStage.RequirementsMet)))
             {
                 foreach (WorldEntry<FixedCombat> fixedCombatEntry
-                    in quest.FixedCombatEntries)
+                    in quest.FixedCombatEntriesList)
                 {
                     if ((fixedCombatEntry.Content == null) ||
                         (fixedCombatEntry.Content.Entries.Count <= 0) ||
@@ -1352,7 +1352,7 @@ namespace RolePlayingGame.SessionObjects
             if ((quest != null) && ((quest.Stage == Quest.QuestStage.InProgress) ||
                 (quest.Stage == Quest.QuestStage.RequirementsMet)))
             {
-                foreach (WorldEntry<Chest> chestEntry in quest.ChestEntries)
+                foreach (WorldEntry<Chest> chestEntry in quest.ChestEntriesList)
                 {
                     if ((chestEntry.Content == null) ||
                         !TileEngine.Map.AssetName.EndsWith(chestEntry.MapContentName))

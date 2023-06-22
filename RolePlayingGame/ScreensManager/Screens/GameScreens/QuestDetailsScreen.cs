@@ -191,7 +191,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             reqd.font = Fonts.DescriptionFont;
 
             // Add Monster Requirements
-            if (quest.MonsterRequirements.Count > 0)
+            if (quest.MonsterRequirementsList.Count > 0)
             {
                 reqd.color = headerColor;
                 reqd.text = String.Empty;
@@ -199,12 +199,12 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
                 reqd.text = "Monster Progress";
                 reqdList.Add(reqd);
 
-                for (int i = 0; i < quest.MonsterRequirements.Count; i++)
+                for (int i = 0; i < quest.MonsterRequirementsList.Count; i++)
                 {
                     reqd.color = textColor;
-                    currentCount = quest.MonsterRequirements[i].CompletedCount;
-                    totalCount = quest.MonsterRequirements[i].Count;
-                    Monster monster = quest.MonsterRequirements[i].Content;
+                    currentCount = quest.MonsterRequirementsList[i].CompletedCount;
+                    totalCount = quest.MonsterRequirementsList[i].Count;
+                    Monster monster = quest.MonsterRequirementsList[i].Content;
                     reqd.text = monster.Name + " = " + currentCount + " / " +
                         totalCount;
 
@@ -217,7 +217,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             }
 
             // Add Item Requirements
-            if (quest.GearRequirements.Count > 0)
+            if (quest.GearRequirementsList.Count > 0)
             {
                 reqd.color = headerColor;
                 reqd.text = String.Empty;
@@ -225,12 +225,12 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
                 reqd.text = "Item Progress";
                 reqdList.Add(reqd);
 
-                for (int i = 0; i < quest.GearRequirements.Count; i++)
+                for (int i = 0; i < quest.GearRequirementsList.Count; i++)
                 {
                     reqd.color = textColor;
-                    currentCount = quest.GearRequirements[i].CompletedCount;
-                    totalCount = quest.GearRequirements[i].Count;
-                    Gear gear = quest.GearRequirements[i].Content;
+                    currentCount = quest.GearRequirementsList[i].CompletedCount;
+                    totalCount = quest.GearRequirementsList[i].Count;
+                    Gear gear = quest.GearRequirementsList[i].Content;
                     reqd.text = gear.Name + " = " + currentCount + " / " + totalCount;
                     if (currentCount == totalCount)
                     {

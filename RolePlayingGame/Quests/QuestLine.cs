@@ -11,46 +11,41 @@ namespace RolePlayingGame.Quests
         /// <summary>
         /// The name of the quest line.
         /// </summary>
-        private string name;
+        private string _name;
 
         /// <summary>
         /// The name of the quest line.
         /// </summary>
         public string Name
         {
-            get { return name; }
-            set { name = value; }
+            get => _name;
+            set => _name = value;
         }
 
+        /// <summary>
+        /// An ordered list of content names of quests that will be presented in order.
+        /// </summary>
+        private List<string> _questContentNamesList = new();
 
         /// <summary>
         /// An ordered list of content names of quests that will be presented in order.
         /// </summary>
-        private List<string> questContentNames = new List<string>();
-
-        /// <summary>
-        /// An ordered list of content names of quests that will be presented in order.
-        /// </summary>
-        public List<string> QuestContentNames
+        public List<string> QuestContentNamesList
         {
-            get { return questContentNames; }
-            set { questContentNames = value; }
+            get => _questContentNamesList;
+            set => _questContentNamesList = value;
         }
-
 
         /// <summary>
         /// An ordered list of quests that will be presented in order.
         /// </summary>
-        private List<Quest> quests = new List<Quest>();
+        private List<Quest> _questsList = new();
 
         /// <summary>
         /// An ordered list of quests that will be presented in order.
         /// </summary>
         [ContentSerializerIgnore]
-        public List<Quest> Quests
-        {
-            get { return quests; }
-        }
+        public List<Quest> QuestsList => _questsList;
 
         /// <summary>
         /// Reads a QuestLine object from the content pipeline.
@@ -60,8 +55,7 @@ namespace RolePlayingGame.Quests
             /// <summary>
             /// Reads a QuestLine object from the content pipeline.
             /// </summary>
-            protected override QuestLine Read(ContentReader input,
-                QuestLine existingInstance)
+            protected override QuestLine Read(ContentReader input, QuestLine existingInstance)
             {
                 QuestLine questLine = existingInstance;
                 if (questLine == null)
@@ -70,14 +64,12 @@ namespace RolePlayingGame.Quests
                 }
 
                 questLine.AssetName = input.AssetName;
-
                 questLine.Name = input.ReadString();
+                questLine.QuestContentNamesList.AddRange(input.ReadObject<List<string>>());
 
-                questLine.QuestContentNames.AddRange(input.ReadObject<List<string>>());
-                foreach (string contentName in questLine.QuestContentNames)
+                foreach (string contentName in questLine.QuestContentNamesList)
                 {
-                    questLine.quests.Add(input.ContentManager.Load<Quest>(
-                        Path.Combine("Quests", contentName)));
+                    questLine._questsList.Add(input.ContentManager.Load<Quest>(Path.Combine("Quests", contentName)));
 
                 }
 
@@ -87,14 +79,16 @@ namespace RolePlayingGame.Quests
 
         public object Clone()
         {
-            QuestLine questLine = new QuestLine();
-
-            questLine.AssetName = AssetName;
-            questLine.name = name;
-            questLine.questContentNames.AddRange(questContentNames);
-            foreach (Quest quest in quests)
+            QuestLine questLine = new()
             {
-                questLine.quests.Add(quest.Clone() as Quest);
+                AssetName = AssetName,
+                _name = _name
+            };
+            questLine._questContentNamesList.AddRange(_questContentNamesList);
+
+            foreach (Quest quest in _questsList)
+            {
+                questLine._questsList.Add(quest.Clone() as Quest);
             }
 
             return questLine;

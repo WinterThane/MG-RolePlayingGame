@@ -11,24 +11,24 @@ namespace RolePlayingGame.GearObjects
 {
     public abstract class Gear : ContentObject
     {
-        private string name;
+        private string _name;
         /// <summary>
         /// The name of this gear.
         /// </summary>
         public string Name
         {
-            get { return name; }
-            set { name = value; }
+            get => _name;
+            set => _name = value;
         }
 
-        private string description;
+        private string _description;
         /// <summary>
         /// The long description of this gear.
         /// </summary>
         public string Description
         {
-            get { return description; }
-            set { description = value; }
+            get => _description;
+            set => _description = value;
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace RolePlayingGame.GearObjects
         /// The value of this gear.
         /// </summary>
         /// <remarks>If the value is less than zero, it cannot be sold.</remarks>
-        private int goldValue;
+        private int _goldValue;
 
         /// <summary>
         /// The value of this gear.
@@ -51,54 +51,49 @@ namespace RolePlayingGame.GearObjects
         /// <remarks>If the value is less than zero, it cannot be sold.</remarks>
         public int GoldValue
         {
-            get { return goldValue; }
-            set { goldValue = value; }
+            get => _goldValue;
+            set => _goldValue = value;
         }
 
         /// <summary>
         /// If true, the gear can be dropped.  If false, it cannot ever be dropped.
         /// </summary>
-        private bool isDroppable;
+        private bool _isDroppable;
 
         /// <summary>
         /// If true, the gear can be dropped.  If false, it cannot ever be dropped.
         /// </summary>
         public bool IsDroppable
         {
-            get { return isDroppable; }
-            set { isDroppable = value; }
+            get => _isDroppable;
+            set => _isDroppable = value;
         }
 
         /// <summary>
         /// The minimum character level required to equip or use this gear.
         /// </summary>
-        private int minimumCharacterLevel;
+        private int _minimumCharacterLevel;
 
         /// <summary>
         /// The minimum character level required to equip or use this gear.
         /// </summary>
         public int MinimumCharacterLevel
         {
-            get { return minimumCharacterLevel; }
-            set { minimumCharacterLevel = value; }
+            get => _minimumCharacterLevel;
+            set => _minimumCharacterLevel = value;
         }
-
 
         /// <summary>
         /// The list of the names of all supported classes.
         /// </summary>
         /// <remarks>Class names are compared case-insensitive.</remarks>
-        private List<string> supportedClasses = new();
+        private List<string> _supportedClasses = new();
 
         /// <summary>
         /// The list of the names of all supported classes.
         /// </summary>
         /// <remarks>Class names are compared case-insensitive.</remarks>
-        public List<string> SupportedClasses
-        {
-            get { return supportedClasses; }
-        }
-
+        public List<string> SupportedClasses => _supportedClasses;
 
         /// <summary>
         /// Check the restrictions on this object against the provided character.
@@ -111,9 +106,8 @@ namespace RolePlayingGame.GearObjects
                 throw new ArgumentNullException("fightingCharacter");
             }
 
-            return ((fightingCharacter.CharacterLevel >= MinimumCharacterLevel) && ((SupportedClasses.Count <= 0) || SupportedClasses.Contains(fightingCharacter.CharacterClass.Name)));
+            return (fightingCharacter.CharacterLevel >= MinimumCharacterLevel) && ((SupportedClasses.Count <= 0) || SupportedClasses.Contains(fightingCharacter.CharacterClass.Name));
         }
-
 
         /// <summary>
         /// Builds a string describing the restrictions on this piece of gear.
@@ -155,31 +149,27 @@ namespace RolePlayingGame.GearObjects
         /// <summary>
         /// The content path and name of the icon for this gear.
         /// </summary>
-        private string iconTextureName;
+        private string _iconTextureName;
 
         /// <summary>
         /// The content path and name of the icon for this gear.
         /// </summary>
         public string IconTextureName
         {
-            get { return iconTextureName; }
-            set { iconTextureName = value; }
+            get => _iconTextureName;
+            set => _iconTextureName = value;
         }
-
 
         /// <summary>
         /// The icon texture for this gear.
         /// </summary>
-        private Texture2D iconTexture;
+        private Texture2D _iconTexture;
 
         /// <summary>
         /// The icon texture for this gear.
         /// </summary>
         [ContentSerializerIgnore]
-        public Texture2D IconTexture
-        {
-            get { return iconTexture; }
-        }
+        public Texture2D IconTexture => _iconTexture;
 
         /// <summary>
         /// Draw the icon for this gear.
@@ -195,9 +185,9 @@ namespace RolePlayingGame.GearObjects
             }
 
             // draw the icon, if we there is a texture for it
-            if (iconTexture != null)
+            if (_iconTexture != null)
             {
-                spriteBatch.Draw(iconTexture, position, Color.White);
+                spriteBatch.Draw(_iconTexture, position, Color.White);
             }
         }
 
@@ -233,30 +223,30 @@ namespace RolePlayingGame.GearObjects
             }
 
             // if the string is trivial, then this is really easy
-            if (string.IsNullOrEmpty(description))
+            if (string.IsNullOrEmpty(_description))
             {
                 return;
             }
 
             // if the text is short enough to fit on one line, then this is still easy
-            if (description.Length < maximumCharactersPerLine)
+            if (_description.Length < maximumCharactersPerLine)
             {
-                spriteBatch.DrawString(spriteFont, description, position, color);
+                spriteBatch.DrawString(spriteFont, _description, position, color);
                 return;
             }
 
             // construct a new string with carriage returns
-            StringBuilder stringBuilder = new(description);
+            StringBuilder stringBuilder = new(_description);
             int currentLine = 0;
             int newLineIndex = 0;
-            while (((description.Length - newLineIndex) > maximumCharactersPerLine) && (currentLine < maximumLines))
+            while (((_description.Length - newLineIndex) > maximumCharactersPerLine) && (currentLine < maximumLines))
             {
-                description.IndexOf(' ', 0);
+                _description.IndexOf(' ', 0);
                 int nextIndex = newLineIndex;
                 while (nextIndex < maximumCharactersPerLine)
                 {
                     newLineIndex = nextIndex;
-                    nextIndex = description.IndexOf(' ', newLineIndex + 1);
+                    nextIndex = _description.IndexOf(' ', newLineIndex + 1);
                 }
                 stringBuilder.Replace(' ', '\n', newLineIndex, 1);
                 currentLine++;
@@ -292,7 +282,7 @@ namespace RolePlayingGame.GearObjects
                 gear.MinimumCharacterLevel = input.ReadInt32();
                 gear.SupportedClasses.AddRange(input.ReadObject<List<string>>());
                 gear.IconTextureName = input.ReadString();
-                gear.iconTexture = input.ContentManager.Load<Texture2D>(System.IO.Path.Combine("Textures/Gear", gear.IconTextureName));
+                gear._iconTexture = input.ContentManager.Load<Texture2D>(System.IO.Path.Combine("Textures/Gear", gear.IconTextureName));
 
                 return gear;
             }

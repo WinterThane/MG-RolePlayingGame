@@ -11,18 +11,15 @@ namespace RolePlayingGame.Engine
 {
     public static class TileEngine
     {
-        private static Map map = null;
+        private static Map _map = null;
 
-        public static Map Map
-        {
-            get { return map; }
-        }
+        public static Map Map => _map;
 
-        private static Vector2 mapOriginPosition;
+        private static Vector2 _mapOriginPosition;
 
         public static Vector2 GetScreenPosition(Point mapPosition)
         {
-            return new Vector2(mapOriginPosition.X + mapPosition.X * map.TileSize.X, mapOriginPosition.Y + mapPosition.Y * map.TileSize.Y);
+            return new Vector2(_mapOriginPosition.X + mapPosition.X * _map.TileSize.X, _mapOriginPosition.Y + mapPosition.Y * _map.TileSize.Y);
         }
 
         public static void SetMap(Map newMap, MapEntry<Portal> portalEntry)
@@ -34,74 +31,73 @@ namespace RolePlayingGame.Engine
             }
 
             // assign the new map
-            map = newMap;
+            _map = newMap;
 
             // reset the map origin, which will be recalculate on the first update
-            mapOriginPosition = Vector2.Zero;
+            _mapOriginPosition = Vector2.Zero;
 
             // move the party to its initial position
             if (portalEntry == null)
             {
                 // no portal - use the spawn position
-                partyLeaderPosition.TilePosition = map.SpawnMapPosition;
-                partyLeaderPosition.TileOffset = Vector2.Zero;
-                partyLeaderPosition.Direction = Direction.South;
+                _partyLeaderPosition.TilePosition = _map.SpawnMapPosition;
+                _partyLeaderPosition.TileOffset = Vector2.Zero;
+                _partyLeaderPosition.Direction = Direction.South;
             }
             else
             {
                 // use the portal provided, which may include automatic movement
-                partyLeaderPosition.TilePosition = portalEntry.MapPosition;
-                partyLeaderPosition.TileOffset = Vector2.Zero;
-                partyLeaderPosition.Direction = portalEntry.Direction;
-                autoPartyLeaderMovement = Vector2.Multiply(new Vector2(map.TileSize.X, map.TileSize.Y), new Vector2(portalEntry.Content.LandingMapPosition.X - partyLeaderPosition.TilePosition.X, 
-                                                                                                                    portalEntry.Content.LandingMapPosition.Y - partyLeaderPosition.TilePosition.Y));
+                _partyLeaderPosition.TilePosition = portalEntry.MapPosition;
+                _partyLeaderPosition.TileOffset = Vector2.Zero;
+                _partyLeaderPosition.Direction = portalEntry.Direction;
+                _autoPartyLeaderMovement = Vector2.Multiply(new Vector2(_map.TileSize.X, _map.TileSize.Y), new Vector2(portalEntry.Content.LandingMapPosition.X - _partyLeaderPosition.TilePosition.X, portalEntry.Content.LandingMapPosition.Y - _partyLeaderPosition.TilePosition.Y));
             }
         }
 
-        private static Viewport viewport;
-        private static Vector2 viewportCenter;
+        private static Viewport _viewport;
+        private static Vector2 _viewportCenter;
 
         public static Viewport Viewport
         {
-            get { return viewport; }
+            get => _viewport;
             set
             {
-                viewport = value;
-                viewportCenter = new Vector2(viewport.X + viewport.Width / 2f, viewport.Y + viewport.Height / 2f);
+                _viewport = value;
+                _viewportCenter = new Vector2(_viewport.X + _viewport.Width / 2f, _viewport.Y + _viewport.Height / 2f);
             }
         }
 
-        private const float partyLeaderMovementSpeed = 3f;
+        private const float _partyLeaderMovementSpeed = 3f;
 
-        private static PlayerPosition partyLeaderPosition = new();
+        private static PlayerPosition _partyLeaderPosition = new();
         public static PlayerPosition PartyLeaderPosition
         {
-            get { return partyLeaderPosition; }
-            set { partyLeaderPosition = value; }
+            get => _partyLeaderPosition;
+            set => _partyLeaderPosition = value;
         }
 
-        private static Vector2 autoPartyLeaderMovement = Vector2.Zero;
+        private static Vector2 _autoPartyLeaderMovement = Vector2.Zero;
 
         private static Vector2 UpdatePartyLeaderAutoMovement(GameTime gameTime)
         {
             // check for any remaining auto-movement
-            if (autoPartyLeaderMovement == Vector2.Zero)
+            if (_autoPartyLeaderMovement == Vector2.Zero)
             {
                 return Vector2.Zero;
             }
 
             // get the remaining-movement direction
-            Vector2 autoMovementDirection = Vector2.Normalize(autoPartyLeaderMovement);
+            Vector2 autoMovementDirection = Vector2.Normalize(_autoPartyLeaderMovement);
 
             // calculate the potential movement vector
-            Vector2 movement = Vector2.Multiply(autoMovementDirection, partyLeaderMovementSpeed);
+            Vector2 movement = Vector2.Multiply(autoMovementDirection, _partyLeaderMovementSpeed);
 
             // limit the potential movement vector by the remaining auto-movement
-            movement.X = Math.Sign(movement.X) * MathHelper.Min(Math.Abs(movement.X), Math.Abs(autoPartyLeaderMovement.X));
-            movement.Y = Math.Sign(movement.Y) * MathHelper.Min(Math.Abs(movement.Y), Math.Abs(autoPartyLeaderMovement.Y));
+            movement.X = Math.Sign(movement.X) * MathHelper.Min(Math.Abs(movement.X), Math.Abs(_autoPartyLeaderMovement.X));
+            movement.Y = Math.Sign(movement.Y) * MathHelper.Min(Math.Abs(movement.Y), Math.Abs(_autoPartyLeaderMovement.Y));
 
             // remove the movement from the total remaining auto-movement
-            autoPartyLeaderMovement -= movement;
+            _autoPartyLeaderMovement -= movement;
 
             return movement;
         }
@@ -115,28 +111,28 @@ namespace RolePlayingGame.Engine
             {
                 if (CanPartyLeaderMoveUp())
                 {
-                    desiredMovement.Y -= partyLeaderMovementSpeed;
+                    desiredMovement.Y -= _partyLeaderMovementSpeed;
                 }
             }
             if (InputManager.IsActionPressed(InputManager.Action.MoveCharacterDown))
             {
                 if (CanPartyLeaderMoveDown())
                 {
-                    desiredMovement.Y += partyLeaderMovementSpeed;
+                    desiredMovement.Y += _partyLeaderMovementSpeed;
                 }
             }
             if (InputManager.IsActionPressed(InputManager.Action.MoveCharacterLeft))
             {
                 if (CanPartyLeaderMoveLeft())
                 {
-                    desiredMovement.X -= partyLeaderMovementSpeed;
+                    desiredMovement.X -= _partyLeaderMovementSpeed;
                 }
             }
             if (InputManager.IsActionPressed(InputManager.Action.MoveCharacterRight))
             {
                 if (CanPartyLeaderMoveRight())
                 {
-                    desiredMovement.X += partyLeaderMovementSpeed;
+                    desiredMovement.X += _partyLeaderMovementSpeed;
                 }
             }
 
@@ -149,122 +145,122 @@ namespace RolePlayingGame.Engine
             return desiredMovement;
         }
 
-        const int movementCollisionTolerance = 12;
+        const int _movementCollisionTolerance = 12;
 
         private static bool CanPartyLeaderMoveUp()
         {
             // if they're not within the tolerance of the next tile, then this is moot
-            if (partyLeaderPosition.TileOffset.Y > -movementCollisionTolerance)
+            if (_partyLeaderPosition.TileOffset.Y > -_movementCollisionTolerance)
             {
                 return true;
             }
 
             // if the player is at the outside left and right edges, 
             // then check the diagonal tiles
-            if (partyLeaderPosition.TileOffset.X < -movementCollisionTolerance)
+            if (_partyLeaderPosition.TileOffset.X < -_movementCollisionTolerance)
             {
-                if (map.IsBlocked(new Point(partyLeaderPosition.TilePosition.X - 1, partyLeaderPosition.TilePosition.Y - 1))) 
+                if (_map.IsBlocked(new Point(_partyLeaderPosition.TilePosition.X - 1, _partyLeaderPosition.TilePosition.Y - 1))) 
                 {
                     return false;
                 }
             }
-            else if (partyLeaderPosition.TileOffset.X > movementCollisionTolerance)
+            else if (_partyLeaderPosition.TileOffset.X > _movementCollisionTolerance)
             {
-                if (map.IsBlocked(new Point(partyLeaderPosition.TilePosition.X + 1, partyLeaderPosition.TilePosition.Y - 1)))
+                if (_map.IsBlocked(new Point(_partyLeaderPosition.TilePosition.X + 1, _partyLeaderPosition.TilePosition.Y - 1)))
                 {
                     return false;
                 }
             }
 
             // check the tile above the current one
-            return !map.IsBlocked(new Point(partyLeaderPosition.TilePosition.X, partyLeaderPosition.TilePosition.Y - 1));
+            return !_map.IsBlocked(new Point(_partyLeaderPosition.TilePosition.X, _partyLeaderPosition.TilePosition.Y - 1));
         }
 
         private static bool CanPartyLeaderMoveDown()
         {
             // if they're not within the tolerance of the next tile, then this is moot
-            if (partyLeaderPosition.TileOffset.Y < movementCollisionTolerance)
+            if (_partyLeaderPosition.TileOffset.Y < _movementCollisionTolerance)
             {
                 return true;
             }
 
             // if the player is at the outside left and right edges, 
             // then check the diagonal tiles
-            if (partyLeaderPosition.TileOffset.X < -movementCollisionTolerance)
+            if (_partyLeaderPosition.TileOffset.X < -_movementCollisionTolerance)
             {
-                if (map.IsBlocked(new Point(partyLeaderPosition.TilePosition.X - 1, partyLeaderPosition.TilePosition.Y + 1)))
+                if (_map.IsBlocked(new Point(_partyLeaderPosition.TilePosition.X - 1, _partyLeaderPosition.TilePosition.Y + 1)))
                 {
                     return false;
                 }
             }
-            else if (partyLeaderPosition.TileOffset.X > movementCollisionTolerance)
+            else if (_partyLeaderPosition.TileOffset.X > _movementCollisionTolerance)
             {
-                if (map.IsBlocked(new Point(partyLeaderPosition.TilePosition.X + 1, partyLeaderPosition.TilePosition.Y + 1)))
+                if (_map.IsBlocked(new Point(_partyLeaderPosition.TilePosition.X + 1, _partyLeaderPosition.TilePosition.Y + 1)))
                 {
                     return false;
                 }
             }
 
             // check the tile below the current one
-            return !map.IsBlocked(new Point(partyLeaderPosition.TilePosition.X, partyLeaderPosition.TilePosition.Y + 1));
+            return !_map.IsBlocked(new Point(_partyLeaderPosition.TilePosition.X, _partyLeaderPosition.TilePosition.Y + 1));
         }
 
         private static bool CanPartyLeaderMoveLeft()
         {
             // if they're not within the tolerance of the next tile, then this is moot
-            if (partyLeaderPosition.TileOffset.X > -movementCollisionTolerance)
+            if (_partyLeaderPosition.TileOffset.X > -_movementCollisionTolerance)
             {
                 return true;
             }
 
             // if the player is at the outside left and right edges, 
             // then check the diagonal tiles
-            if (partyLeaderPosition.TileOffset.Y < -movementCollisionTolerance)
+            if (_partyLeaderPosition.TileOffset.Y < -_movementCollisionTolerance)
             {
-                if (map.IsBlocked(new Point(partyLeaderPosition.TilePosition.X - 1, partyLeaderPosition.TilePosition.Y - 1)))
+                if (_map.IsBlocked(new Point(_partyLeaderPosition.TilePosition.X - 1, _partyLeaderPosition.TilePosition.Y - 1)))
                 {
                     return false;
                 }
             }
-            else if (partyLeaderPosition.TileOffset.Y > movementCollisionTolerance)
+            else if (_partyLeaderPosition.TileOffset.Y > _movementCollisionTolerance)
             {
-                if (map.IsBlocked(new Point(partyLeaderPosition.TilePosition.X - 1, partyLeaderPosition.TilePosition.Y + 1)))
+                if (_map.IsBlocked(new Point(_partyLeaderPosition.TilePosition.X - 1, _partyLeaderPosition.TilePosition.Y + 1)))
                 {
                     return false;
                 }
             }
 
             // check the tile to the left of the current one
-            return !map.IsBlocked(new Point(partyLeaderPosition.TilePosition.X - 1, partyLeaderPosition.TilePosition.Y));
+            return !_map.IsBlocked(new Point(_partyLeaderPosition.TilePosition.X - 1, _partyLeaderPosition.TilePosition.Y));
         }
 
         private static bool CanPartyLeaderMoveRight()
         {
             // if they're not within the tolerance of the next tile, then this is moot
-            if (partyLeaderPosition.TileOffset.X < movementCollisionTolerance)
+            if (_partyLeaderPosition.TileOffset.X < _movementCollisionTolerance)
             {
                 return true;
             }
 
             // if the player is at the outside left and right edges, 
             // then check the diagonal tiles
-            if (partyLeaderPosition.TileOffset.Y < -movementCollisionTolerance)
+            if (_partyLeaderPosition.TileOffset.Y < -_movementCollisionTolerance)
             {
-                if (map.IsBlocked(new Point(partyLeaderPosition.TilePosition.X + 1, partyLeaderPosition.TilePosition.Y - 1)))
+                if (_map.IsBlocked(new Point(_partyLeaderPosition.TilePosition.X + 1, _partyLeaderPosition.TilePosition.Y - 1)))
                 {
                     return false;
                 }
             }
-            else if (partyLeaderPosition.TileOffset.Y > movementCollisionTolerance)
+            else if (_partyLeaderPosition.TileOffset.Y > _movementCollisionTolerance)
             {
-                if (map.IsBlocked(new Point(partyLeaderPosition.TilePosition.X + 1, partyLeaderPosition.TilePosition.Y + 1)))
+                if (_map.IsBlocked(new Point(_partyLeaderPosition.TilePosition.X + 1, _partyLeaderPosition.TilePosition.Y + 1)))
                 {
                     return false;
                 }
             }
 
             // check the tile to the right of the current one
-            return !map.IsBlocked(new Point(partyLeaderPosition.TilePosition.X + 1, partyLeaderPosition.TilePosition.Y));
+            return !_map.IsBlocked(new Point(_partyLeaderPosition.TilePosition.X + 1, _partyLeaderPosition.TilePosition.Y));
         }
 
         public static void Update(GameTime gameTime)
@@ -280,40 +276,40 @@ namespace RolePlayingGame.Engine
                 // calculate the desired position
                 if (userMovement != Vector2.Zero)
                 {
-                    Point desiredTilePosition = partyLeaderPosition.TilePosition;
-                    Vector2 desiredTileOffset = partyLeaderPosition.TileOffset;
+                    Point desiredTilePosition = _partyLeaderPosition.TilePosition;
+                    Vector2 desiredTileOffset = _partyLeaderPosition.TileOffset;
                     PlayerPosition.CalculateMovement(Vector2.Multiply(userMovement, 15f), ref desiredTilePosition, ref desiredTileOffset);
                     // check for collisions or encounters in the new tile
-                    if ((partyLeaderPosition.TilePosition != desiredTilePosition) && !MoveIntoTile(desiredTilePosition))
+                    if ((_partyLeaderPosition.TilePosition != desiredTilePosition) && !MoveIntoTile(desiredTilePosition))
                     {
                         userMovement = Vector2.Zero;
                     }
                 }
             }
 
-            Point oldPartyLeaderTilePosition = partyLeaderPosition.TilePosition;
-            partyLeaderPosition.Move(autoMovement + userMovement);
+            Point oldPartyLeaderTilePosition = _partyLeaderPosition.TilePosition;
+            _partyLeaderPosition.Move(autoMovement + userMovement);
 
             // if the tile position has changed, check for random combat
-            if ((autoMovement == Vector2.Zero) && (partyLeaderPosition.TilePosition != oldPartyLeaderTilePosition))
+            if ((autoMovement == Vector2.Zero) && (_partyLeaderPosition.TilePosition != oldPartyLeaderTilePosition))
             {
                 Session.CheckForRandomCombat(Map.RandomCombat);
             }
 
             // adjust the map origin so that the party is at the center of the viewport
-            mapOriginPosition += viewportCenter - (partyLeaderPosition.ScreenPosition + Session.Party.Players[0].MapSprite.SourceOffset);
+            _mapOriginPosition += _viewportCenter - (_partyLeaderPosition.ScreenPosition + Session.Party.Players[0].MapSprite.SourceOffset);
 
             // make sure the boundaries of the map are never inside the viewport
-            mapOriginPosition.X = MathHelper.Min(mapOriginPosition.X, viewport.X);
-            mapOriginPosition.Y = MathHelper.Min(mapOriginPosition.Y, viewport.Y);
-            mapOriginPosition.X += MathHelper.Max((viewport.X + viewport.Width) - (mapOriginPosition.X + map.MapDimensions.X * map.TileSize.X), 0f);
-            mapOriginPosition.Y += MathHelper.Max((viewport.Y + viewport.Height - Hud.HudHeight) - (mapOriginPosition.Y + map.MapDimensions.Y * map.TileSize.Y), 0f);
+            _mapOriginPosition.X = MathHelper.Min(_mapOriginPosition.X, _viewport.X);
+            _mapOriginPosition.Y = MathHelper.Min(_mapOriginPosition.Y, _viewport.Y);
+            _mapOriginPosition.X += MathHelper.Max((_viewport.X + _viewport.Width) - (_mapOriginPosition.X + _map.MapDimensions.X * _map.TileSize.X), 0f);
+            _mapOriginPosition.Y += MathHelper.Max((_viewport.Y + _viewport.Height - Hud.HudHeight) - (_mapOriginPosition.Y + _map.MapDimensions.Y * _map.TileSize.Y), 0f);
         }
 
         private static bool MoveIntoTile(Point mapPosition)
         {
             // if the tile is blocked, then this is simple
-            if (map.IsBlocked(mapPosition))
+            if (_map.IsBlocked(mapPosition))
             {
                 return false;
             }
@@ -340,14 +336,14 @@ namespace RolePlayingGame.Engine
                 return;
             }
 
-            Rectangle destinationRectangle = new(0, 0, map.TileSize.X, map.TileSize.Y);
+            Rectangle destinationRectangle = new(0, 0, _map.TileSize.X, _map.TileSize.Y);
 
-            for (int y = 0; y < map.MapDimensions.Y; y++)
+            for (int y = 0; y < _map.MapDimensions.Y; y++)
             {
-                for (int x = 0; x < map.MapDimensions.X; x++)
+                for (int x = 0; x < _map.MapDimensions.X; x++)
                 {
-                    destinationRectangle.X = (int)mapOriginPosition.X + x * map.TileSize.X;
-                    destinationRectangle.Y = (int)mapOriginPosition.Y + y * map.TileSize.Y;
+                    destinationRectangle.X = (int)_mapOriginPosition.X + x * _map.TileSize.X;
+                    destinationRectangle.Y = (int)_mapOriginPosition.Y + y * _map.TileSize.Y;
 
                     // If the tile is inside the screen
                     if (CheckVisibility(destinationRectangle))
@@ -355,26 +351,26 @@ namespace RolePlayingGame.Engine
                         Point mapPosition = new(x, y);
                         if (drawBase)
                         {
-                            Rectangle sourceRectangle = map.GetBaseLayerSourceRectangle(mapPosition);
+                            Rectangle sourceRectangle = _map.GetBaseLayerSourceRectangle(mapPosition);
                             if (sourceRectangle != Rectangle.Empty)
                             {
-                                spriteBatch.Draw(map.Texture, destinationRectangle, sourceRectangle, Color.White);
+                                spriteBatch.Draw(_map.Texture, destinationRectangle, sourceRectangle, Color.White);
                             }
                         }
                         if (drawFringe)
                         {
-                            Rectangle sourceRectangle = map.GetFringeLayerSourceRectangle(mapPosition);
+                            Rectangle sourceRectangle = _map.GetFringeLayerSourceRectangle(mapPosition);
                             if (sourceRectangle != Rectangle.Empty)
                             {
-                                spriteBatch.Draw(map.Texture, destinationRectangle, sourceRectangle, Color.White);
+                                spriteBatch.Draw(_map.Texture, destinationRectangle, sourceRectangle, Color.White);
                             }
                         }
                         if (drawObject)
                         {
-                            Rectangle sourceRectangle = map.GetObjectLayerSourceRectangle(mapPosition);
+                            Rectangle sourceRectangle = _map.GetObjectLayerSourceRectangle(mapPosition);
                             if (sourceRectangle != Rectangle.Empty)
                             {
-                                spriteBatch.Draw(map.Texture, destinationRectangle, sourceRectangle, Color.White);
+                                spriteBatch.Draw(_map.Texture, destinationRectangle, sourceRectangle, Color.White);
                             }
                         }
                     }
@@ -384,10 +380,10 @@ namespace RolePlayingGame.Engine
 
         public static bool CheckVisibility(Rectangle screenRectangle)
         {
-            return ((screenRectangle.X > viewport.X - screenRectangle.Width) && 
-                    (screenRectangle.Y > viewport.Y - screenRectangle.Height) &&
-                    (screenRectangle.X < viewport.X + viewport.Width) && 
-                    (screenRectangle.Y < viewport.Y + viewport.Height));
+            return (screenRectangle.X > _viewport.X - screenRectangle.Width) && 
+                   (screenRectangle.Y > _viewport.Y - screenRectangle.Height) && 
+                   (screenRectangle.X < _viewport.X + _viewport.Width) && 
+                   (screenRectangle.Y < _viewport.Y + _viewport.Height);
         }
     }
 }

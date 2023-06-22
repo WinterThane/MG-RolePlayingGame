@@ -9,46 +9,44 @@ namespace RolePlayingGame.MapObjects
         /// <summary>
         /// The display name of this store category.
         /// </summary>
-        private string name;
+        private string _name;
 
         /// <summary>
         /// The display name of this store category.
         /// </summary>
         public string Name
         {
-            get { return name; }
-            set { name = value; }
+            get => _name;
+            set => _name = value;
         }
 
+        /// <summary>
+        /// The content names for the gear available in this category.
+        /// </summary>
+        private List<string> _availableContentNamesList = new();
 
         /// <summary>
         /// The content names for the gear available in this category.
         /// </summary>
-        private List<string> availableContentNames = new List<string>();
-
-        /// <summary>
-        /// The content names for the gear available in this category.
-        /// </summary>
-        public List<string> AvailableContentNames
+        public List<string> AvailableContentNamesLst
         {
-            get { return availableContentNames; }
-            set { availableContentNames = value; }
+            get => _availableContentNamesList;
+            set => _availableContentNamesList = value;
         }
-
 
         /// <summary>
         /// The gear available in this category.
         /// </summary>
-        private List<Gear> availableGear = new List<Gear>();
+        private List<Gear> _availableGearList = new List<Gear>();
 
         /// <summary>
         /// The gear available in this category.
         /// </summary>
         [ContentSerializerIgnore]
-        public List<Gear> AvailableGear
+        public List<Gear> AvailableGearList
         {
-            get { return availableGear; }
-            set { availableGear = value; }
+            get => _availableGearList;
+            set => _availableGearList = value;
         }
 
         /// <summary>
@@ -59,8 +57,7 @@ namespace RolePlayingGame.MapObjects
             /// <summary>
             /// Reads a StoreCategory object from the content pipeline.
             /// </summary>
-            protected override StoreCategory Read(ContentReader input,
-                StoreCategory existingInstance)
+            protected override StoreCategory Read(ContentReader input, StoreCategory existingInstance)
             {
                 StoreCategory storeCategory = existingInstance;
                 if (storeCategory == null)
@@ -69,14 +66,12 @@ namespace RolePlayingGame.MapObjects
                 }
 
                 storeCategory.Name = input.ReadString();
-                storeCategory.AvailableContentNames.AddRange(
-                    input.ReadObject<List<string>>());
+                storeCategory.AvailableContentNamesLst.AddRange(input.ReadObject<List<string>>());
 
                 // populate the gear list based on the content names
-                foreach (string gearName in storeCategory.AvailableContentNames)
+                foreach (string gearName in storeCategory.AvailableContentNamesLst)
                 {
-                    storeCategory.AvailableGear.Add(input.ContentManager.Load<Gear>(
-                        System.IO.Path.Combine("Gear", gearName)));
+                    storeCategory.AvailableGearList.Add(input.ContentManager.Load<Gear>(System.IO.Path.Combine("Gear", gearName)));
                 }
 
                 return storeCategory;

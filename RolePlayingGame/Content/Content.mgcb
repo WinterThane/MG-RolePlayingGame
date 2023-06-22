@@ -1336,6 +1336,136 @@
 /processor:PassThroughProcessor
 /build:Maps/Stores/WhoMeShop.xml
 
+#begin Quests/DefeatTamar.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Quests/DefeatTamar.xml
+
+#begin Quests/HideArmor.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Quests/HideArmor.xml
+
+#begin Quests/LushVillage.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Quests/LushVillage.xml
+
+#begin Quests/QuestLines/MainQuestLine.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Quests/QuestLines/MainQuestLine.xml
+
+#begin Quests/SaveMercadia.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Quests/SaveMercadia.xml
+
+#begin Quests/ShortSword.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Quests/ShortSword.xml
+
+#begin Quests/TestBattle.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Quests/TestBattle.xml
+
+#begin Quests/TheBanditLeader.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Quests/TheBanditLeader.xml
+
+#begin Quests/TheGoblinBrigade.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Quests/TheGoblinBrigade.xml
+
+#begin Quests/TheOrcCaptain.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Quests/TheOrcCaptain.xml
+
+#begin Spells/FireBlast.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Spells/FireBlast.xml
+
+#begin Spells/FireBolt.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Spells/FireBolt.xml
+
+#begin Spells/FireBomb.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Spells/FireBomb.xml
+
+#begin Spells/Heal.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Spells/Heal.xml
+
+#begin Spells/IceBlast.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Spells/IceBlast.xml
+
+#begin Spells/IceBolt.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Spells/IceBolt.xml
+
+#begin Spells/MassFireBlast.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Spells/MassFireBlast.xml
+
+#begin Spells/MassFireBolt.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Spells/MassFireBolt.xml
+
+#begin Spells/MassHeal.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Spells/MassHeal.xml
+
+#begin Spells/MassMinorHeal.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Spells/MassMinorHeal.xml
+
+#begin Spells/MDDown.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Spells/MDDown.xml
+
+#begin Spells/MinorHeal.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Spells/MinorHeal.xml
+
+#begin Spells/MODown.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Spells/MODown.xml
+
+#begin Spells/PDDown.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Spells/PDDown.xml
+
+#begin Spells/PODown.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Spells/PODown.xml
+
+#begin Spells/SuperHeal.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Spells/SuperHeal.xml
+
 #begin Textures/Buttons/AButton.png
 /importer:TextureImporter
 /processor:TextureProcessor

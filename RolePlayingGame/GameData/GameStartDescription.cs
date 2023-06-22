@@ -8,36 +8,36 @@ namespace RolePlayingGame.GameData
         /// <summary>
         /// The content name of the  map for a new game.
         /// </summary>
-        private string mapContentName;
+        private string _mapContentName;
 
         /// <summary>
         /// The content name of the  map for a new game.
         /// </summary>
         public string MapContentName
         {
-            get { return mapContentName; }
-            set { mapContentName = value; }
+            get => _mapContentName;
+            set => _mapContentName = value;
         }
 
         /// <summary>
         /// The content names of the players in the party from the beginning.
         /// </summary>
-        private List<string> playerContentNames = new();
+        private List<string> _playerContentNames = new();
 
         /// <summary>
         /// The content names of the players in the party from the beginning.
         /// </summary>
         public List<string> PlayerContentNames
         {
-            get { return playerContentNames; }
-            set { playerContentNames = value; }
+            get => _playerContentNames;
+            set => _playerContentNames = value;
         }
 
         /// <summary>
         /// The quest line in action when the game starts.
         /// </summary>
         /// <remarks>The first quest will be started before the world is shown.</remarks>
-        private string questLineContentName;
+        private string _questLineContentName;
 
         /// <summary>
         /// The quest line in action when the game starts.
@@ -46,8 +46,8 @@ namespace RolePlayingGame.GameData
         [ContentSerializer(Optional = true)]
         public string QuestLineContentName
         {
-            get { return questLineContentName; }
-            set { questLineContentName = value; }
+            get => _questLineContentName;
+            set => _questLineContentName = value;
         }
 
         /// <summary>

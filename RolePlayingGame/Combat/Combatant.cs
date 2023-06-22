@@ -24,12 +24,11 @@ namespace RolePlayingGame.Combat
         /// <summary>
         /// The current state of this combatant.
         /// </summary>
-        public abstract Character.CharacterState State
+        public abstract CharacterState State
         {
             get;
             set;
         }
-
 
         /// <summary>
         /// Returns true if the character is dead or dying.
@@ -38,23 +37,22 @@ namespace RolePlayingGame.Combat
         {
             get
             {
-                return ((State == CharacterState.Dying) || (State == CharacterState.Dead));
+                return (State == CharacterState.Dying) || (State == CharacterState.Dead);
             }
         }
-
 
         /// <summary>
         /// If true, the combatant has taken their turn this round.
         /// </summary>
-        private bool isTurnTaken;
+        private bool _isTurnTaken;
 
         /// <summary>
         /// If true, the combatant has taken their turn this round.
         /// </summary>
         public bool IsTurnTaken
         {
-            get { return isTurnTaken; }
-            set { isTurnTaken = value; }
+            get => _isTurnTaken;
+            set => _isTurnTaken = value;
         }
 
         /// <summary>
@@ -65,34 +63,32 @@ namespace RolePlayingGame.Combat
             get;
         }
 
-
         /// <summary>
         /// The current position on screen for this combatant.
         /// </summary>
-        private Vector2 position;
+        private Vector2 _position;
 
         /// <summary>
         /// The current position on screen for this combatant.
         /// </summary>
         public Vector2 Position
         {
-            get { return position; }
-            set { position = value; }
+            get => _position;
+            set => _position = value;
         }
-
 
         /// <summary>
         /// The original position on screen for this combatant.
         /// </summary>
-        private Vector2 originalPosition;
+        private Vector2 _originalPosition;
 
         /// <summary>
         /// The original position on screen for this combatant.
         /// </summary>
         public Vector2 OriginalPosition
         {
-            get { return originalPosition; }
-            set { originalPosition = value; }
+            get => _originalPosition;
+            set => _originalPosition = value;
         }
 
         /// <summary>
@@ -103,7 +99,6 @@ namespace RolePlayingGame.Combat
             get;
         }
 
-
         /// <summary>
         /// Heals the combatant's health by the given amount.
         /// </summary>
@@ -111,7 +106,6 @@ namespace RolePlayingGame.Combat
         {
             Heal(new StatisticsValue(healthHealingAmount, 0, 0, 0, 0, 0), duration);
         }
-
 
         /// <summary>
         /// Heal the combatant by the given amount.
@@ -121,7 +115,6 @@ namespace RolePlayingGame.Combat
             CombatEngine.AddNewHealingEffects(OriginalPosition, healingStatistics);
         }
 
-
         /// <summary>
         /// Damages the combatant's health by the given amount.
         /// </summary>
@@ -129,7 +122,6 @@ namespace RolePlayingGame.Combat
         {
             Damage(new StatisticsValue(healthDamageAmount, 0, 0, 0, 0, 0), duration);
         }
-
 
         /// <summary>
         /// Damages the combatant by the given amount.
@@ -140,7 +132,6 @@ namespace RolePlayingGame.Combat
             CombatEngine.AddNewDamageEffects(OriginalPosition, damageStatistics);
         }
 
-
         /// <summary>
         /// Pay the cost for the given spell.
         /// </summary>
@@ -150,28 +141,28 @@ namespace RolePlayingGame.Combat
         /// <summary>
         /// The current combat action for this combatant.
         /// </summary>
-        private CombatAction combatAction;
+        private CombatAction _combatAction;
 
         /// <summary>
         /// The current combat action for this combatant.
         /// </summary>
         public CombatAction CombatAction
         {
-            get { return combatAction; }
-            set { combatAction = value; }
+            get { return _combatAction; }
+            set { _combatAction = value; }
         }
 
         /// <summary>
         /// Statistics stack of the combat effects that are applied to this combatant.
         /// </summary>
-        private StatisticsValueStack combatEffects = new StatisticsValueStack();
+        private StatisticsValueStack _combatEffects = new();
 
         /// <summary>
         /// Statistics stack of the combat effects that are applied to this combatant.
         /// </summary>
         public StatisticsValueStack CombatEffects
         {
-            get { return combatEffects; }
+            get { return _combatEffects; }
         }
 
         /// <summary>
@@ -187,18 +178,17 @@ namespace RolePlayingGame.Combat
             float elapsedSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             // update the combat action
-            if (combatAction != null)
+            if (_combatAction != null)
             {
                 // update the combat action
-                combatAction.Update(gameTime);
+                _combatAction.Update(gameTime);
                 // remove the combat action if it is done and set the turn-taken flag
-                if (combatAction.Stage == CombatAction.CombatActionStage.Complete)
+                if (_combatAction.Stage == CombatAction.CombatActionStage.Complete)
                 {
-                    combatAction = null;
-                    isTurnTaken = true;
+                    _combatAction = null;
+                    _isTurnTaken = true;
                 }
             }
-
 
             // update the combat sprite animation
             CombatSprite.UpdateAnimation(elapsedSeconds);
@@ -227,14 +217,13 @@ namespace RolePlayingGame.Combat
             }
         }
 
-
         /// <summary>
         /// Advance the combatant state for one combat round.
         /// </summary>
         public virtual void AdvanceRound()
         {
             // advance the combat effects stack
-            combatEffects.Advance();
+            _combatEffects.Advance();
         }
 
         /// <summary>
@@ -242,18 +231,15 @@ namespace RolePlayingGame.Combat
         /// </summary>
         public virtual void Draw(GameTime gameTime)
         {
-            CombatSprite.Draw(Session.ScreenManager.SpriteBatch,
-                Position, 1f - Position.Y / 720f);
+            CombatSprite.Draw(Session.ScreenManager.SpriteBatch, Position, 1f - Position.Y / 720f);
 
-            Session.ScreenManager.SpriteBatch.Draw(Character.ShadowTexture, Position,
-                null, Color.White, 0f, new Vector2(Character.ShadowTexture.Width / 2,
-                Character.ShadowTexture.Height / 2), 1f, SpriteEffects.None, 1f);
+            Session.ScreenManager.SpriteBatch.Draw(Character.ShadowTexture, Position, null, Color.White, 0f, new Vector2(Character.ShadowTexture.Width / 2, Character.ShadowTexture.Height / 2), 1f, SpriteEffects.None, 1f);
 
             // draw the combat action
-            if (combatAction != null)
+            if (_combatAction != null)
             {
                 // update the combat action
-                combatAction.Draw(gameTime, Session.ScreenManager.SpriteBatch);
+                _combatAction.Draw(gameTime, Session.ScreenManager.SpriteBatch);
             }
         }
     }

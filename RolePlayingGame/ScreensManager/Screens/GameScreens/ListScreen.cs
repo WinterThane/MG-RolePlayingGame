@@ -6,69 +6,64 @@ using RolePlayingGame.SessionObjects;
 using RolePlayingGame.TextFonts;
 using System;
 using System.Collections.ObjectModel;
-using static System.Collections.Specialized.BitVector32;
 
 namespace RolePlayingGame.ScreensManager.Screens.GameScreens
 {
     public abstract class ListScreen<T> : GameScreen
     {
-        protected readonly Vector2 iconOffset = new Vector2(0f, 0f);
-        protected readonly Vector2 descriptionTextPosition = new Vector2(200, 550);
-        private readonly Vector2 listPositionTopPosition = new Vector2(1160, 354);
-        private readonly Vector2 listPositionBottomPosition = new Vector2(1160, 384);
+        protected readonly Vector2 _iconOffset = new(0f, 0f);
+        protected readonly Vector2 _descriptionTextPosition = new(200, 550);
+        private readonly Vector2 _listPositionTopPosition = new(1160, 354);
+        private readonly Vector2 _listPositionBottomPosition = new(1160, 384);
 
-        private Texture2D backgroundTexture;
-        private readonly Rectangle backgroundDestination =
-            new Rectangle(0, 0, 1280, 720);
-        private Texture2D fadeTexture;
+        private Texture2D _backgroundTexture;
+        private readonly Rectangle _backgroundDestination = new(0, 0, 1280, 720);
+        private Texture2D _fadeTexture;
 
-        private Texture2D listTexture;
-        private readonly Vector2 listTexturePosition = new Vector2(187f, 180f);
-        protected readonly Vector2 listEntryStartPosition = new Vector2(200f, 202f);
-        protected const int listLineSpacing = 76;
+        private Texture2D _listTexture;
+        private readonly Vector2 _listTexturePosition = new(187f, 180f);
+        protected readonly Vector2 _listEntryStartPosition = new(200f, 202f);
+        protected const int _listLineSpacing = 76;
 
-        private Texture2D plankTexture;
-        private Vector2 plankTexturePosition;
-        protected string titleText = String.Empty;
+        private Texture2D _plankTexture;
+        private Vector2 _plankTexturePosition;
+        protected string _titleText = string.Empty;
 
-        protected Texture2D goldTexture;
-        private readonly Vector2 goldTexturePosition = new Vector2(490f, 640f);
-        protected string goldText = String.Empty;
-        private readonly Vector2 goldTextPosition = new Vector2(565f, 648f);
+        protected Texture2D _goldTexture;
+        private readonly Vector2 _goldTexturePosition = new(490f, 640f);
+        protected string _goldText = string.Empty;
+        private readonly Vector2 _goldTextPosition = new(565f, 648f);
 
-        private Texture2D highlightTexture;
-        private readonly Vector2 highlightStartPosition = new Vector2(170f, 237f);
-        private Texture2D selectionArrowTexture;
-        private readonly Vector2 selectionArrowPosition = new Vector2(135f, 245f);
+        private Texture2D _highlightTexture;
+        private readonly Vector2 _highlightStartPosition = new(170f, 237f);
+        private Texture2D _selectionArrowTexture;
+        private readonly Vector2 _selectionArrowPosition = new(135f, 245f);
 
-        private Texture2D leftTriggerTexture;
-        private readonly Vector2 leftTriggerTexturePosition = new Vector2(340f, 50f);
-        protected string leftTriggerText = String.Empty;
+        private Texture2D _leftTriggerTexture;
+        private readonly Vector2 _leftTriggerTexturePosition = new(340f, 50f);
+        protected string _leftTriggerText = string.Empty;
 
-        private Texture2D rightTriggerTexture;
-        private readonly Vector2 rightTriggerTexturePosition = new Vector2(900f, 50f);
-        protected string rightTriggerText = String.Empty;
+        private Texture2D _rightTriggerTexture;
+        private readonly Vector2 _rightTriggerTexturePosition = new(900f, 50f);
+        protected string _rightTriggerText = string.Empty;
 
-        private Texture2D leftQuantityArrowTexture;
-        private Texture2D rightQuantityArrowTexture;
+        private Texture2D _backButtonTexture;
+        private readonly Vector2 _backButtonTexturePosition = new(80f, 640f);
+        protected string _backButtonText = string.Empty;
+        private Vector2 _backButtonTextPosition = new(90f, 645f); // + tex width
 
-        private Texture2D backButtonTexture;
-        private readonly Vector2 backButtonTexturePosition = new Vector2(80f, 640f);
-        protected string backButtonText = String.Empty;
-        private Vector2 backButtonTextPosition = new Vector2(90f, 645f); // + tex width
+        private Texture2D _selectButtonTexture;
+        private readonly Vector2 _selectButtonTexturePosition = new(1150f, 640f);
+        protected string _selectButtonText = string.Empty;
 
-        private Texture2D selectButtonTexture;
-        private readonly Vector2 selectButtonTexturePosition = new Vector2(1150f, 640f);
-        protected string selectButtonText = String.Empty;
+        private Texture2D _xButtonTexture;
+        private readonly Vector2 _xButtonTexturePosition = new(240f, 640f);
+        protected string _xButtonText = string.Empty;
+        private Vector2 _xButtonTextPosition = new(250f, 645f); // + tex width
 
-        private Texture2D xButtonTexture;
-        private readonly Vector2 xButtonTexturePosition = new Vector2(240f, 640f);
-        protected string xButtonText = String.Empty;
-        private Vector2 xButtonTextPosition = new Vector2(250f, 645f); // + tex width
-
-        private Texture2D yButtonTexture;
-        private readonly Vector2 yButtonTexturePosition = new Vector2(890f, 640f);
-        protected string yButtonText = String.Empty;
+        private Texture2D _yButtonTexture;
+        private readonly Vector2 _yButtonTexturePosition = new(890f, 640f);
+        protected string _yButtonText = string.Empty;
 
         /// <summary>
         /// Get the list that this screen displays.
@@ -79,45 +74,41 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// <summary>
         /// The index of the selected entry.
         /// </summary>
-        private int selectedIndex = 0;
+        private int _selectedIndex = 0;
 
         /// <summary>
         /// The index of the selected entry.
         /// </summary>
         public int SelectedIndex
         {
-            get { return selectedIndex; }
+            get => _selectedIndex;
             set
             {
-                if (selectedIndex != value)
+                if (_selectedIndex != value)
                 {
-                    selectedIndex = value;
-                    EnsureVisible(selectedIndex);
+                    _selectedIndex = value;
+                    EnsureVisible(_selectedIndex);
                 }
             }
         }
-
 
         /// <summary>
         /// Ensure that the given index is visible on the screen.
         /// </summary>
         public void EnsureVisible(int index)
         {
-            if (index < startIndex)
+            if (index < _startIndex)
             {
                 // if it's above the current selection, set the first entry
-                startIndex = index;
+                _startIndex = index;
             }
-            if (selectedIndex > (endIndex - 1))
+            if (_selectedIndex > (_endIndex - 1))
             {
-                startIndex += selectedIndex - (endIndex - 1);
+                _startIndex += _selectedIndex - (_endIndex - 1);
             }
             // otherwise, it should be in the current selection already
             // -- note that the start and end indices are checked in Draw.
         }
-
-
-
 
         /// <summary>
         /// Move the current selection up one entry.
@@ -130,7 +121,6 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             }
         }
 
-
         /// <summary>
         /// Move the current selection down one entry.
         /// </summary>
@@ -139,48 +129,43 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             SelectedIndex++;   // safety-checked in Draw()
         }
 
-
         /// <summary>
         /// Decrease the selected quantity by one.
         /// </summary>
         protected virtual void MoveCursorLeft() { }
-
 
         /// <summary>
         /// Increase the selected quantity by one.
         /// </summary>
         protected virtual void MoveCursorRight() { }
 
-
         /// <summary>
         /// The first index displayed on the screen from the list.
         /// </summary>
-        private int startIndex = 0;
+        private int _startIndex = 0;
 
         /// <summary>
         /// The first index displayed on the screen from the list.
         /// </summary>
         public int StartIndex
         {
-            get { return startIndex; }
-            set { startIndex = value; } // safety-checked in Draw
+            get => _startIndex;
+            set => _startIndex = value;  // safety-checked in Draw
         }
-
 
         /// <summary>
         /// The last index displayed on the screen from the list.
         /// </summary>
-        private int endIndex = 0;
+        private int _endIndex = 0;
 
         /// <summary>
         /// The last index displayed on the screen from the list.
         /// </summary>
         public int EndIndex
         {
-            get { return endIndex; }
-            set { endIndex = value; }   // safety-checked in Draw
+            get => _endIndex;
+            set => _endIndex = value;    // safety-checked in Draw
         }
-
 
         /// <summary>
         /// The maximum number of list entries that the screen can show at once.
@@ -190,12 +175,10 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// <summary>
         /// Constructs a new ListScreen object.
         /// </summary>
-        public ListScreen()
-            : base()
+        public ListScreen() : base()
         {
-            this.IsPopup = true;
+            IsPopup = true;
         }
-
 
         /// <summary>
         /// Load the graphics content from the content manager.
@@ -205,53 +188,38 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             ContentManager content = ScreenManager.Game.Content;
 
             // load the background textures
-            fadeTexture = content.Load<Texture2D>(@"Textures\GameScreens\FadeScreen");
-            backgroundTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\GameScreenBkgd");
-            listTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\InfoDisplay");
-            plankTexture =
-                content.Load<Texture2D>(@"Textures\MainMenu\MainMenuPlank03");
-            goldTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\GoldIcon");
+            _fadeTexture = content.Load<Texture2D>("Textures/GameScreens/FadeScreen");
+            _backgroundTexture = content.Load<Texture2D>("Textures/GameScreens/GameScreenBkgd");
+            _listTexture = content.Load<Texture2D>("Textures/GameScreens/InfoDisplay");
+            _plankTexture = content.Load<Texture2D>("Textures/MainMenu/MainMenuPlank03");
+            _goldTexture = content.Load<Texture2D>("Textures/GameScreens/GoldIcon");
 
             // load the foreground textures
-            highlightTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\HighlightLarge");
-            selectionArrowTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\SelectionArrow");
+            _highlightTexture = content.Load<Texture2D>("Textures/GameScreens/HighlightLarge");
+            _selectionArrowTexture = content.Load<Texture2D>("Textures/GameScreens/SelectionArrow");
 
             // load the trigger images
-            leftTriggerTexture =
-                content.Load<Texture2D>(@"Textures\Buttons\LeftTriggerButton");
-            rightTriggerTexture =
-                content.Load<Texture2D>(@"Textures\Buttons\RightTriggerButton");
-            leftQuantityArrowTexture =
-                content.Load<Texture2D>(@"Textures\Buttons\QuantityArrowLeft");
-            rightQuantityArrowTexture =
-                content.Load<Texture2D>(@"Textures\Buttons\QuantityArrowRight");
-            backButtonTexture =
-                content.Load<Texture2D>(@"Textures\Buttons\BButton");
-            selectButtonTexture =
-                content.Load<Texture2D>(@"Textures\Buttons\AButton");
-            xButtonTexture =
-                content.Load<Texture2D>(@"Textures\Buttons\XButton");
-            yButtonTexture =
-                content.Load<Texture2D>(@"Textures\Buttons\YButton");
+            _leftTriggerTexture = content.Load<Texture2D>("Textures/Buttons/LeftTriggerButton");
+            _rightTriggerTexture = content.Load<Texture2D>("Textures/Buttons/RightTriggerButton");
+            //leftQuantityArrowTexture = content.Load<Texture2D>(@"Textures\Buttons\QuantityArrowLeft");
+            //rightQuantityArrowTexture = content.Load<Texture2D>(@"Textures\Buttons\QuantityArrowRight");
+            _backButtonTexture = content.Load<Texture2D>("Textures/Buttons/BButton");
+            _selectButtonTexture = content.Load<Texture2D>("Textures/Buttons/AButton");
+            _xButtonTexture = content.Load<Texture2D>("Textures/Buttons/XButton");
+            _yButtonTexture = content.Load<Texture2D>("Textures/Buttons/YButton");
 
             // calculate the centered positions
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
-            plankTexturePosition = new Vector2(
-                viewport.X + (viewport.Width - plankTexture.Width) / 2f, 67f);
+            _plankTexturePosition = new Vector2(viewport.X + (viewport.Width - _plankTexture.Width) / 2f, 67f);
 
             // adjust positions for texture sizes
-            if (backButtonTexture != null)
+            if (_backButtonTexture != null)
             {
-                backButtonTextPosition.X += backButtonTexture.Width;
+                _backButtonTextPosition.X += _backButtonTexture.Width;
             }
-            if (xButtonTexture != null)
+            if (_xButtonTexture != null)
             {
-                xButtonTextPosition.X += xButtonTexture.Width;
+                _xButtonTextPosition.X += _xButtonTexture.Width;
             }
 
             base.LoadContent();
@@ -293,42 +261,39 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             else if (InputManager.IsActionTriggered(InputManager.Action.Ok))
             {
                 ReadOnlyCollection<T> dataList = GetDataList();
-                if ((selectedIndex >= 0) && (selectedIndex < dataList.Count))
+                if ((_selectedIndex >= 0) && (_selectedIndex < dataList.Count))
                 {
-                    SelectTriggered(dataList[selectedIndex]);
+                    SelectTriggered(dataList[_selectedIndex]);
                 }
             }
             else if (InputManager.IsActionTriggered(InputManager.Action.DropUnEquip))
             {
                 ReadOnlyCollection<T> dataList = GetDataList();
-                if ((selectedIndex >= 0) && (selectedIndex < dataList.Count))
+                if ((_selectedIndex >= 0) && (_selectedIndex < dataList.Count))
                 {
-                    ButtonXPressed(dataList[selectedIndex]);
+                    ButtonXPressed(dataList[_selectedIndex]);
                 }
             }
             else if (InputManager.IsActionTriggered(InputManager.Action.TakeView))
             {
                 ReadOnlyCollection<T> dataList = GetDataList();
-                if ((selectedIndex >= 0) && (selectedIndex < dataList.Count))
+                if ((_selectedIndex >= 0) && (_selectedIndex < dataList.Count))
                 {
-                    ButtonYPressed(dataList[selectedIndex]);
+                    ButtonYPressed(dataList[_selectedIndex]);
                 }
             }
             base.HandleInput();
         }
-
 
         /// <summary>
         /// Switch to the screen to the "left" of this one in the UI, if any.
         /// </summary>
         protected virtual void PageScreenLeft() { }
 
-
         /// <summary>
         /// Switch to the screen to the "right" of this one in the UI, if any.
         /// </summary>
         protected virtual void PageScreenRight() { }
-
 
         /// <summary>
         /// Respond to the triggering of the Back action.
@@ -338,18 +303,15 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             ExitScreen();
         }
 
-
         /// <summary>
         /// Respond to the triggering of the Select action.
         /// </summary>
         protected virtual void SelectTriggered(T entry) { }
 
-
         /// <summary>
         /// Respond to the triggering of the X button (and related key).
         /// </summary>
         protected virtual void ButtonXPressed(T entry) { }
-
 
         /// <summary>
         /// Respond to the triggering of the Y button (and related key).
@@ -359,7 +321,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// <summary>
         /// Draws the screen.
         /// </summary>
-        public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
@@ -369,16 +331,15 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             // turn off the buttons if the list is empty
             if (dataList.Count <= 0)
             {
-                selectButtonText = String.Empty;
-                xButtonText = String.Empty;
-                yButtonText = String.Empty;
+                _selectButtonText = string.Empty;
+                _xButtonText = string.Empty;
+                _yButtonText = string.Empty;
             }
 
             // fix the indices for the current list size
-            SelectedIndex = (int)MathHelper.Clamp(SelectedIndex, 0, dataList.Count - 1);
-            startIndex = (int)MathHelper.Clamp(startIndex, 0,
-                dataList.Count - MaximumListEntries);
-            endIndex = Math.Min(startIndex + MaximumListEntries, dataList.Count);
+            SelectedIndex = MathHelper.Clamp(SelectedIndex, 0, dataList.Count - 1);
+            _startIndex = MathHelper.Clamp(_startIndex, 0, dataList.Count - MaximumListEntries);
+            _endIndex = Math.Min(_startIndex + MaximumListEntries, dataList.Count);
 
             spriteBatch.Begin();
 
@@ -393,14 +354,13 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             DrawTitle();
 
             // draw each item currently shown
-            Vector2 position = listEntryStartPosition +
-                new Vector2(0f, listLineSpacing / 2);
-            if (startIndex >= 0)
+            Vector2 position = _listEntryStartPosition + new Vector2(0f, _listLineSpacing / 2);
+            if (_startIndex >= 0)
             {
-                for (int index = startIndex; index < endIndex; index++)
+                for (int index = _startIndex; index < _endIndex; index++)
                 {
                     T entry = dataList[index];
-                    if (index == selectedIndex)
+                    if (index == _selectedIndex)
                     {
                         DrawSelection(position);
                         DrawEntry(entry, position, true);
@@ -410,7 +370,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
                     {
                         DrawEntry(entry, position, false);
                     }
-                    position.Y += listLineSpacing;
+                    position.Y += _listLineSpacing;
                 }
             }
 
@@ -426,7 +386,6 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// <param name="isSelected">If true, this entry is selected.</param>
         protected abstract void DrawEntry(T entry, Vector2 position, bool isSelected);
 
-
         /// <summary>
         /// Draw the selection graphics over the selected item.
         /// </summary>
@@ -435,12 +394,9 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         {
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
-            spriteBatch.Draw(highlightTexture,
-                new Vector2(highlightStartPosition.X, position.Y), Color.White);
-            spriteBatch.Draw(selectionArrowTexture,
-                new Vector2(selectionArrowPosition.X, position.Y + 10f), Color.White);
+            spriteBatch.Draw(_highlightTexture, new Vector2(_highlightStartPosition.X, position.Y), Color.White);
+            spriteBatch.Draw(_selectionArrowTexture, new Vector2(_selectionArrowPosition.X, position.Y + 10f), Color.White);
         }
-
 
         /// <summary>
         /// Draw the background of the screen.
@@ -449,11 +405,10 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         {
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
-            spriteBatch.Draw(fadeTexture, backgroundDestination, Color.White);
-            spriteBatch.Draw(backgroundTexture, backgroundDestination, Color.White);
-            spriteBatch.Draw(listTexture, listTexturePosition, Color.White);
+            spriteBatch.Draw(_fadeTexture, _backgroundDestination, Color.White);
+            spriteBatch.Draw(_backgroundTexture, _backgroundDestination, Color.White);
+            spriteBatch.Draw(_listTexture, _listTexturePosition, Color.White);
         }
-
 
         /// <summary>
         /// Draw the current list position in the appropriate location on the screen.
@@ -466,19 +421,15 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
 
             // draw the top number - the current position in the list
             string listPositionTopText = position.ToString();
-            Vector2 drawPosition = listPositionTopPosition;
-            drawPosition.X -= (float)Math.Ceiling(
-                Fonts.GearInfoFont.MeasureString(listPositionTopText).X / 2);
-            spriteBatch.DrawString(Fonts.GearInfoFont, listPositionTopText,
-                drawPosition, Fonts.CountColor);
+            Vector2 drawPosition = _listPositionTopPosition;
+            drawPosition.X -= (float)Math.Ceiling(Fonts.GearInfoFont.MeasureString(listPositionTopText).X / 2);
+            spriteBatch.DrawString(Fonts.GearInfoFont, listPositionTopText, drawPosition, Fonts.CountColor);
 
             // draw the bottom number - the current position in the list
             string listPositionBottomText = total.ToString();
-            drawPosition = listPositionBottomPosition;
-            drawPosition.X -= (float)Math.Ceiling(
-                Fonts.GearInfoFont.MeasureString(listPositionBottomText).X / 2);
-            spriteBatch.DrawString(Fonts.GearInfoFont, listPositionBottomText,
-                drawPosition, Fonts.CountColor);
+            drawPosition = _listPositionBottomPosition;
+            drawPosition.X -= (float)Math.Ceiling(Fonts.GearInfoFont.MeasureString(listPositionBottomText).X / 2);
+            spriteBatch.DrawString(Fonts.GearInfoFont, listPositionBottomText, drawPosition, Fonts.CountColor);
         }
 
 
@@ -494,24 +445,19 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
 
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
-            spriteBatch.Draw(goldTexture, goldTexturePosition, Color.White);
-            spriteBatch.DrawString(Fonts.ButtonNamesFont,
-                Fonts.GetGoldString(Session.Party.PartyGold), goldTextPosition,
-                Color.White);
+            spriteBatch.Draw(_goldTexture, _goldTexturePosition, Color.White);
+            spriteBatch.DrawString(Fonts.ButtonNamesFont, Fonts.GetGoldString(Session.Party.PartyGold), _goldTextPosition, Color.White);
         }
-
 
         /// <summary>
         /// Draw the description of the selected item.
         /// </summary>
         protected abstract void DrawSelectedDescription(T entry);
 
-
         /// <summary>
         /// Draw the column headers above the list.
         /// </summary>
         protected abstract void DrawColumnHeaders();
-
 
         /// <summary>
         /// Draw all of the buttons used by the screen.
@@ -526,74 +472,51 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
             // draw the left trigger texture and text
-            if ((leftTriggerTexture != null) && !String.IsNullOrEmpty(leftTriggerText))
+            if ((_leftTriggerTexture != null) && !string.IsNullOrEmpty(_leftTriggerText))
             {
-                Vector2 position = leftTriggerTexturePosition + new Vector2(
-                    leftTriggerTexture.Width / 2f - (float)Math.Ceiling(
-                    Fonts.PlayerStatisticsFont.MeasureString(leftTriggerText).X / 2f),
-                    90f);
-                spriteBatch.Draw(leftTriggerTexture, leftTriggerTexturePosition,
-                    Color.White);
-                spriteBatch.DrawString(Fonts.PlayerStatisticsFont, leftTriggerText,
-                    position, Color.Black);
+                Vector2 position = _leftTriggerTexturePosition + new Vector2(_leftTriggerTexture.Width / 2f - (float)Math.Ceiling(Fonts.PlayerStatisticsFont.MeasureString(_leftTriggerText).X / 2f), 90f);
+                spriteBatch.Draw(_leftTriggerTexture, _leftTriggerTexturePosition, Color.White);
+                spriteBatch.DrawString(Fonts.PlayerStatisticsFont, _leftTriggerText, position, Color.Black);
             }
 
             // draw the right trigger texture and text
-            if ((rightTriggerTexture != null) && !String.IsNullOrEmpty(rightTriggerText))
+            if ((_rightTriggerTexture != null) && !string.IsNullOrEmpty(_rightTriggerText))
             {
-                Vector2 position = rightTriggerTexturePosition + new Vector2(
-                    rightTriggerTexture.Width / 2f - (float)Math.Ceiling(
-                    Fonts.PlayerStatisticsFont.MeasureString(rightTriggerText).X / 2f),
-                    90f);
-                spriteBatch.Draw(rightTriggerTexture, rightTriggerTexturePosition,
-                    Color.White);
-                spriteBatch.DrawString(Fonts.PlayerStatisticsFont, rightTriggerText,
-                    position, Color.Black);
+                Vector2 position = _rightTriggerTexturePosition + new Vector2(_rightTriggerTexture.Width / 2f - (float)Math.Ceiling(Fonts.PlayerStatisticsFont.MeasureString(_rightTriggerText).X / 2f), 90f);
+                spriteBatch.Draw(_rightTriggerTexture, _rightTriggerTexturePosition, Color.White);
+                spriteBatch.DrawString(Fonts.PlayerStatisticsFont, _rightTriggerText, position, Color.Black);
             }
 
             // draw the left trigger texture and text
-            if ((backButtonTexture != null) && !String.IsNullOrEmpty(backButtonText))
+            if ((_backButtonTexture != null) && !string.IsNullOrEmpty(_backButtonText))
             {
-                spriteBatch.Draw(backButtonTexture, backButtonTexturePosition,
-                    Color.White);
-                spriteBatch.DrawString(Fonts.ButtonNamesFont, backButtonText,
-                    backButtonTextPosition, Color.White);
+                spriteBatch.Draw(_backButtonTexture, _backButtonTexturePosition, Color.White);
+                spriteBatch.DrawString(Fonts.ButtonNamesFont, _backButtonText, _backButtonTextPosition, Color.White);
             }
 
             // draw the left trigger texture and text
-            if ((selectButtonTexture != null) && !String.IsNullOrEmpty(selectButtonText))
+            if ((_selectButtonTexture != null) && !string.IsNullOrEmpty(_selectButtonText))
             {
-                spriteBatch.Draw(selectButtonTexture, selectButtonTexturePosition,
-                    Color.White);
-                Vector2 position = selectButtonTexturePosition - new Vector2(
-                    Fonts.ButtonNamesFont.MeasureString(selectButtonText).X, 0f) +
-                    new Vector2(0f, 5f);
-                spriteBatch.DrawString(Fonts.ButtonNamesFont, selectButtonText,
-                    position, Color.White);
+                spriteBatch.Draw(_selectButtonTexture, _selectButtonTexturePosition, Color.White);
+                Vector2 position = _selectButtonTexturePosition - new Vector2(Fonts.ButtonNamesFont.MeasureString(_selectButtonText).X, 0f) + new Vector2(0f, 5f);
+                spriteBatch.DrawString(Fonts.ButtonNamesFont, _selectButtonText, position, Color.White);
             }
 
             // draw the left trigger texture and text
-            if ((xButtonTexture != null) && !String.IsNullOrEmpty(xButtonText))
+            if ((_xButtonTexture != null) && !string.IsNullOrEmpty(_xButtonText))
             {
-                spriteBatch.Draw(xButtonTexture, xButtonTexturePosition,
-                    Color.White);
-                spriteBatch.DrawString(Fonts.ButtonNamesFont, xButtonText,
-                    xButtonTextPosition, Color.White);
+                spriteBatch.Draw(_xButtonTexture, _xButtonTexturePosition, Color.White);
+                spriteBatch.DrawString(Fonts.ButtonNamesFont, _xButtonText, _xButtonTextPosition, Color.White);
             }
 
             // draw the left trigger texture and text
-            if ((yButtonTexture != null) && !String.IsNullOrEmpty(yButtonText))
+            if ((_yButtonTexture != null) && !string.IsNullOrEmpty(_yButtonText))
             {
-                spriteBatch.Draw(yButtonTexture, yButtonTexturePosition,
-                    Color.White);
-                Vector2 position = yButtonTexturePosition - new Vector2(
-                    Fonts.ButtonNamesFont.MeasureString(yButtonText).X, 0f) +
-                    new Vector2(0f, 5f);
-                spriteBatch.DrawString(Fonts.ButtonNamesFont, yButtonText,
-                    position, Color.White);
+                spriteBatch.Draw(_yButtonTexture, _yButtonTexturePosition, Color.White);
+                Vector2 position = _yButtonTexturePosition - new Vector2(Fonts.ButtonNamesFont.MeasureString(_yButtonText).X, 0f) + new Vector2(0f, 5f);
+                spriteBatch.DrawString(Fonts.ButtonNamesFont, _yButtonText, position, Color.White);
             }
         }
-
 
         /// <summary>
         /// Draw the title of the screen, if any.
@@ -603,16 +526,13 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
             // draw the left trigger texture and text
-            if ((plankTexture != null) && !String.IsNullOrEmpty(titleText))
+            if ((_plankTexture != null) && !string.IsNullOrEmpty(_titleText))
             {
-                Vector2 titleTextSize = Fonts.HeaderFont.MeasureString(titleText);
+                Vector2 titleTextSize = Fonts.HeaderFont.MeasureString(_titleText);
                 Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
-                Vector2 position = new Vector2(
-                    (float)Math.Floor(viewport.X + viewport.Width / 2 -
-                    titleTextSize.X / 2f), 90f);
-                spriteBatch.Draw(plankTexture, plankTexturePosition, Color.White);
-                spriteBatch.DrawString(Fonts.HeaderFont, titleText, position,
-                    Fonts.TitleColor);
+                Vector2 position = new((float)Math.Floor(viewport.X + viewport.Width / 2 - titleTextSize.X / 2f), 90f);
+                spriteBatch.Draw(_plankTexture, _plankTexturePosition, Color.White);
+                spriteBatch.DrawString(Fonts.HeaderFont, _titleText, position, Fonts.TitleColor);
             }
         }
     }

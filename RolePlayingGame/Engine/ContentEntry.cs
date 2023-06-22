@@ -9,8 +9,8 @@ namespace RolePlayingGame.Engine
         [ContentSerializer(Optional = true)]
         public string ContentName
         {
-            get { return contentName; }
-            set { contentName = value; }
+            get => contentName;
+            set => contentName = value;
         }
 
         private T content;
@@ -18,16 +18,16 @@ namespace RolePlayingGame.Engine
         [XmlIgnore]
         public T Content
         {
-            get { return content; }
-            set { content = value; }
+            get => content;
+            set => content = value;
         }
 
         private int count = 1;
         [ContentSerializer(Optional = true)]
         public int Count
         {
-            get { return count; }
-            set { count = value; }
+            get => count;
+            set => count = value;
         }
 
         public class ContentEntryReader : ContentTypeReader<ContentEntry<T>>

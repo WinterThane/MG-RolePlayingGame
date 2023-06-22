@@ -7,30 +7,29 @@ namespace RolePlayingGame.GearObjects
         /// <summary>
         /// The content name of the gear.
         /// </summary>
-        private string gearName;
+        private string _gearName;
 
         /// <summary>
         /// The content name of the gear.
         /// </summary>
         public string GearName
         {
-            get { return gearName; }
-            set { gearName = value; }
+            get => _gearName;
+            set => _gearName = value;
         }
-
 
         /// <summary>
         /// The percentage chance that the gear will drop, from 0 to 100.
         /// </summary>
-        private int dropPercentage;
+        private int _dropPercentage;
 
         /// <summary>
         /// The percentage chance that the gear will drop, from 0 to 100.
         /// </summary>
         public int DropPercentage
         {
-            get { return dropPercentage; }
-            set { dropPercentage = (value > 100 ? 100 : (value < 0 ? 0 : value)); }
+            get => _dropPercentage;
+            set => _dropPercentage = value > 100 ? 100 : (value < 0 ? 0 : value);
         }
 
         /// <summary>
@@ -38,8 +37,7 @@ namespace RolePlayingGame.GearObjects
         /// </summary>
         public class GearDropReader : ContentTypeReader<GearDrop>
         {
-            protected override GearDrop Read(ContentReader input,
-                GearDrop existingInstance)
+            protected override GearDrop Read(ContentReader input, GearDrop existingInstance)
             {
                 GearDrop gearDrop = existingInstance;
                 if (gearDrop == null)

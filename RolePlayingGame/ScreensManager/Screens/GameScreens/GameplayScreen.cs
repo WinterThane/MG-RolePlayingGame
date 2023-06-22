@@ -10,8 +10,8 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
 {
     public class GameplayScreen : GameScreen
     {
-        GameStartDescription gameStartDescription = null;
-        SaveGameDescription saveGameDescription = null;
+        GameStartDescription _gameStartDescription = null;
+        SaveGameDescription _saveGameDescription = null;
 
         /// <summary>
         /// Create a new GameplayScreen object.
@@ -27,8 +27,8 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// </summary>
         public GameplayScreen(GameStartDescription gameStartDescription) : this()
         {
-            this.gameStartDescription = gameStartDescription;
-            saveGameDescription = null;
+            _gameStartDescription = gameStartDescription;
+            _saveGameDescription = null;
         }
 
         /// <summary>
@@ -36,8 +36,8 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// </summary>
         public GameplayScreen(SaveGameDescription saveGameDescription) : this()
         {
-            gameStartDescription = null;
-            this.saveGameDescription = saveGameDescription;
+            _gameStartDescription = null;
+            _saveGameDescription = saveGameDescription;
         }
 
         /// <summary>
@@ -56,11 +56,11 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// </summary>
         public override void LoadContent()
         {
-            if (gameStartDescription != null)
+            if (_gameStartDescription != null)
             {
-                Session.StartNewSession(gameStartDescription, ScreenManager, this);
+                Session.StartNewSession(_gameStartDescription, ScreenManager, this);
             }
-            else if (saveGameDescription != null)
+            else if (_saveGameDescription != null)
             {
                 //Session.LoadSession(saveGameDescription, ScreenManager, this);
             }

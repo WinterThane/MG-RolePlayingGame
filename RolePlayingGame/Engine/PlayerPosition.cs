@@ -8,25 +8,16 @@ namespace RolePlayingGame.Engine
         public Point TilePosition = Point.Zero;
         public Vector2 TileOffset = Vector2.Zero;
 
-        public Vector2 ScreenPosition
-        {
-            get
-            {
-                return TileEngine.GetScreenPosition(TilePosition) + TileOffset;
-            }
-        }
+        public Vector2 ScreenPosition => TileEngine.GetScreenPosition(TilePosition) + TileOffset;
 
         public Direction Direction = Direction.South;
 
-        private bool isMoving = false;
-        public bool IsMoving
-        {
-            get { return isMoving; }
-        }
+        private bool _isMoving = false;
+        public bool IsMoving => _isMoving;
 
         public void Move(Vector2 movement)
         {
-            isMoving = (movement != Vector2.Zero);
+            _isMoving = movement != Vector2.Zero;
 
             CalculateMovement(movement, ref TilePosition, ref TileOffset);
 

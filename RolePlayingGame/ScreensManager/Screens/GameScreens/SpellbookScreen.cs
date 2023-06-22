@@ -84,13 +84,13 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
                 });
 
             // configure the menu text
-            titleText = "Spell Book";
-            selectButtonText = "Cast";
-            backButtonText = "Back";
-            xButtonText = String.Empty;
-            yButtonText = String.Empty;
-            leftTriggerText = String.Empty;
-            rightTriggerText = String.Empty;
+            _titleText = "Spell Book";
+            _selectButtonText = "Cast";
+            _backButtonText = "Back";
+            _xButtonText = String.Empty;
+            _yButtonText = String.Empty;
+            _leftTriggerText = String.Empty;
+            _rightTriggerText = String.Empty;
         }
 
         /// <summary>
@@ -170,10 +170,10 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             Color color = isSelected ? Fonts.HighlightColor : Fonts.DisplayColor;
 
             // draw the icon
-            spriteBatch.Draw(entry.IconTexture, drawPosition + iconOffset, Color.White);
+            spriteBatch.Draw(entry.IconTexture, drawPosition + _iconOffset, Color.White);
 
             // draw the name
-            drawPosition.Y += listLineSpacing / 4;
+            drawPosition.Y += _listLineSpacing / 4;
             drawPosition.X += nameColumnInterval;
             spriteBatch.DrawString(Fonts.GearInfoFont, entry.Name, drawPosition, color);
 
@@ -199,7 +199,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             // draw the cast button if needed
             if (isSelected)
             {
-                selectButtonText = (CanSelectEntry(entry) && (SpellSelected != null)) ?
+                _selectButtonText = (CanSelectEntry(entry) && (SpellSelected != null)) ?
                     "Cast" : String.Empty;
             }
         }
@@ -217,7 +217,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             }
 
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-            Vector2 position = descriptionTextPosition;
+            Vector2 position = _descriptionTextPosition;
 
             // draw the insufficient-mp warning
             if (CombatEngine.IsActive && (entry.MagicPointCost > statistics.MagicPoints))
@@ -241,7 +241,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         protected override void DrawColumnHeaders()
         {
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-            Vector2 position = listEntryStartPosition;
+            Vector2 position = _listEntryStartPosition;
 
             position.X += nameColumnInterval;
             if (!String.IsNullOrEmpty(nameColumnText))

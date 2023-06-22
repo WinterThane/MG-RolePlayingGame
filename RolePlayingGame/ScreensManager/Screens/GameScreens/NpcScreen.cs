@@ -6,8 +6,8 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
 {
     public abstract class NpcScreen<T> : DialogueScreen where T : Character
     {
-        protected MapEntry<T> mapEntry = null;
-        protected Character character = null;
+        protected MapEntry<T> _mapEntry = null;
+        protected Character _character = null;
 
         /// <summary>
         /// Create a new NpcScreen object.
@@ -19,14 +19,14 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             {
                 throw new ArgumentNullException("mapEntry");
             }
-            this.mapEntry = mapEntry;
-            this.character = mapEntry.Content as Character;
-            if (this.character == null)
+            _mapEntry = mapEntry;
+            _character = mapEntry.Content;
+
+            if (_character == null)
             {
-                throw new ArgumentNullException(
-                    "NpcScreen requires a MapEntry with a character.");
+                throw new ArgumentNullException("NpcScreen requires a MapEntry with a character.");
             }
-            TitleText = character.Name;
+            TitleText = _character.Name;
         }
     }
 }

@@ -48,8 +48,8 @@ namespace RolePlayingGame.Data
             }
 
             // assign the parameters
-            this.Minimum = minimum;
-            this.Maximum = maximum;
+            Minimum = minimum;
+            Maximum = maximum;
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace RolePlayingGame.Data
         /// </summary>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder("(");
+            StringBuilder sb = new("(");
 
             sb.Append(Minimum);
             sb.Append(',');

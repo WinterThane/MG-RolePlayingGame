@@ -21,15 +21,15 @@ namespace RolePlayingGame.GearObjects
         /// <summary>
         /// The slot that this armor fills.
         /// </summary>
-        private ArmorSlot slot;
+        private ArmorSlot _slot;
 
         /// <summary>
         /// The slot that this armor fills.
         /// </summary>
         public ArmorSlot Slot
         {
-            get { return slot; }
-            set { slot = value; }
+            get => _slot;
+            set => _slot = value;
         }
 
         /// <summary>
@@ -37,37 +37,35 @@ namespace RolePlayingGame.GearObjects
         /// </summary>
         public override string GetPowerText()
         {
-            return "Weapon Defense: " + OwnerHealthDefenseRange.ToString() +
-                "\nMagic Defense: " + OwnerMagicDefenseRange.ToString();
+            return "Weapon Defense: " + OwnerHealthDefenseRange.ToString() + "\nMagic Defense: " + OwnerMagicDefenseRange.ToString();
         }
 
         /// <summary>
         /// The range of health defense provided by this armor to its owner.
         /// </summary>
-        private Int32Range ownerHealthDefenseRange;
+        private Int32Range _ownerHealthDefenseRange;
 
         /// <summary>
         /// The range of health defense provided by this armor to its owner.
         /// </summary>
         public Int32Range OwnerHealthDefenseRange
         {
-            get { return ownerHealthDefenseRange; }
-            set { ownerHealthDefenseRange = value; }
+            get => _ownerHealthDefenseRange;
+            set => _ownerHealthDefenseRange = value;
         }
-
 
         /// <summary>
         /// The range of magic defense provided by this armor to its owner.
         /// </summary>
-        private Int32Range ownerMagicDefenseRange;
+        private Int32Range _ownerMagicDefenseRange;
 
         /// <summary>
         /// The range of magic defense provided by this armor to its owner.
         /// </summary>
         public Int32Range OwnerMagicDefenseRange
         {
-            get { return ownerMagicDefenseRange; }
-            set { ownerMagicDefenseRange = value; }
+            get => _ownerMagicDefenseRange;
+            set => _ownerMagicDefenseRange = value;
         }
 
         /// <summary>

@@ -33,7 +33,7 @@ namespace RolePlayingGame.InputsManager
             TotalActionCount
         }
 
-        private static readonly string[] actionNames =
+        private static readonly string[] _actionNames =
         {
             "Main Menu",
             "Ok",
@@ -62,12 +62,12 @@ namespace RolePlayingGame.InputsManager
         {
             int index = (int)action;
 
-            if ((index < 0) || (index > actionNames.Length))
+            if ((index < 0) || (index > _actionNames.Length))
             {
                 throw new ArgumentException("action");
             }
 
-            return actionNames[index];
+            return _actionNames[index];
         }
 
         public enum GamePadButtons
@@ -102,122 +102,116 @@ namespace RolePlayingGame.InputsManager
             public List<Keys> keyboardKeys = new();
         }
 
-        const float analogLimit = 0.5f;
+        const float _analogLimit = 0.5f;
 
-        private static KeyboardState currentKeyboardState;
-        public static KeyboardState CurrentKeyboardState
-        {
-            get { return currentKeyboardState; }
-        }
+        private static KeyboardState _currentKeyboardState;
+        public static KeyboardState CurrentKeyboardState => _currentKeyboardState;
 
-        private static KeyboardState previousKeyboardState;
+        private static KeyboardState _previousKeyboardState;
 
         public static bool IsKeyPressed(Keys key)
         {
-            return currentKeyboardState.IsKeyDown(key);
+            return _currentKeyboardState.IsKeyDown(key);
         }
 
         public static bool IsKeyTriggered(Keys key)
         {
-            return (currentKeyboardState.IsKeyDown(key)) && (!previousKeyboardState.IsKeyDown(key));
+            return _currentKeyboardState.IsKeyDown(key) && (!_previousKeyboardState.IsKeyDown(key));
         }
 
-        private static GamePadState currentGamePadState;
-        public static GamePadState CurrentGamePadState
-        {
-            get { return currentGamePadState; }
-        }
+        private static GamePadState _currentGamePadState;
+        public static GamePadState CurrentGamePadState => _currentGamePadState;
 
-        private static GamePadState previousGamePadState;
+        private static GamePadState _previousGamePadState;
 
         public static bool IsGamePadStartPressed()
         {
-            return (currentGamePadState.Buttons.Start == ButtonState.Pressed);
+            return _currentGamePadState.Buttons.Start == ButtonState.Pressed;
         }
 
         public static bool IsGamePadBackPressed()
         {
-            return (currentGamePadState.Buttons.Back == ButtonState.Pressed);
+            return _currentGamePadState.Buttons.Back == ButtonState.Pressed;
         }
 
         public static bool IsGamePadAPressed()
         {
-            return (currentGamePadState.Buttons.A == ButtonState.Pressed);
+            return _currentGamePadState.Buttons.A == ButtonState.Pressed;
         }
 
         public static bool IsGamePadBPressed()
         {
-            return (currentGamePadState.Buttons.B == ButtonState.Pressed);
+            return _currentGamePadState.Buttons.B == ButtonState.Pressed;
         }
 
         public static bool IsGamePadXPressed()
         {
-            return (currentGamePadState.Buttons.X == ButtonState.Pressed);
+            return _currentGamePadState.Buttons.X == ButtonState.Pressed;
         }
 
         public static bool IsGamePadYPressed()
         {
-            return (currentGamePadState.Buttons.Y == ButtonState.Pressed);
+            return _currentGamePadState.Buttons.Y == ButtonState.Pressed;
         }
 
         public static bool IsGamePadLeftShoulderPressed()
         {
-            return (currentGamePadState.Buttons.LeftShoulder == ButtonState.Pressed);
+            return _currentGamePadState.Buttons.LeftShoulder == ButtonState.Pressed;
         }
 
         public static bool IsGamePadRightShoulderPressed()
         {
-            return (currentGamePadState.Buttons.RightShoulder == ButtonState.Pressed);
+            return _currentGamePadState.Buttons.RightShoulder == ButtonState.Pressed;
         }
 
         public static bool IsGamePadDPadUpPressed()
         {
-            return (currentGamePadState.DPad.Up == ButtonState.Pressed);
+            return _currentGamePadState.DPad.Up == ButtonState.Pressed;
         }
 
         public static bool IsGamePadDPadDownPressed()
         {
-            return (currentGamePadState.DPad.Down == ButtonState.Pressed);
+            return _currentGamePadState.DPad.Down == ButtonState.Pressed;
         }
 
         public static bool IsGamePadDPadLeftPressed()
         {
-            return (currentGamePadState.DPad.Left == ButtonState.Pressed);
+            return _currentGamePadState.DPad.Left == ButtonState.Pressed;
         }
 
         public static bool IsGamePadDPadRightPressed()
         {
-            return (currentGamePadState.DPad.Right == ButtonState.Pressed);
+            return _currentGamePadState.DPad.Right == ButtonState.Pressed;
         }
 
         public static bool IsGamePadLeftTriggerPressed()
         {
-            return (currentGamePadState.Triggers.Left > analogLimit);
+            return _currentGamePadState.Triggers.Left > _analogLimit;
         }
 
         public static bool IsGamePadRightTriggerPressed()
         {
-            return (currentGamePadState.Triggers.Right > analogLimit);
+            return _currentGamePadState.Triggers.Right > _analogLimit;
         }
 
         public static bool IsGamePadLeftStickUpPressed()
         {
-            return (currentGamePadState.ThumbSticks.Left.Y > analogLimit);
+            return _currentGamePadState.ThumbSticks.Left.Y > _analogLimit;
         }
 
         public static bool IsGamePadLeftStickDownPressed()
         {
-            return (-1f * currentGamePadState.ThumbSticks.Left.Y > analogLimit);
+            return -1f * _currentGamePadState.ThumbSticks.Left.Y > _analogLimit;
         }
 
         public static bool IsGamePadLeftStickLeftPressed()
         {
-            return (-1f * currentGamePadState.ThumbSticks.Left.X > analogLimit);
+            return -1f * _currentGamePadState.ThumbSticks.Left.X > _analogLimit;
         }
 
         public static bool IsGamePadLeftStickRightPressed()
         {
-            return (currentGamePadState.ThumbSticks.Left.X > analogLimit);
+            return _currentGamePadState.ThumbSticks.Left.X > _analogLimit;
         }
 
         private static bool IsGamePadButtonPressed(GamePadButtons gamePadKey)
@@ -276,112 +270,92 @@ namespace RolePlayingGame.InputsManager
 
         public static bool IsGamePadStartTriggered()
         {
-            return ((currentGamePadState.Buttons.Start == ButtonState.Pressed) &&
-              (previousGamePadState.Buttons.Start == ButtonState.Released));
+            return (_currentGamePadState.Buttons.Start == ButtonState.Pressed) && (_previousGamePadState.Buttons.Start == ButtonState.Released);
         }
 
         public static bool IsGamePadBackTriggered()
         {
-            return ((currentGamePadState.Buttons.Back == ButtonState.Pressed) &&
-              (previousGamePadState.Buttons.Back == ButtonState.Released));
+            return (_currentGamePadState.Buttons.Back == ButtonState.Pressed) && (_previousGamePadState.Buttons.Back == ButtonState.Released);
         }
 
         public static bool IsGamePadATriggered()
         {
-            return ((currentGamePadState.Buttons.A == ButtonState.Pressed) &&
-              (previousGamePadState.Buttons.A == ButtonState.Released));
+            return (_currentGamePadState.Buttons.A == ButtonState.Pressed) && (_previousGamePadState.Buttons.A == ButtonState.Released);
         }
 
         public static bool IsGamePadBTriggered()
         {
-            return ((currentGamePadState.Buttons.B == ButtonState.Pressed) &&
-              (previousGamePadState.Buttons.B == ButtonState.Released));
+            return (_currentGamePadState.Buttons.B == ButtonState.Pressed) && (_previousGamePadState.Buttons.B == ButtonState.Released);
         }
 
         public static bool IsGamePadXTriggered()
         {
-            return ((currentGamePadState.Buttons.X == ButtonState.Pressed) &&
-              (previousGamePadState.Buttons.X == ButtonState.Released));
+            return (_currentGamePadState.Buttons.X == ButtonState.Pressed) && (_previousGamePadState.Buttons.X == ButtonState.Released);
         }
 
         public static bool IsGamePadYTriggered()
         {
-            return ((currentGamePadState.Buttons.Y == ButtonState.Pressed) &&
-              (previousGamePadState.Buttons.Y == ButtonState.Released));
+            return (_currentGamePadState.Buttons.Y == ButtonState.Pressed) && (_previousGamePadState.Buttons.Y == ButtonState.Released);
         }
 
         public static bool IsGamePadLeftShoulderTriggered()
         {
-            return (
-                (currentGamePadState.Buttons.LeftShoulder == ButtonState.Pressed) &&
-                (previousGamePadState.Buttons.LeftShoulder == ButtonState.Released));
+            return (_currentGamePadState.Buttons.LeftShoulder == ButtonState.Pressed) && (_previousGamePadState.Buttons.LeftShoulder == ButtonState.Released);
         }
 
         public static bool IsGamePadRightShoulderTriggered()
         {
-            return (
-                (currentGamePadState.Buttons.RightShoulder == ButtonState.Pressed) &&
-                (previousGamePadState.Buttons.RightShoulder == ButtonState.Released));
+            return (_currentGamePadState.Buttons.RightShoulder == ButtonState.Pressed) && (_previousGamePadState.Buttons.RightShoulder == ButtonState.Released);
         }
 
         public static bool IsGamePadDPadUpTriggered()
         {
-            return ((currentGamePadState.DPad.Up == ButtonState.Pressed) &&
-              (previousGamePadState.DPad.Up == ButtonState.Released));
+            return (_currentGamePadState.DPad.Up == ButtonState.Pressed) && (_previousGamePadState.DPad.Up == ButtonState.Released);
         }
 
         public static bool IsGamePadDPadDownTriggered()
         {
-            return ((currentGamePadState.DPad.Down == ButtonState.Pressed) &&
-              (previousGamePadState.DPad.Down == ButtonState.Released));
+            return (_currentGamePadState.DPad.Down == ButtonState.Pressed) && (_previousGamePadState.DPad.Down == ButtonState.Released);
         }
 
         public static bool IsGamePadDPadLeftTriggered()
         {
-            return ((currentGamePadState.DPad.Left == ButtonState.Pressed) &&
-              (previousGamePadState.DPad.Left == ButtonState.Released));
+            return (_currentGamePadState.DPad.Left == ButtonState.Pressed) && (_previousGamePadState.DPad.Left == ButtonState.Released);
         }
 
         public static bool IsGamePadDPadRightTriggered()
         {
-            return ((currentGamePadState.DPad.Right == ButtonState.Pressed) &&
-              (previousGamePadState.DPad.Right == ButtonState.Released));
+            return (_currentGamePadState.DPad.Right == ButtonState.Pressed) && (_previousGamePadState.DPad.Right == ButtonState.Released);
         }
 
         public static bool IsGamePadLeftTriggerTriggered()
         {
-            return ((currentGamePadState.Triggers.Left > analogLimit) &&
-                (previousGamePadState.Triggers.Left < analogLimit));
+            return (_currentGamePadState.Triggers.Left > _analogLimit) && (_previousGamePadState.Triggers.Left < _analogLimit);
         }
 
         public static bool IsGamePadRightTriggerTriggered()
         {
-            return ((currentGamePadState.Triggers.Right > analogLimit) &&
-                (previousGamePadState.Triggers.Right < analogLimit));
+            return (_currentGamePadState.Triggers.Right > _analogLimit) && (_previousGamePadState.Triggers.Right < _analogLimit);
         }
 
         public static bool IsGamePadLeftStickUpTriggered()
         {
-            return ((currentGamePadState.ThumbSticks.Left.Y > analogLimit) &&
-                (previousGamePadState.ThumbSticks.Left.Y < analogLimit));
+            return (_currentGamePadState.ThumbSticks.Left.Y > _analogLimit) && (_previousGamePadState.ThumbSticks.Left.Y < _analogLimit);
         }
 
         public static bool IsGamePadLeftStickDownTriggered()
         {
-            return ((-1f * currentGamePadState.ThumbSticks.Left.Y > analogLimit) &&
-                (-1f * previousGamePadState.ThumbSticks.Left.Y < analogLimit));
+            return (-1f * _currentGamePadState.ThumbSticks.Left.Y > _analogLimit) && (-1f * _previousGamePadState.ThumbSticks.Left.Y < _analogLimit);
         }
 
         public static bool IsGamePadLeftStickLeftTriggered()
         {
-            return ((-1f * currentGamePadState.ThumbSticks.Left.X > analogLimit) &&
-                (-1f * previousGamePadState.ThumbSticks.Left.X < analogLimit));
+            return (-1f * _currentGamePadState.ThumbSticks.Left.X > _analogLimit) && (-1f * _previousGamePadState.ThumbSticks.Left.X < _analogLimit);
         }
 
         public static bool IsGamePadLeftStickRightTriggered()
         {
-            return ((currentGamePadState.ThumbSticks.Left.X > analogLimit) &&
-                (previousGamePadState.ThumbSticks.Left.X < analogLimit));
+            return (_currentGamePadState.ThumbSticks.Left.X > _analogLimit) && (_previousGamePadState.ThumbSticks.Left.X < _analogLimit);
         }
 
         private static bool IsGamePadButtonTriggered(GamePadButtons gamePadKey)
@@ -419,171 +393,125 @@ namespace RolePlayingGame.InputsManager
                     return IsGamePadRightTriggerTriggered();
 
                 case GamePadButtons.Up:
-                    return IsGamePadDPadUpTriggered() ||
-                        IsGamePadLeftStickUpTriggered();
+                    return IsGamePadDPadUpTriggered() || IsGamePadLeftStickUpTriggered();
 
                 case GamePadButtons.Down:
-                    return IsGamePadDPadDownTriggered() ||
-                        IsGamePadLeftStickDownTriggered();
+                    return IsGamePadDPadDownTriggered() || IsGamePadLeftStickDownTriggered();
 
                 case GamePadButtons.Left:
-                    return IsGamePadDPadLeftTriggered() ||
-                        IsGamePadLeftStickLeftTriggered();
+                    return IsGamePadDPadLeftTriggered() || IsGamePadLeftStickLeftTriggered();
 
                 case GamePadButtons.Right:
-                    return IsGamePadDPadRightTriggered() ||
-                        IsGamePadLeftStickRightTriggered();
+                    return IsGamePadDPadRightTriggered() || IsGamePadLeftStickRightTriggered();
             }
 
             return false;
         }
 
-        private static ActionMap[] actionMaps;
+        private static ActionMap[] _actionMaps;
 
         public static ActionMap[] ActionMaps
         {
-            get { return actionMaps; }
+            get { return _actionMaps; }
         }
 
         private static void ResetActionMaps()
         {
-            actionMaps = new ActionMap[(int)Action.TotalActionCount];
+            _actionMaps = new ActionMap[(int)Action.TotalActionCount];
 
-            actionMaps[(int)Action.MainMenu] = new ActionMap();
-            actionMaps[(int)Action.MainMenu].keyboardKeys.Add(
-                Keys.Tab);
-            actionMaps[(int)Action.MainMenu].gamePadButtons.Add(
-                GamePadButtons.Start);
+            _actionMaps[(int)Action.MainMenu] = new ActionMap();
+            _actionMaps[(int)Action.MainMenu].keyboardKeys.Add(Keys.Tab);
+            _actionMaps[(int)Action.MainMenu].gamePadButtons.Add(GamePadButtons.Start);
 
-            actionMaps[(int)Action.Ok] = new ActionMap();
-            actionMaps[(int)Action.Ok].keyboardKeys.Add(
-                Keys.Enter);
-            actionMaps[(int)Action.Ok].gamePadButtons.Add(
-                GamePadButtons.A);
+            _actionMaps[(int)Action.Ok] = new ActionMap();
+            _actionMaps[(int)Action.Ok].keyboardKeys.Add(Keys.Enter);
+            _actionMaps[(int)Action.Ok].gamePadButtons.Add(GamePadButtons.A);
 
-            actionMaps[(int)Action.Back] = new ActionMap();
-            actionMaps[(int)Action.Back].keyboardKeys.Add(
-                Keys.Escape);
-            actionMaps[(int)Action.Back].gamePadButtons.Add(
-                GamePadButtons.B);
+            _actionMaps[(int)Action.Back] = new ActionMap();
+            _actionMaps[(int)Action.Back].keyboardKeys.Add(Keys.Escape);
+            _actionMaps[(int)Action.Back].gamePadButtons.Add(GamePadButtons.B);
 
-            actionMaps[(int)Action.CharacterManagement] = new ActionMap();
-            actionMaps[(int)Action.CharacterManagement].keyboardKeys.Add(
-                Keys.Space);
-            actionMaps[(int)Action.CharacterManagement].gamePadButtons.Add(
-                GamePadButtons.Y);
+            _actionMaps[(int)Action.CharacterManagement] = new ActionMap();
+            _actionMaps[(int)Action.CharacterManagement].keyboardKeys.Add(Keys.Space);
+            _actionMaps[(int)Action.CharacterManagement].gamePadButtons.Add(GamePadButtons.Y);
 
-            actionMaps[(int)Action.ExitGame] = new ActionMap();
-            actionMaps[(int)Action.ExitGame].keyboardKeys.Add(
-                Keys.Escape);
-            actionMaps[(int)Action.ExitGame].gamePadButtons.Add(
-                GamePadButtons.Back);
+            _actionMaps[(int)Action.ExitGame] = new ActionMap();
+            _actionMaps[(int)Action.ExitGame].keyboardKeys.Add(Keys.Escape);
+            _actionMaps[(int)Action.ExitGame].gamePadButtons.Add(GamePadButtons.Back);
 
-            actionMaps[(int)Action.TakeView] = new ActionMap();
-            actionMaps[(int)Action.TakeView].keyboardKeys.Add(
-                Keys.LeftControl);
-            actionMaps[(int)Action.TakeView].gamePadButtons.Add(
-                GamePadButtons.Y);
+            _actionMaps[(int)Action.TakeView] = new ActionMap();
+            _actionMaps[(int)Action.TakeView].keyboardKeys.Add(Keys.LeftControl);
+            _actionMaps[(int)Action.TakeView].gamePadButtons.Add(GamePadButtons.Y);
 
-            actionMaps[(int)Action.DropUnEquip] = new ActionMap();
-            actionMaps[(int)Action.DropUnEquip].keyboardKeys.Add(
-                Keys.D);
-            actionMaps[(int)Action.DropUnEquip].gamePadButtons.Add(
-                GamePadButtons.X);
+            _actionMaps[(int)Action.DropUnEquip] = new ActionMap();
+            _actionMaps[(int)Action.DropUnEquip].keyboardKeys.Add(Keys.D);
+            _actionMaps[(int)Action.DropUnEquip].gamePadButtons.Add(GamePadButtons.X);
 
-            actionMaps[(int)Action.MoveCharacterUp] = new ActionMap();
-            actionMaps[(int)Action.MoveCharacterUp].keyboardKeys.Add(
-                Keys.Up);
-            actionMaps[(int)Action.MoveCharacterUp].gamePadButtons.Add(
-                GamePadButtons.Up);
+            _actionMaps[(int)Action.MoveCharacterUp] = new ActionMap();
+            _actionMaps[(int)Action.MoveCharacterUp].keyboardKeys.Add(Keys.Up);
+            _actionMaps[(int)Action.MoveCharacterUp].gamePadButtons.Add(GamePadButtons.Up);
 
-            actionMaps[(int)Action.MoveCharacterDown] = new ActionMap();
-            actionMaps[(int)Action.MoveCharacterDown].keyboardKeys.Add(
-                Keys.Down);
-            actionMaps[(int)Action.MoveCharacterDown].gamePadButtons.Add(
-                GamePadButtons.Down);
+            _actionMaps[(int)Action.MoveCharacterDown] = new ActionMap();
+            _actionMaps[(int)Action.MoveCharacterDown].keyboardKeys.Add(Keys.Down);
+            _actionMaps[(int)Action.MoveCharacterDown].gamePadButtons.Add(GamePadButtons.Down);
 
-            actionMaps[(int)Action.MoveCharacterLeft] = new ActionMap();
-            actionMaps[(int)Action.MoveCharacterLeft].keyboardKeys.Add(
-                Keys.Left);
-            actionMaps[(int)Action.MoveCharacterLeft].gamePadButtons.Add(
-                GamePadButtons.Left);
+            _actionMaps[(int)Action.MoveCharacterLeft] = new ActionMap();
+            _actionMaps[(int)Action.MoveCharacterLeft].keyboardKeys.Add(Keys.Left);
+            _actionMaps[(int)Action.MoveCharacterLeft].gamePadButtons.Add(GamePadButtons.Left);
 
-            actionMaps[(int)Action.MoveCharacterRight] = new ActionMap();
-            actionMaps[(int)Action.MoveCharacterRight].keyboardKeys.Add(
-                Keys.Right);
-            actionMaps[(int)Action.MoveCharacterRight].gamePadButtons.Add(
-                GamePadButtons.Right);
+            _actionMaps[(int)Action.MoveCharacterRight] = new ActionMap();
+            _actionMaps[(int)Action.MoveCharacterRight].keyboardKeys.Add(Keys.Right);
+            _actionMaps[(int)Action.MoveCharacterRight].gamePadButtons.Add(GamePadButtons.Right);
 
-            actionMaps[(int)Action.CursorUp] = new ActionMap();
-            actionMaps[(int)Action.CursorUp].keyboardKeys.Add(
-                Keys.Up);
-            actionMaps[(int)Action.CursorUp].gamePadButtons.Add(
-                GamePadButtons.Up);
+            _actionMaps[(int)Action.CursorUp] = new ActionMap();
+            _actionMaps[(int)Action.CursorUp].keyboardKeys.Add(Keys.Up);
+            _actionMaps[(int)Action.CursorUp].gamePadButtons.Add(GamePadButtons.Up);
 
-            actionMaps[(int)Action.CursorDown] = new ActionMap();
-            actionMaps[(int)Action.CursorDown].keyboardKeys.Add(
-                Keys.Down);
-            actionMaps[(int)Action.CursorDown].gamePadButtons.Add(
-                GamePadButtons.Down);
+            _actionMaps[(int)Action.CursorDown] = new ActionMap();
+            _actionMaps[(int)Action.CursorDown].keyboardKeys.Add(Keys.Down);
+            _actionMaps[(int)Action.CursorDown].gamePadButtons.Add(GamePadButtons.Down);
 
-            actionMaps[(int)Action.DecreaseAmount] = new ActionMap();
-            actionMaps[(int)Action.DecreaseAmount].keyboardKeys.Add(
-                Keys.Left);
-            actionMaps[(int)Action.DecreaseAmount].gamePadButtons.Add(
-                GamePadButtons.Left);
+            _actionMaps[(int)Action.DecreaseAmount] = new ActionMap();
+            _actionMaps[(int)Action.DecreaseAmount].keyboardKeys.Add(Keys.Left);
+            _actionMaps[(int)Action.DecreaseAmount].gamePadButtons.Add(GamePadButtons.Left);
 
-            actionMaps[(int)Action.IncreaseAmount] = new ActionMap();
-            actionMaps[(int)Action.IncreaseAmount].keyboardKeys.Add(
-                Keys.Right);
-            actionMaps[(int)Action.IncreaseAmount].gamePadButtons.Add(
-                GamePadButtons.Right);
+            _actionMaps[(int)Action.IncreaseAmount] = new ActionMap();
+            _actionMaps[(int)Action.IncreaseAmount].keyboardKeys.Add(Keys.Right);
+            _actionMaps[(int)Action.IncreaseAmount].gamePadButtons.Add(GamePadButtons.Right);
 
-            actionMaps[(int)Action.PageLeft] = new ActionMap();
-            actionMaps[(int)Action.PageLeft].keyboardKeys.Add(
-                Keys.LeftShift);
-            actionMaps[(int)Action.PageLeft].gamePadButtons.Add(
-                GamePadButtons.LeftTrigger);
+            _actionMaps[(int)Action.PageLeft] = new ActionMap();
+            _actionMaps[(int)Action.PageLeft].keyboardKeys.Add(Keys.LeftShift);
+            _actionMaps[(int)Action.PageLeft].gamePadButtons.Add(GamePadButtons.LeftTrigger);
 
-            actionMaps[(int)Action.PageRight] = new ActionMap();
-            actionMaps[(int)Action.PageRight].keyboardKeys.Add(
-                Keys.RightShift);
-            actionMaps[(int)Action.PageRight].gamePadButtons.Add(
-                GamePadButtons.RightTrigger);
+            _actionMaps[(int)Action.PageRight] = new ActionMap();
+            _actionMaps[(int)Action.PageRight].keyboardKeys.Add(Keys.RightShift);
+            _actionMaps[(int)Action.PageRight].gamePadButtons.Add(GamePadButtons.RightTrigger);
 
-            actionMaps[(int)Action.TargetUp] = new ActionMap();
-            actionMaps[(int)Action.TargetUp].keyboardKeys.Add(
-                Keys.Up);
-            actionMaps[(int)Action.TargetUp].gamePadButtons.Add(
-                GamePadButtons.Up);
+            _actionMaps[(int)Action.TargetUp] = new ActionMap();
+            _actionMaps[(int)Action.TargetUp].keyboardKeys.Add(Keys.Up);
+            _actionMaps[(int)Action.TargetUp].gamePadButtons.Add(GamePadButtons.Up);
 
-            actionMaps[(int)Action.TargetDown] = new ActionMap();
-            actionMaps[(int)Action.TargetDown].keyboardKeys.Add(
-                Keys.Down);
-            actionMaps[(int)Action.TargetDown].gamePadButtons.Add(
-                GamePadButtons.Down);
+            _actionMaps[(int)Action.TargetDown] = new ActionMap();
+            _actionMaps[(int)Action.TargetDown].keyboardKeys.Add(Keys.Down);
+            _actionMaps[(int)Action.TargetDown].gamePadButtons.Add(GamePadButtons.Down);
 
-            actionMaps[(int)Action.ActiveCharacterLeft] = new ActionMap();
-            actionMaps[(int)Action.ActiveCharacterLeft].keyboardKeys.Add(
-                Keys.Left);
-            actionMaps[(int)Action.ActiveCharacterLeft].gamePadButtons.Add(
-                GamePadButtons.Left);
+            _actionMaps[(int)Action.ActiveCharacterLeft] = new ActionMap();
+            _actionMaps[(int)Action.ActiveCharacterLeft].keyboardKeys.Add(Keys.Left);
+            _actionMaps[(int)Action.ActiveCharacterLeft].gamePadButtons.Add(GamePadButtons.Left);
 
-            actionMaps[(int)Action.ActiveCharacterRight] = new ActionMap();
-            actionMaps[(int)Action.ActiveCharacterRight].keyboardKeys.Add(
-                Keys.Right);
-            actionMaps[(int)Action.ActiveCharacterRight].gamePadButtons.Add(
-                GamePadButtons.Right);
+            _actionMaps[(int)Action.ActiveCharacterRight] = new ActionMap();
+            _actionMaps[(int)Action.ActiveCharacterRight].keyboardKeys.Add(Keys.Right);
+            _actionMaps[(int)Action.ActiveCharacterRight].gamePadButtons.Add(GamePadButtons.Right);
         }
 
         public static bool IsActionPressed(Action action)
         {
-            return IsActionMapPressed(actionMaps[(int)action]);
+            return IsActionMapPressed(_actionMaps[(int)action]);
         }
 
         public static bool IsActionTriggered(Action action)
         {
-            return IsActionMapTriggered(actionMaps[(int)action]);
+            return IsActionMapTriggered(_actionMaps[(int)action]);
         }
 
         private static bool IsActionMapPressed(ActionMap actionMap)
@@ -595,7 +523,7 @@ namespace RolePlayingGame.InputsManager
                     return true;
                 }
             }
-            if (currentGamePadState.IsConnected)
+            if (_currentGamePadState.IsConnected)
             {
                 for (int i = 0; i < actionMap.gamePadButtons.Count; i++)
                 {
@@ -617,7 +545,7 @@ namespace RolePlayingGame.InputsManager
                     return true;
                 }
             }
-            if (currentGamePadState.IsConnected)
+            if (_currentGamePadState.IsConnected)
             {
                 for (int i = 0; i < actionMap.gamePadButtons.Count; i++)
                 {
@@ -638,12 +566,12 @@ namespace RolePlayingGame.InputsManager
         public static void Update()
         {
             // update the keyboard state
-            previousKeyboardState = currentKeyboardState;
-            currentKeyboardState = Keyboard.GetState();
+            _previousKeyboardState = _currentKeyboardState;
+            _currentKeyboardState = Keyboard.GetState();
 
             // update the gamepad state
-            previousGamePadState = currentGamePadState;
-            currentGamePadState = GamePad.GetState(PlayerIndex.One);
+            _previousGamePadState = _currentGamePadState;
+            _currentGamePadState = GamePad.GetState(PlayerIndex.One);
         }
     }
 }

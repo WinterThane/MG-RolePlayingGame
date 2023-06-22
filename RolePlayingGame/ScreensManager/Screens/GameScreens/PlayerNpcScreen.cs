@@ -11,30 +11,26 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// <summary>
         /// If true, the NPC's introduction dialogue is shown.
         /// </summary>
-        private bool isIntroduction = true;
-
+        private bool _isIntroduction = true;
 
         /// <summary>
         /// Constructs a new PlayerNpcScreen object.
         /// </summary>
         /// <param name="mapEntry"></param>
-        public PlayerNpcScreen(MapEntry<Player> mapEntry)
-            : base(mapEntry)
+        public PlayerNpcScreen(MapEntry<Player> mapEntry) : base(mapEntry)
         {
             // assign and check the parameter
-            Player playerNpc = character as Player;
+            Player playerNpc = _character as Player;
             if (playerNpc == null)
             {
-                throw new ArgumentException(
-                    "PlayerNpcScreen requires a MapEntry with a Player");
+                throw new ArgumentException("PlayerNpcScreen requires a MapEntry with a Player");
             }
 
-            this.DialogueText = playerNpc.IntroductionDialogue;
-            this.BackText = "Reject";
-            this.SelectText = "Accept";
-            isIntroduction = true;
+            DialogueText = playerNpc.IntroductionDialogue;
+            BackText = "Reject";
+            SelectText = "Accept";
+            _isIntroduction = true;
         }
-
 
         /// <summary>
         /// Handles user input.
@@ -44,38 +40,37 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             // view the player's statistics
             if (InputManager.IsActionTriggered(InputManager.Action.TakeView))
             {
-                ScreenManager.AddScreen(new StatisticsScreen(character as Player));
+                ScreenManager.AddScreen(new StatisticsScreen(_character as Player));
                 return;
             }
 
-            if (isIntroduction)
+            if (_isIntroduction)
             {
                 // accept the invitation
                 if (InputManager.IsActionTriggered(InputManager.Action.Ok))
                 {
-                    isIntroduction = false;
-                    Player player = character as Player;
+                    _isIntroduction = false;
+                    Player player = _character as Player;
                     Session.Party.JoinParty(player);
-                    Session.RemovePlayerNpc(mapEntry);
-                    this.DialogueText = player.JoinAcceptedDialogue;
-                    this.BackText = "Back";
-                    this.SelectText = "Back";
+                    Session.RemovePlayerNpc(_mapEntry);
+                    DialogueText = player.JoinAcceptedDialogue;
+                    BackText = "Back";
+                    SelectText = "Back";
                 }
                 // reject the invitation
                 if (InputManager.IsActionTriggered(InputManager.Action.Back))
                 {
-                    isIntroduction = false;
-                    Player player = character as Player;
-                    this.DialogueText = player.JoinRejectedDialogue;
-                    this.BackText = "Back";
-                    this.SelectText = "Back";
+                    _isIntroduction = false;
+                    Player player = _character as Player;
+                    DialogueText = player.JoinRejectedDialogue;
+                    BackText = "Back";
+                    SelectText = "Back";
                 }
             }
             else
             {
                 // exit the screen
-                if (InputManager.IsActionTriggered(InputManager.Action.Ok) ||
-                    InputManager.IsActionTriggered(InputManager.Action.Back))
+                if (InputManager.IsActionTriggered(InputManager.Action.Ok) || InputManager.IsActionTriggered(InputManager.Action.Back))
                 {
                     ExitScreen();
                     return;

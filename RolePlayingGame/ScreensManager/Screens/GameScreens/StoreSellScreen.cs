@@ -120,17 +120,17 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             : base(true)
         {
             // check the parameter
-            if ((store == null) || (store.StoreCategories.Count <= 0))
+            if ((store == null) || (store.StoreCategoriesList.Count <= 0))
             {
                 throw new ArgumentNullException("store");
             }
             this.store = store;
 
             // configure the menu text
-            selectButtonText = "Sell";
-            backButtonText = "Back";
-            xButtonText = String.Empty;
-            yButtonText = String.Empty;
+            _selectButtonText = "Sell";
+            _backButtonText = "Back";
+            _xButtonText = String.Empty;
+            _yButtonText = String.Empty;
 
             ResetQuantities();
         }
@@ -182,7 +182,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// </summary>
         protected override void PageScreenLeft()
         {
-            isItems = !isItems;
+            _isItems = !_isItems;
             ResetTriggerText();
             ResetQuantities();
         }
@@ -193,7 +193,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// </summary>
         protected override void PageScreenRight()
         {
-            isItems = !isItems;
+            _isItems = !_isItems;
             ResetTriggerText();
             ResetQuantities();
         }
@@ -205,7 +205,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// </summary>
         protected override void ResetTriggerText()
         {
-            leftTriggerText = rightTriggerText = isItems ? "Equipment" : "Items";
+            _leftTriggerText = _rightTriggerText = _isItems ? "Equipment" : "Items";
         }
 
         /// <summary>
@@ -227,12 +227,12 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             Vector2 drawPosition = position;
 
             // draw the icon
-            spriteBatch.Draw(entry.Content.IconTexture, drawPosition + iconOffset,
+            spriteBatch.Draw(entry.Content.IconTexture, drawPosition + _iconOffset,
                 Color.White);
 
             // draw the name
             Color color = isSelected ? Fonts.HighlightColor : Fonts.DisplayColor;
-            drawPosition.Y += listLineSpacing / 4;
+            drawPosition.Y += _listLineSpacing / 4;
             drawPosition.X += nameColumnInterval;
             spriteBatch.DrawString(Fonts.GearInfoFont, entry.Content.Name,
                 drawPosition, color);
@@ -270,7 +270,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
                     Color.White);
                 quantityPosition.X += rightQuantityArrow.Width;
                 // draw the purchase button
-                selectButtonText = "Sell";
+                _selectButtonText = "Sell";
             }
             else
             {
@@ -309,7 +309,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             }
 
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-            Vector2 position = descriptionTextPosition;
+            Vector2 position = _descriptionTextPosition;
 
             // draw the description
             // -- it's up to the content owner to fit the description
@@ -351,26 +351,26 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         protected override void DrawColumnHeaders()
         {
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-            Vector2 position = listEntryStartPosition;
+            Vector2 position = _listEntryStartPosition;
 
             position.X += nameColumnInterval;
-            if (!String.IsNullOrEmpty(nameColumnText))
+            if (!String.IsNullOrEmpty(_nameColumnText))
             {
-                spriteBatch.DrawString(Fonts.CaptionFont, nameColumnText, position,
+                spriteBatch.DrawString(Fonts.CaptionFont, _nameColumnText, position,
                     Fonts.CaptionColor);
             }
 
             position.X += powerColumnInterval;
-            if (!String.IsNullOrEmpty(powerColumnText))
+            if (!String.IsNullOrEmpty(_powerColumnText))
             {
-                spriteBatch.DrawString(Fonts.CaptionFont, powerColumnText, position,
+                spriteBatch.DrawString(Fonts.CaptionFont, _powerColumnText, position,
                     Fonts.CaptionColor);
             }
 
             position.X += quantityColumnInterval;
-            if (!String.IsNullOrEmpty(quantityColumnText))
+            if (!String.IsNullOrEmpty(_quantityColumnText))
             {
-                spriteBatch.DrawString(Fonts.CaptionFont, quantityColumnText, position,
+                spriteBatch.DrawString(Fonts.CaptionFont, _quantityColumnText, position,
                     Fonts.CaptionColor);
             }
 

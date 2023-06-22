@@ -13,38 +13,32 @@ namespace RolePlayingGame.Combat
         /// <summary>
         /// The Player object encapsulated by this object.
         /// </summary>
-        private Player player;
+        private Player _player;
 
         /// <summary>
         /// The Player object encapsulated by this object.
         /// </summary>
-        public Player Player
-        {
-            get { return player; }
-        }
+        public Player Player => _player;
 
         /// <summary>
         /// The character encapsulated by this combatant.
         /// </summary>
-        public override FightingCharacter Character
-        {
-            get { return player as FightingCharacter; }
-        }
+        public override FightingCharacter Character => _player;
 
         /// <summary>
         /// The current state of this combatant.
         /// </summary>
-        public override Character.CharacterState State
+        public override CharacterState State
         {
-            get { return player.State; }
+            get => _player.State;
             set
             {
-                if (value == player.State)
+                if (value == _player.State)
                 {
                     return;
                 }
-                player.State = value;
-                switch (player.State)
+                _player.State = value;
+                switch (_player.State)
                 {
                     case CharacterState.Idle:
                         CombatSprite.PlayAnimation("Idle");
@@ -55,8 +49,8 @@ namespace RolePlayingGame.Combat
                         break;
 
                     case CharacterState.Dying:
-                        player.StatisticsModifiers.HealthPoints =
-                            -1 * player.CharacterStatistics.HealthPoints;
+                        _player.StatisticsModifiers.HealthPoints =
+                            -1 * _player.CharacterStatistics.HealthPoints;
                         CombatSprite.PlayAnimation("Die");
                         break;
                 }
@@ -66,19 +60,12 @@ namespace RolePlayingGame.Combat
         /// <summary>
         /// Accessor for the combat sprite for this combatant.
         /// </summary>
-        public override AnimatingSprite CombatSprite
-        {
-            get { return player.CombatSprite; }
-        }
+        public override AnimatingSprite CombatSprite => _player.CombatSprite;
 
         /// <summary>
         /// The current statistics of this combatant.
         /// </summary>
-        public override StatisticsValue Statistics
-        {
-            get { return player.CurrentStatistics + CombatEffects.TotalStatistics; }
-        }
-
+        public override StatisticsValue Statistics => _player.CurrentStatistics + CombatEffects.TotalStatistics;
 
         /// <summary>
         /// Heals the combatant by the given amount.
@@ -91,12 +78,11 @@ namespace RolePlayingGame.Combat
             }
             else
             {
-                player.StatisticsModifiers += healingStatistics;
-                player.StatisticsModifiers.ApplyMaximum(new StatisticsValue());
+                _player.StatisticsModifiers += healingStatistics;
+                _player.StatisticsModifiers.ApplyMaximum(new StatisticsValue());
             }
             base.Heal(healingStatistics, duration);
         }
-
 
         /// <summary>
         /// Damages the combatant by the given amount.
@@ -110,12 +96,11 @@ namespace RolePlayingGame.Combat
             }
             else
             {
-                player.StatisticsModifiers -= damageStatistics;
-                player.StatisticsModifiers.ApplyMaximum(new StatisticsValue());
+                _player.StatisticsModifiers -= damageStatistics;
+                _player.StatisticsModifiers.ApplyMaximum(new StatisticsValue());
             }
             base.Damage(damageStatistics, duration);
         }
-
 
         /// <summary>
         /// Pay the cost for the given spell.
@@ -136,7 +121,7 @@ namespace RolePlayingGame.Combat
             }
 
             // reduce the player's magic points by the spell's cost
-            player.StatisticsModifiers.MagicPoints -= spell.MagicPointCost;
+            _player.StatisticsModifiers.MagicPoints -= spell.MagicPointCost;
 
             return true;
         }
@@ -153,7 +138,7 @@ namespace RolePlayingGame.Combat
             }
 
             // assign the parameters
-            this.player = player;
+            _player = player;
 
             // if the player starts dead, make sure the sprite is already "dead"
             if (IsDeadOrDying)

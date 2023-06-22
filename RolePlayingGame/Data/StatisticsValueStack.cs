@@ -17,32 +17,27 @@ namespace RolePlayingGame.Data
         /// <summary>
         /// One entry in the stack.
         /// </summary>
-        private List<StatisticsValueStackEntry> entries =
-            new List<StatisticsValueStackEntry>();
+        private List<StatisticsValueStackEntry> _entriesList = new();
 
         /// <summary>
         /// The total of all unexpired statistics in the stack.
         /// </summary>
-        private StatisticsValue totalStatistics = new StatisticsValue();
+        private StatisticsValue _totalStatistics = new();
 
         /// <summary>
         /// The total of all unexpired statistics in the stack.
         /// </summary>
-        public StatisticsValue TotalStatistics
-        {
-            get { return totalStatistics; }
-        }
-
+        public StatisticsValue TotalStatistics => _totalStatistics;
 
         /// <summary>
         /// Calculate the total of all unexpired entries.
         /// </summary>
         private void CalculateTotalStatistics()
         {
-            totalStatistics = new StatisticsValue();
-            foreach (StatisticsValueStackEntry entry in entries)
+            _totalStatistics = new StatisticsValue();
+            foreach (StatisticsValueStackEntry entry in _entriesList)
             {
-                totalStatistics += entry.Statistics;
+                _totalStatistics += entry.Statistics;
             }
         }
 
@@ -57,11 +52,13 @@ namespace RolePlayingGame.Data
                 throw new ArgumentOutOfRangeException("duration");
             }
 
-            StatisticsValueStackEntry entry = new StatisticsValueStackEntry();
-            entry.Statistics = statistics;
-            entry.RemainingDuration = duration;
+            StatisticsValueStackEntry entry = new()
+            {
+                Statistics = statistics,
+                RemainingDuration = duration
+            };
 
-            entries.Add(entry);
+            _entriesList.Add(entry);
 
             CalculateTotalStatistics();
         }
@@ -74,13 +71,13 @@ namespace RolePlayingGame.Data
         {
             // remove the entries at 1 - they are about to go to zero
             // -- values that are zero now, never expire
-            entries.RemoveAll(delegate (StatisticsValueStackEntry entry)
+            _entriesList.RemoveAll(delegate (StatisticsValueStackEntry entry)
             {
                 return (entry.RemainingDuration == 1);
             });
 
             // decrement all of the remaining entries.
-            foreach (StatisticsValueStackEntry entry in entries)
+            foreach (StatisticsValueStackEntry entry in _entriesList)
             {
                 entry.RemainingDuration--;
             }

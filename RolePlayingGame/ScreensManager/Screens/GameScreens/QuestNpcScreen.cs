@@ -17,7 +17,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             : base(mapEntry)
         {
             // assign and check the parameter
-            QuestNpc questNpc = character as QuestNpc;
+            QuestNpc questNpc = _character as QuestNpc;
             if (questNpc == null)
             {
                 throw new ArgumentException(

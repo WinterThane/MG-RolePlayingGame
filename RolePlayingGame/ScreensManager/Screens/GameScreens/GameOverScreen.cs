@@ -11,35 +11,32 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
 {
     public class GameOverScreen : GameScreen
     {
-        private Texture2D backTexture;
-        private Texture2D selectIconTexture;
-        private Texture2D fadeTexture;
-        private Vector2 backgroundPosition;
-        private Vector2 titlePosition;
-        private Vector2 gameOverPosition;
-        private Vector2 selectPosition;
-        private Vector2 selectIconPosition;
+        private Texture2D _backTexture;
+        private Texture2D _selectIconTexture;
+        private Texture2D _fadeTexture;
+        private Vector2 _backgroundPosition;
+        private Vector2 _titlePosition;
+        private Vector2 _gameOverPosition;
+        private Vector2 _selectPosition;
+        private Vector2 _selectIconPosition;
 
-        private readonly string titleString = "Game Over";
-        private readonly string gameOverString = "The party has been defeated.";
-        private readonly string selectString = "Continue";
+        private readonly string _titleString = "Game Over";
+        private readonly string _gameOverString = "The party has been defeated.";
+        private readonly string _selectString = "Continue";
 
         /// <summary>
         /// Create a new GameOverScreen object.
         /// </summary>
-        public GameOverScreen()
-            : base()
+        public GameOverScreen() : base()
         {
             AudioManager.PushMusic("LoseTheme");
-            this.Exiting += new EventHandler(GameOverScreen_Exiting);
+            Exiting += new EventHandler(GameOverScreen_Exiting);
         }
-
 
         void GameOverScreen_Exiting(object sender, EventArgs e)
         {
             AudioManager.PopMusic();
         }
-
 
         /// <summary>
         /// Load the graphics data from the content manager.
@@ -49,26 +46,23 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             ContentManager content = ScreenManager.Game.Content;
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
 
-            fadeTexture = content.Load<Texture2D>(@"Textures\GameScreens\FadeScreen");
-            backTexture = content.Load<Texture2D>(@"Textures\GameScreens\PopupScreen");
-            selectIconTexture = content.Load<Texture2D>(@"Textures\Buttons\AButton");
+            _fadeTexture = content.Load<Texture2D>("Textures/GameScreens/FadeScreen");
+            _backTexture = content.Load<Texture2D>("Textures/GameScreens/PopupScreen");
+            _selectIconTexture = content.Load<Texture2D>("Textures/Buttons/AButton");
 
-            backgroundPosition.X = (viewport.Width - backTexture.Width) / 2;
-            backgroundPosition.Y = (viewport.Height - backTexture.Height) / 2;
+            _backgroundPosition.X = (viewport.Width - _backTexture.Width) / 2;
+            _backgroundPosition.Y = (viewport.Height - _backTexture.Height) / 2;
 
-            titlePosition.X = (viewport.Width -
-                Fonts.HeaderFont.MeasureString(titleString).X) / 2;
-            titlePosition.Y = backgroundPosition.Y + 70f;
+            _titlePosition.X = (viewport.Width - Fonts.HeaderFont.MeasureString(_titleString).X) / 2;
+            _titlePosition.Y = _backgroundPosition.Y + 70f;
 
-            gameOverPosition.X = (viewport.Width -
-                Fonts.ButtonNamesFont.MeasureString(titleString).X) / 2;
-            gameOverPosition.Y = backgroundPosition.Y + backTexture.Height / 2;
+            _gameOverPosition.X = (viewport.Width - Fonts.ButtonNamesFont.MeasureString(_titleString).X) / 2;
+            _gameOverPosition.Y = _backgroundPosition.Y + _backTexture.Height / 2;
 
-            selectIconPosition.X = viewport.Width / 2 + 260;
-            selectIconPosition.Y = backgroundPosition.Y + 530f;
-            selectPosition.X = selectIconPosition.X -
-                Fonts.ButtonNamesFont.MeasureString(selectString).X - 10f;
-            selectPosition.Y = backgroundPosition.Y + 530f;
+            _selectIconPosition.X = viewport.Width / 2 + 260;
+            _selectIconPosition.Y = _backgroundPosition.Y + 530f;
+            _selectPosition.X = _selectIconPosition.X - Fonts.ButtonNamesFont.MeasureString(_selectString).X - 10f;
+            _selectPosition.Y = _backgroundPosition.Y + 530f;
         }
 
         /// <summary>
@@ -76,8 +70,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// </summary>
         public override void HandleInput()
         {
-            if (InputManager.IsActionTriggered(InputManager.Action.Ok) ||
-                InputManager.IsActionTriggered(InputManager.Action.Back))
+            if (InputManager.IsActionTriggered(InputManager.Action.Ok) || InputManager.IsActionTriggered(InputManager.Action.Back))
             {
                 ExitScreen();
                 ScreenManager.AddScreen(new MainMenuScreen());
@@ -94,23 +87,20 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             spriteBatch.Begin();
 
             // Draw fading screen
-            spriteBatch.Draw(fadeTexture, new Rectangle(0, 0, 1280, 720), Color.White);
+            spriteBatch.Draw(_fadeTexture, new Rectangle(0, 0, 1280, 720), Color.White);
 
             // Draw popup texture
-            spriteBatch.Draw(backTexture, backgroundPosition, Color.White);
+            spriteBatch.Draw(_backTexture, _backgroundPosition, Color.White);
 
             // Draw title
-            spriteBatch.DrawString(Fonts.HeaderFont, titleString, titlePosition,
-                Fonts.TitleColor);
+            spriteBatch.DrawString(Fonts.HeaderFont, _titleString, _titlePosition, Fonts.TitleColor);
 
             // Draw Gameover text
-            spriteBatch.DrawString(Fonts.ButtonNamesFont, gameOverString,
-                gameOverPosition, Fonts.CountColor);
+            spriteBatch.DrawString(Fonts.ButtonNamesFont, _gameOverString, _gameOverPosition, Fonts.CountColor);
 
             // Draw select button
-            spriteBatch.DrawString(Fonts.ButtonNamesFont, selectString, selectPosition,
-                Color.White);
-            spriteBatch.Draw(selectIconTexture, selectIconPosition, Color.White);
+            spriteBatch.DrawString(Fonts.ButtonNamesFont, _selectString, _selectPosition, Color.White);
+            spriteBatch.Draw(_selectIconTexture, _selectIconPosition, Color.White);
 
             spriteBatch.End();
         }

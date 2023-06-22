@@ -10,7 +10,7 @@ namespace RolePlayingGame.Quests
         /// <summary>
         /// The quantity of the content entry that has been acquired.
         /// </summary>
-        private int completedCount;
+        private int _completedCount;
 
         /// <summary>
         /// The quantity of the content entry that has been acquired.
@@ -18,8 +18,8 @@ namespace RolePlayingGame.Quests
         [ContentSerializerIgnore]
         public int CompletedCount
         {
-            get { return completedCount; }
-            set { completedCount = value; }
+            get => _completedCount;
+            set => _completedCount = value;
         }
 
         /// <summary>
@@ -30,8 +30,7 @@ namespace RolePlayingGame.Quests
             /// <summary>
             /// Reads a QuestRequirement object from the content pipeline.
             /// </summary>
-            protected override QuestRequirement<T> Read(ContentReader input,
-                QuestRequirement<T> existingInstance)
+            protected override QuestRequirement<T> Read(ContentReader input, QuestRequirement<T> existingInstance)
             {
                 QuestRequirement<T> requirement = existingInstance;
                 if (requirement == null)
@@ -42,14 +41,11 @@ namespace RolePlayingGame.Quests
                 input.ReadRawObject<ContentEntry<T>>(requirement as ContentEntry<T>);
                 if (typeof(T) == typeof(Gear))
                 {
-                    requirement.Content = input.ContentManager.Load<T>(
-                        System.IO.Path.Combine("Gear", requirement.ContentName));
+                    requirement.Content = input.ContentManager.Load<T>(System.IO.Path.Combine("Gear", requirement.ContentName));
                 }
                 else if (typeof(T) == typeof(Monster))
                 {
-                    requirement.Content = input.ContentManager.Load<T>(
-                        System.IO.Path.Combine(@"Characters\Monsters",
-                        requirement.ContentName));
+                    requirement.Content = input.ContentManager.Load<T>(System.IO.Path.Combine("Characters/Monsters", requirement.ContentName));
                 }
 
                 return requirement;

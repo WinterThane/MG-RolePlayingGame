@@ -10,47 +10,38 @@ namespace RolePlayingGame.Characters
         /// <summary>
         /// The chance that this monster will defend instead of attack.
         /// </summary>
-        private int defendPercentage;
+        private int _defendPercentage;
 
         /// <summary>
         /// The chance that this monster will defend instead of attack.
         /// </summary>
         public int DefendPercentage
         {
-            get { return defendPercentage; }
-            set { defendPercentage = (value > 100 ? 100 : (value < 0 ? 0 : value)); }
+            get => _defendPercentage;
+            set => _defendPercentage = value > 100 ? 100 : (value < 0 ? 0 : value);
         }
 
         /// <summary>
         /// The possible gear drops from this monster.
         /// </summary>
-        private List<GearDrop> gearDrops = new List<GearDrop>();
+        private List<GearDrop> _gearDrops = new();
 
         /// <summary>
         /// The possible gear drops from this monster.
         /// </summary>
         public List<GearDrop> GearDrops
         {
-            get { return gearDrops; }
-            set { gearDrops = value; }
+            get => _gearDrops;
+            set => _gearDrops = value;
         }
 
+        public int CalculateGoldReward(Random random) => CharacterClass.BaseGoldValue * CharacterLevel;
 
-        public int CalculateGoldReward(Random random)
-        {
-            return CharacterClass.BaseGoldValue * CharacterLevel;
-        }
-
-
-        public int CalculateExperienceReward(Random random)
-        {
-            return CharacterClass.BaseExperienceValue * CharacterLevel;
-        }
-
+        public int CalculateExperienceReward(Random random) => CharacterClass.BaseExperienceValue * CharacterLevel;
 
         public List<string> CalculateGearDrop(Random random)
         {
-            List<string> gearRewards = new List<string>();
+            List<string> gearRewards = new();
 
             Random useRandom = random;
             if (useRandom == null)
@@ -74,8 +65,7 @@ namespace RolePlayingGame.Characters
         /// </summary>
         public class MonsterReader : ContentTypeReader<Monster>
         {
-            protected override Monster Read(ContentReader input,
-                Monster existingInstance)
+            protected override Monster Read(ContentReader input, Monster existingInstance)
             {
                 Monster monster = existingInstance;
                 if (monster == null)

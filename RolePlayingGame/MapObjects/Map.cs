@@ -11,105 +11,96 @@ namespace RolePlayingGame.MapObjects
 {
     public class Map : ContentObject, ICloneable
     {
-        private string name;
+        private string _name;
         public string Name
         {
-            get { return name; }
-            set { name = value; }
+            get => _name;
+            set => _name = value;
         }
 
-        private Point mapDimensions;
+        private Point _mapDimensions;
         public Point MapDimensions
         {
-            get { return mapDimensions; }
-            set { mapDimensions = value; }
+            get => _mapDimensions;
+            set => _mapDimensions = value;
         }
 
-        private Point tileSize;
+        private Point _tileSize;
         public Point TileSize
         {
-            get { return tileSize; }
-            set { tileSize = value; }
+            get => _tileSize;
+            set => _tileSize = value;
         }
 
-        private int tilesPerRow;
+        private int _tilesPerRow;
         [ContentSerializerIgnore]
-        public int TilesPerRow
-        {
-            get { return tilesPerRow; }
-        }
+        public int TilesPerRow => _tilesPerRow;
 
-        private Point spawnMapPosition;
+        private Point _spawnMapPosition;
         public Point SpawnMapPosition
         {
-            get { return spawnMapPosition; }
-            set { spawnMapPosition = value; }
+            get => _spawnMapPosition;
+            set => _spawnMapPosition = value;
         }
 
-        private string textureName;
+        private string _textureName;
         public string TextureName
         {
-            get { return textureName; }
-            set { textureName = value; }
+            get => _textureName;
+            set => _textureName = value;
         }
 
-        private Texture2D texture;
+        private Texture2D _texture;
         [ContentSerializerIgnore]
-        public Texture2D Texture
-        {
-            get { return texture; }
-        }
+        public Texture2D Texture => _texture;
 
-        private string combatTextureName;
+        private string _combatTextureName;
         public string CombatTextureName
         {
-            get { return combatTextureName; }
-            set { combatTextureName = value; }
+            get => _combatTextureName;
+            set => _combatTextureName = value;
         }
 
-        private Texture2D combatTexture;
+        private Texture2D _combatTexture;
         [ContentSerializerIgnore]
-        public Texture2D CombatTexture
-        {
-            get { return combatTexture; }
-        }
+        public Texture2D CombatTexture => _combatTexture;
 
-        private string musicCueName;
+        private string _musicCueName;
         public string MusicCueName
         {
-            get { return musicCueName; }
-            set { musicCueName = value; }
+            get => _musicCueName;
+            set => _musicCueName = value;
         }
 
-        private string combatMusicCueName;
+        private string _combatMusicCueName;
         public string CombatMusicCueName
         {
-            get { return combatMusicCueName; }
-            set { combatMusicCueName = value; }
+            get => _combatMusicCueName;
+            set => _combatMusicCueName = value;
         }
 
-        private int[] baseLayer;
+        private int[] _baseLayer;
         public int[] BaseLayer
         {
-            get { return baseLayer; }
-            set { baseLayer = value; }
+            get => _baseLayer;
+            set => _baseLayer = value;
         }
 
         public int GetBaseLayerValue(Point mapPosition)
         {
             // check the parameter
-            if ((mapPosition.X < 0) || (mapPosition.X >= mapDimensions.X) || (mapPosition.Y < 0) || (mapPosition.Y >= mapDimensions.Y))
+            if ((mapPosition.X < 0) || (mapPosition.X >= _mapDimensions.X) || (mapPosition.Y < 0) || (mapPosition.Y >= _mapDimensions.Y))
             {
                 throw new ArgumentOutOfRangeException("mapPosition");
             }
 
-            return baseLayer[mapPosition.Y * mapDimensions.X + mapPosition.X];
+            return _baseLayer[mapPosition.Y * _mapDimensions.X + mapPosition.X];
         }
 
         public Rectangle GetBaseLayerSourceRectangle(Point mapPosition)
         {
             // check the parameter, but out-of-bounds is nonfatal
-            if ((mapPosition.X < 0) || (mapPosition.X >= mapDimensions.X) || (mapPosition.Y < 0) || (mapPosition.Y >= mapDimensions.Y))
+            if ((mapPosition.X < 0) || (mapPosition.X >= _mapDimensions.X) || (mapPosition.Y < 0) || (mapPosition.Y >= _mapDimensions.Y))
             {
                 return Rectangle.Empty;
             }
@@ -120,31 +111,31 @@ namespace RolePlayingGame.MapObjects
                 return Rectangle.Empty;
             }
 
-            return new Rectangle((baseLayerValue % tilesPerRow) * tileSize.X, (baseLayerValue / tilesPerRow) * tileSize.Y, tileSize.X, tileSize.Y);
+            return new Rectangle((baseLayerValue % _tilesPerRow) * _tileSize.X, (baseLayerValue / _tilesPerRow) * _tileSize.Y, _tileSize.X, _tileSize.Y);
         }
 
-        private int[] fringeLayer;
+        private int[] _fringeLayer;
         public int[] FringeLayer
         {
-            get { return fringeLayer; }
-            set { fringeLayer = value; }
+            get => _fringeLayer;
+            set => _fringeLayer = value;
         }
 
         public int GetFringeLayerValue(Point mapPosition)
         {
             // check the parameter
-            if ((mapPosition.X < 0) || (mapPosition.X >= mapDimensions.X) || (mapPosition.Y < 0) || (mapPosition.Y >= mapDimensions.Y))
+            if ((mapPosition.X < 0) || (mapPosition.X >= _mapDimensions.X) || (mapPosition.Y < 0) || (mapPosition.Y >= _mapDimensions.Y))
             {
                 throw new ArgumentOutOfRangeException("mapPosition");
             }
 
-            return fringeLayer[mapPosition.Y * mapDimensions.X + mapPosition.X];
+            return _fringeLayer[mapPosition.Y * _mapDimensions.X + mapPosition.X];
         }
 
         public Rectangle GetFringeLayerSourceRectangle(Point mapPosition)
         {
             // check the parameter, but out-of-bounds is nonfatal
-            if ((mapPosition.X < 0) || (mapPosition.X >= mapDimensions.X) || (mapPosition.Y < 0) || (mapPosition.Y >= mapDimensions.Y))
+            if ((mapPosition.X < 0) || (mapPosition.X >= _mapDimensions.X) || (mapPosition.Y < 0) || (mapPosition.Y >= _mapDimensions.Y))
             {
                 return Rectangle.Empty;
             }
@@ -155,31 +146,31 @@ namespace RolePlayingGame.MapObjects
                 return Rectangle.Empty;
             }
 
-            return new Rectangle((fringeLayerValue % tilesPerRow) * tileSize.X, (fringeLayerValue / tilesPerRow) * tileSize.Y, tileSize.X, tileSize.Y);
+            return new Rectangle((fringeLayerValue % _tilesPerRow) * _tileSize.X, (fringeLayerValue / _tilesPerRow) * _tileSize.Y, _tileSize.X, _tileSize.Y);
         }
 
-        private int[] objectLayer;
+        private int[] _objectLayer;
         public int[] ObjectLayer
         {
-            get { return objectLayer; }
-            set { objectLayer = value; }
+            get => _objectLayer;
+            set => _objectLayer = value;
         }
 
         public int GetObjectLayerValue(Point mapPosition)
         {
             // check the parameter
-            if ((mapPosition.X < 0) || (mapPosition.X >= mapDimensions.X) || (mapPosition.Y < 0) || (mapPosition.Y >= mapDimensions.Y))
+            if ((mapPosition.X < 0) || (mapPosition.X >= _mapDimensions.X) || (mapPosition.Y < 0) || (mapPosition.Y >= _mapDimensions.Y))
             {
                 throw new ArgumentOutOfRangeException("mapPosition");
             }
 
-            return objectLayer[mapPosition.Y * mapDimensions.X + mapPosition.X];
+            return _objectLayer[mapPosition.Y * _mapDimensions.X + mapPosition.X];
         }
 
         public Rectangle GetObjectLayerSourceRectangle(Point mapPosition)
         {
             // check the parameter, but out-of-bounds is nonfatal
-            if ((mapPosition.X < 0) || (mapPosition.X >= mapDimensions.X) || (mapPosition.Y < 0) || (mapPosition.Y >= mapDimensions.Y))
+            if ((mapPosition.X < 0) || (mapPosition.X >= _mapDimensions.X) || (mapPosition.Y < 0) || (mapPosition.Y >= _mapDimensions.Y))
             {
                 return Rectangle.Empty;
             }
@@ -190,31 +181,31 @@ namespace RolePlayingGame.MapObjects
                 return Rectangle.Empty;
             }
 
-            return new Rectangle((objectLayerValue % tilesPerRow) * tileSize.X, (objectLayerValue / tilesPerRow) * tileSize.Y, tileSize.X, tileSize.Y);
+            return new Rectangle((objectLayerValue % _tilesPerRow) * _tileSize.X, (objectLayerValue / _tilesPerRow) * _tileSize.Y, _tileSize.X, _tileSize.Y);
         }
 
-        private int[] collisionLayer;
+        private int[] _collisionLayer;
         public int[] CollisionLayer
         {
-            get { return collisionLayer; }
-            set { collisionLayer = value; }
+            get => _collisionLayer;
+            set => _collisionLayer = value;
         }
 
         public int GetCollisionLayerValue(Point mapPosition)
         {
             // check the parameter
-            if ((mapPosition.X < 0) || (mapPosition.X >= mapDimensions.X) || (mapPosition.Y < 0) || (mapPosition.Y >= mapDimensions.Y))
+            if ((mapPosition.X < 0) || (mapPosition.X >= _mapDimensions.X) || (mapPosition.Y < 0) || (mapPosition.Y >= _mapDimensions.Y))
             {
                 throw new ArgumentOutOfRangeException("mapPosition");
             }
 
-            return collisionLayer[mapPosition.Y * mapDimensions.X + mapPosition.X];
+            return _collisionLayer[mapPosition.Y * _mapDimensions.X + mapPosition.X];
         }
 
         public bool IsBlocked(Point mapPosition)
         {
             // check the parameter, but out-of-bounds is nonfatal
-            if ((mapPosition.X < 0) || (mapPosition.X >= mapDimensions.X) || (mapPosition.Y < 0) || (mapPosition.Y >= mapDimensions.Y))
+            if ((mapPosition.X < 0) || (mapPosition.X >= _mapDimensions.X) || (mapPosition.Y < 0) || (mapPosition.Y >= _mapDimensions.Y))
             {
                 return true;
             }
@@ -222,18 +213,18 @@ namespace RolePlayingGame.MapObjects
             return (GetCollisionLayerValue(mapPosition) != 0);
         }
 
-        private List<Portal> portals = new();
+        private List<Portal> _portals = new();
         public List<Portal> Portals
         {
-            get { return portals; }
-            set { portals = value; }
+            get => _portals;
+            set => _portals = value;
         }
 
-        private List<MapEntry<Portal>> portalEntries = new();
+        private List<MapEntry<Portal>> _portalEntries = new();
         public List<MapEntry<Portal>> PortalEntries
         {
-            get { return portalEntries; }
-            set { portalEntries = value; }
+            get => _portalEntries;
+            set => _portalEntries = value;
         }
 
         public MapEntry<Portal> FindPortal(string name)
@@ -244,59 +235,59 @@ namespace RolePlayingGame.MapObjects
                 throw new ArgumentNullException("name");
             }
 
-            return portalEntries.Find(delegate (MapEntry<Portal> portalEntry)
+            return _portalEntries.Find(delegate (MapEntry<Portal> portalEntry)
             {
                 return (portalEntry.ContentName == name);
             });
         }
 
-        private List<MapEntry<Chest>> chestEntries = new();
+        private List<MapEntry<Chest>> _chestEntries = new();
         public List<MapEntry<Chest>> ChestEntries
         {
-            get { return chestEntries; }
-            set { chestEntries = value; }
+            get => _chestEntries;
+            set => _chestEntries = value;
         }
 
-        private List<MapEntry<FixedCombat>> fixedCombatEntries = new();
+        private List<MapEntry<FixedCombat>> _fixedCombatEntries = new();
         public List<MapEntry<FixedCombat>> FixedCombatEntries
         {
-            get { return fixedCombatEntries; }
-            set { fixedCombatEntries = value; }
+            get => _fixedCombatEntries;
+            set => _fixedCombatEntries = value;
         }
 
-        private RandomCombat randomCombat;
+        private RandomCombat _randomCombat;
         public RandomCombat RandomCombat
         {
-            get { return randomCombat; }
-            set { randomCombat = value; }
+            get => _randomCombat;
+            set => _randomCombat = value;
         }
 
-        private List<MapEntry<QuestNpc>> questNpcEntries = new();
+        private List<MapEntry<QuestNpc>> _questNpcEntries = new();
         public List<MapEntry<QuestNpc>> QuestNpcEntries
         {
-            get { return questNpcEntries; }
-            set { questNpcEntries = value; }
+            get => _questNpcEntries;
+            set => _questNpcEntries = value;
         }
 
-        private List<MapEntry<Player>> playerNpcEntries = new();
+        private List<MapEntry<Player>> _playerNpcEntries = new();
         public List<MapEntry<Player>> PlayerNpcEntries
         {
-            get { return playerNpcEntries; }
-            set { playerNpcEntries = value; }
+            get => _playerNpcEntries;
+            set => _playerNpcEntries = value;
         }
 
-        private List<MapEntry<Inn>> innEntries = new();
+        private List<MapEntry<Inn>> _innEntries = new();
         public List<MapEntry<Inn>> InnEntries
         {
-            get { return innEntries; }
-            set { innEntries = value; }
+            get => _innEntries;
+            set => _innEntries = value;
         }
 
-        private List<MapEntry<Store>> storeEntries = new();
+        private List<MapEntry<Store>> _storeEntries = new();
         public List<MapEntry<Store>> StoreEntries
         {
-            get { return storeEntries; }
-            set { storeEntries = value; }
+            get => _storeEntries;
+            set => _storeEntries = value;
         }
 
         public object Clone()
@@ -304,9 +295,10 @@ namespace RolePlayingGame.MapObjects
             Map map = new()
             {
                 AssetName = AssetName,
-                baseLayer = BaseLayer.Clone() as int[]
+                _baseLayer = BaseLayer.Clone() as int[]
             };
-            foreach (MapEntry<Chest> chestEntry in chestEntries)
+
+            foreach (MapEntry<Chest> chestEntry in _chestEntries)
             {
                 MapEntry<Chest> mapEntry = new()
                 {
@@ -316,37 +308,37 @@ namespace RolePlayingGame.MapObjects
                     Direction = chestEntry.Direction,
                     MapPosition = chestEntry.MapPosition
                 };
-                map.chestEntries.Add(mapEntry);
+                map._chestEntries.Add(mapEntry);
             }
-            map.chestEntries.AddRange(ChestEntries);
-            map.collisionLayer = CollisionLayer.Clone() as int[];
-            map.combatMusicCueName = CombatMusicCueName;
-            map.combatTexture = CombatTexture;
-            map.combatTextureName = CombatTextureName;
-            map.fixedCombatEntries.AddRange(FixedCombatEntries);
-            map.fringeLayer = FringeLayer.Clone() as int[];
-            map.innEntries.AddRange(InnEntries);
-            map.mapDimensions = MapDimensions;
-            map.musicCueName = MusicCueName;
-            map.name = Name;
-            map.objectLayer = ObjectLayer.Clone() as int[];
-            map.playerNpcEntries.AddRange(PlayerNpcEntries);
-            map.portals.AddRange(Portals);
-            map.portalEntries.AddRange(PortalEntries);
-            map.questNpcEntries.AddRange(QuestNpcEntries);
-            map.randomCombat = new RandomCombat
+            map._chestEntries.AddRange(ChestEntries);
+            map._collisionLayer = CollisionLayer.Clone() as int[];
+            map._combatMusicCueName = CombatMusicCueName;
+            map._combatTexture = CombatTexture;
+            map._combatTextureName = CombatTextureName;
+            map._fixedCombatEntries.AddRange(FixedCombatEntries);
+            map._fringeLayer = FringeLayer.Clone() as int[];
+            map._innEntries.AddRange(InnEntries);
+            map._mapDimensions = MapDimensions;
+            map._musicCueName = MusicCueName;
+            map._name = Name;
+            map._objectLayer = ObjectLayer.Clone() as int[];
+            map._playerNpcEntries.AddRange(PlayerNpcEntries);
+            map._portals.AddRange(Portals);
+            map._portalEntries.AddRange(PortalEntries);
+            map._questNpcEntries.AddRange(QuestNpcEntries);
+            map._randomCombat = new RandomCombat
             {
                 CombatProbability = RandomCombat.CombatProbability
             };
-            map.randomCombat.Entries.AddRange(RandomCombat.Entries);
-            map.randomCombat.FleeProbability = RandomCombat.FleeProbability;
-            map.randomCombat.MonsterCountRange = RandomCombat.MonsterCountRange;
-            map.spawnMapPosition = SpawnMapPosition;
-            map.storeEntries.AddRange(StoreEntries);
-            map.texture = Texture;
-            map.textureName = TextureName;
-            map.tileSize = TileSize;
-            map.tilesPerRow = tilesPerRow;
+            map._randomCombat.EntriesList.AddRange(RandomCombat.EntriesList);
+            map._randomCombat.FleeProbability = RandomCombat.FleeProbability;
+            map._randomCombat.MonsterCountRange = RandomCombat.MonsterCountRange;
+            map._spawnMapPosition = SpawnMapPosition;
+            map._storeEntries.AddRange(StoreEntries);
+            map._texture = Texture;
+            map._textureName = TextureName;
+            map._tileSize = TileSize;
+            map._tilesPerRow = _tilesPerRow;
 
             return map;
         }
@@ -369,11 +361,11 @@ namespace RolePlayingGame.MapObjects
                 map.SpawnMapPosition = input.ReadObject<Point>();
 
                 map.TextureName = input.ReadString();
-                map.texture = input.ContentManager.Load<Texture2D>(System.IO.Path.Combine("Textures/Maps/NonCombat", map.TextureName));
-                map.tilesPerRow = map.texture.Width / map.TileSize.X;
+                map._texture = input.ContentManager.Load<Texture2D>(System.IO.Path.Combine("Textures/Maps/NonCombat", map.TextureName));
+                map._tilesPerRow = map._texture.Width / map.TileSize.X;
 
                 map.CombatTextureName = input.ReadString();
-                map.combatTexture = input.ContentManager.Load<Texture2D>(System.IO.Path.Combine("Textures/Maps/Combat", map.CombatTextureName));
+                map._combatTexture = input.ContentManager.Load<Texture2D>(System.IO.Path.Combine("Textures/Maps/Combat", map.CombatTextureName));
 
                 map.MusicCueName = input.ReadString();
                 map.CombatMusicCueName = input.ReadString();
@@ -394,7 +386,7 @@ namespace RolePlayingGame.MapObjects
                 }
 
                 map.ChestEntries.AddRange(input.ReadObject<List<MapEntry<Chest>>>());
-                foreach (MapEntry<Chest> chestEntry in map.chestEntries)
+                foreach (MapEntry<Chest> chestEntry in map._chestEntries)
                 {
                     chestEntry.Content = input.ContentManager.Load<Chest>(System.IO.Path.Combine("Maps/Chests", chestEntry.ContentName)).Clone() as Chest;
                 }
@@ -402,7 +394,7 @@ namespace RolePlayingGame.MapObjects
                 // load the fixed combat entries
                 Random random = new();
                 map.FixedCombatEntries.AddRange(input.ReadObject<List<MapEntry<FixedCombat>>>());
-                foreach (MapEntry<FixedCombat> fixedCombatEntry in map.fixedCombatEntries)
+                foreach (MapEntry<FixedCombat> fixedCombatEntry in map._fixedCombatEntries)
                 {
                     fixedCombatEntry.Content = input.ContentManager.Load<FixedCombat>(System.IO.Path.Combine("Maps/FixedCombats", fixedCombatEntry.ContentName));
                     // clone the map sprite in the entry, as there may be many entries
@@ -417,15 +409,15 @@ namespace RolePlayingGame.MapObjects
                 map.RandomCombat = input.ReadObject<RandomCombat>();
 
                 map.QuestNpcEntries.AddRange(input.ReadObject<List<MapEntry<QuestNpc>>>());
-                foreach (MapEntry<QuestNpc> questNpcEntry in map.questNpcEntries)
+                foreach (MapEntry<QuestNpc> questNpcEntry in map._questNpcEntries)
                 {
-                    questNpcEntry.Content = input.ContentManager.Load<QuestNpc>(System.IO.Path.Combine("Characters/QuestNpcs", questNpcEntry.ContentName));
+                    questNpcEntry.Content = input.ContentManager.Load<QuestNpc>(System.IO.Path.Combine("Characters/QuestNPCs", questNpcEntry.ContentName));
                     questNpcEntry.Content.MapPosition = questNpcEntry.MapPosition;
                     questNpcEntry.Content.Direction = questNpcEntry.Direction;
                 }
 
                 map.PlayerNpcEntries.AddRange(input.ReadObject<List<MapEntry<Player>>>());
-                foreach (MapEntry<Player> playerNpcEntry in map.playerNpcEntries)
+                foreach (MapEntry<Player> playerNpcEntry in map._playerNpcEntries)
                 {
                     playerNpcEntry.Content = input.ContentManager.Load<Player>(System.IO.Path.Combine("Characters/Players", playerNpcEntry.ContentName)).Clone() as Player;
                     playerNpcEntry.Content.MapPosition = playerNpcEntry.MapPosition;
@@ -433,13 +425,13 @@ namespace RolePlayingGame.MapObjects
                 }
 
                 map.InnEntries.AddRange(input.ReadObject<List<MapEntry<Inn>>>());
-                foreach (MapEntry<Inn> innEntry in map.innEntries)
+                foreach (MapEntry<Inn> innEntry in map._innEntries)
                 {
                     innEntry.Content = input.ContentManager.Load<Inn>(System.IO.Path.Combine("Maps/Inns", innEntry.ContentName));
                 }
 
                 map.StoreEntries.AddRange(input.ReadObject<List<MapEntry<Store>>>());
-                foreach (MapEntry<Store> storeEntry in map.storeEntries)
+                foreach (MapEntry<Store> storeEntry in map._storeEntries)
                 {
                     storeEntry.Content = input.ContentManager.Load<Store>(System.IO.Path.Combine("Maps/Stores", storeEntry.ContentName));
                 }

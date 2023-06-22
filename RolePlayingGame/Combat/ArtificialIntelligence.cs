@@ -12,18 +12,17 @@ namespace RolePlayingGame.Combat
         /// <summary>
         /// The monster that this object is choosing actions for.
         /// </summary>
-        private CombatantMonster monster;
+        private CombatantMonster _monster;
 
         /// <summary>
         /// The offensive actions available to the monster.
         /// </summary>
-        private List<CombatAction> offensiveActions = new List<CombatAction>();
-
+        private List<CombatAction> _offensiveActions = new();
 
         /// <summary>
         /// The defensive actions available to the monster.
         /// </summary>
-        private List<CombatAction> defensiveActions = new List<CombatAction>();
+        private List<CombatAction> _defensiveActions = new();
 
         /// <summary>
         /// Construct a new ArtificialIntelligence object to control a given combatant.
@@ -37,7 +36,7 @@ namespace RolePlayingGame.Combat
             }
 
             // assign the parameter
-            this.monster = monster;
+            _monster = monster;
 
             // generate all actions available
             GenerateAllActions();
@@ -49,8 +48,8 @@ namespace RolePlayingGame.Combat
         private void GenerateAllActions()
         {
             // clear out any pre-existing actions
-            offensiveActions.Clear();
-            defensiveActions.Clear();
+            _offensiveActions.Clear();
+            _defensiveActions.Clear();
 
             // generate the melee attack option
             GenerateMeleeAction();
@@ -62,10 +61,9 @@ namespace RolePlayingGame.Combat
             GenerateDefendAction();
 
             // sort the lists by potential, descending
-            offensiveActions.Sort(CombatAction.CompareCombatActionsByHeuristic);
-            defensiveActions.Sort(CombatAction.CompareCombatActionsByHeuristic);
+            _offensiveActions.Sort(CombatAction.CompareCombatActionsByHeuristic);
+            _defensiveActions.Sort(CombatAction.CompareCombatActionsByHeuristic);
         }
-
 
         /// <summary>
         /// Generate the melee attack option for this monster.
@@ -73,9 +71,8 @@ namespace RolePlayingGame.Combat
         private void GenerateMeleeAction()
         {
             // add a new melee action to the list
-            offensiveActions.Add(new MeleeCombatAction(monster));
+            _offensiveActions.Add(new MeleeCombatAction(_monster));
         }
-
 
         /// <summary>
         /// Generate the melee attack option for this monster.
@@ -83,9 +80,8 @@ namespace RolePlayingGame.Combat
         private void GenerateDefendAction()
         {
             // add a new melee action to the list
-            defensiveActions.Add(new DefendCombatAction(monster));
+            _defensiveActions.Add(new DefendCombatAction(_monster));
         }
-
 
         /// <summary>
         /// Generate the spell attack options for this monster.
@@ -93,7 +89,7 @@ namespace RolePlayingGame.Combat
         private void GenerateSpellAttackActions()
         {
             // retrieve the spells for this monster
-            List<Spell> spells = monster.Monster.Spells;
+            List<Spell> spells = _monster.Monster.Spells;
 
             // if there are no spells, then there's nothing to do
             if ((spells == null) || (spells.Count <= 0))
@@ -111,7 +107,7 @@ namespace RolePlayingGame.Combat
                 }
 
                 // add the new action to the list
-                offensiveActions.Add(new SpellCombatAction(monster, spell));
+                _offensiveActions.Add(new SpellCombatAction(_monster, spell));
             }
         }
 
@@ -124,9 +120,7 @@ namespace RolePlayingGame.Combat
             CombatAction combatAction = null;
 
             // determine if the monster will use a defensive action
-            if ((monster.Monster.DefendPercentage > 0) &&
-                (defensiveActions.Count > 0) &&
-                (Session.Random.Next(0, 100) < monster.Monster.DefendPercentage))
+            if ((_monster.Monster.DefendPercentage > 0) && (_defensiveActions.Count > 0) && (Session.Random.Next(0, 100) < _monster.Monster.DefendPercentage))
             {
                 combatAction = ChooseDefensiveAction();
             }
@@ -139,7 +133,6 @@ namespace RolePlayingGame.Combat
 
             return combatAction;
         }
-
 
         /// <summary>
         /// Choose which offensive action to perform.
@@ -166,7 +159,7 @@ namespace RolePlayingGame.Combat
 
             // the action lists are sorted by descending potential, 
             // so find the first eligible action
-            foreach (CombatAction action in offensiveActions)
+            foreach (CombatAction action in _offensiveActions)
             {
                 // check the restrictions on the action
                 if (action.IsCharacterValidUser)
@@ -179,7 +172,6 @@ namespace RolePlayingGame.Combat
             // no eligible actions found
             return null;
         }
-
 
         /// <summary>
         /// Choose which defensive action to perform.
@@ -207,12 +199,9 @@ namespace RolePlayingGame.Combat
                 }
                 // if the monster is damaged and it has the least health points,
                 // then it becomes the new target
-                StatisticsValue maxStatistics =
-                    targetMonster.Monster.CharacterClass.GetStatisticsForLevel(
-                        targetMonster.Monster.CharacterLevel);
+                StatisticsValue maxStatistics = targetMonster.Monster.CharacterClass.GetStatisticsForLevel(targetMonster.Monster.CharacterLevel);
                 int targetMonsterHealthPoints = targetMonster.Statistics.HealthPoints;
-                if ((targetMonsterHealthPoints < maxStatistics.HealthPoints) &&
-                    (targetMonsterHealthPoints < leastHealthAmount))
+                if ((targetMonsterHealthPoints < maxStatistics.HealthPoints) && (targetMonsterHealthPoints < leastHealthAmount))
                 {
                     target = targetMonster;
                     leastHealthAmount = targetMonsterHealthPoints;
@@ -227,7 +216,7 @@ namespace RolePlayingGame.Combat
 
             // the action lists are sorted by descending potential, 
             // so find the first eligible action
-            foreach (CombatAction action in defensiveActions)
+            foreach (CombatAction action in _defensiveActions)
             {
                 // check the restrictions on the action
                 if (action.IsCharacterValidUser)

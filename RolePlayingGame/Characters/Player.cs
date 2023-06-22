@@ -12,164 +12,144 @@ namespace RolePlayingGame.Characters
         /// The current set of persistent statistics modifiers - damage, etc.
         /// </summary>
         [ContentSerializerIgnore]
-        public StatisticsValue StatisticsModifiers = new StatisticsValue();
-
+        public StatisticsValue StatisticsModifiers = new();
 
         /// <summary>
         /// The current set of statistics, including damage, etc.
         /// </summary>
         [ContentSerializerIgnore]
-        public StatisticsValue CurrentStatistics
-        {
-            get { return CharacterStatistics + StatisticsModifiers; }
-        }
+        public StatisticsValue CurrentStatistics => CharacterStatistics + StatisticsModifiers;
 
         /// <summary>
         /// The amount of gold that the player has when it joins the party.
         /// </summary>
-        private int gold;
+        private int _gold;
 
         /// <summary>
         /// The amount of gold that the player has when it joins the party.
         /// </summary>
         public int Gold
         {
-            get { return gold; }
-            set { gold = value; }
+            get => _gold;
+            set => _gold = value;
         }
 
         /// <summary>
         /// The dialogue that the player says when it is greeted as an Npc in the world.
         /// </summary>
-        private string introductionDialogue;
+        private string _introductionDialogue;
 
         /// <summary>
         /// The dialogue that the player says when it is greeted as an Npc in the world.
         /// </summary>
         public string IntroductionDialogue
         {
-            get { return introductionDialogue; }
-            set { introductionDialogue = value; }
+            get => _introductionDialogue;
+            set => _introductionDialogue = value;
         }
-
 
         /// <summary>
         /// The dialogue that the player says when its offer to join is accepted.
         /// </summary>
-        private string joinAcceptedDialogue;
+        private string _joinAcceptedDialogue;
 
         /// <summary>
         /// The dialogue that the player says when its offer to join is accepted.
         /// </summary>
         public string JoinAcceptedDialogue
         {
-            get { return joinAcceptedDialogue; }
-            set { joinAcceptedDialogue = value; }
+            get => _joinAcceptedDialogue;
+            set => _joinAcceptedDialogue = value;
         }
-
 
         /// <summary>
         /// The dialogue that the player says when its offer to join is rejected.
         /// </summary>
-        private string joinRejectedDialogue;
+        private string _joinRejectedDialogue;
 
         /// <summary>
         /// The dialogue that the player says when its offer to join is rejected.
         /// </summary>
         public string JoinRejectedDialogue
         {
-            get { return joinRejectedDialogue; }
-            set { joinRejectedDialogue = value; }
+            get => _joinRejectedDialogue;
+            set => _joinRejectedDialogue = value;
         }
 
         /// <summary>
         /// The name of the active portrait texture.
         /// </summary>
-        private string activePortraitTextureName;
+        private string _activePortraitTextureName;
 
         /// <summary>
         /// The name of the active portrait texture.
         /// </summary>
         public string ActivePortraitTextureName
         {
-            get { return activePortraitTextureName; }
-            set { activePortraitTextureName = value; }
+            get => _activePortraitTextureName;
+            set => _activePortraitTextureName = value;
         }
-
 
         /// <summary>
         /// The active portrait texture.
         /// </summary>
-        private Texture2D activePortraitTexture;
+        private Texture2D _activePortraitTexture;
 
         /// <summary>
         /// The active portrait texture.
         /// </summary>
         [ContentSerializerIgnore]
-        public Texture2D ActivePortraitTexture
-        {
-            get { return activePortraitTexture; }
-        }
-
+        public Texture2D ActivePortraitTexture => _activePortraitTexture;
 
         /// <summary>
         /// The name of the inactive portrait texture.
         /// </summary>
-        private string inactivePortraitTextureName;
+        private string _inactivePortraitTextureName;
 
         /// <summary>
         /// The name of the inactive portrait texture.
         /// </summary>
         public string InactivePortraitTextureName
         {
-            get { return inactivePortraitTextureName; }
-            set { inactivePortraitTextureName = value; }
+            get => _inactivePortraitTextureName;
+            set => _inactivePortraitTextureName = value;
         }
-
 
         /// <summary>
         /// The inactive portrait texture.
         /// </summary>
-        private Texture2D inactivePortraitTexture;
+        private Texture2D _inactivePortraitTexture;
 
         /// <summary>
         /// The inactive portrait texture.
         /// </summary>
         [ContentSerializerIgnore]
-        public Texture2D InactivePortraitTexture
-        {
-            get { return inactivePortraitTexture; }
-        }
-
+        public Texture2D InactivePortraitTexture => _inactivePortraitTexture;
 
         /// <summary>
         /// The name of the unselectable portrait texture.
         /// </summary>
-        private string unselectablePortraitTextureName;
+        private string _unselectablePortraitTextureName;
 
         /// <summary>
         /// The name of the unselectable portrait texture.
         /// </summary>
         public string UnselectablePortraitTextureName
         {
-            get { return unselectablePortraitTextureName; }
-            set { unselectablePortraitTextureName = value; }
+            get => _unselectablePortraitTextureName;
+            set { _unselectablePortraitTextureName = value; }
         }
-
 
         /// <summary>
         /// The unselectable portrait texture.
         /// </summary>
-        private Texture2D unselectablePortraitTexture;
+        private Texture2D _unselectablePortraitTexture;
 
         /// <summary>
         /// The unselectable portrait texture.
         /// </summary>
         [ContentSerializerIgnore]
-        public Texture2D UnselectablePortraitTexture
-        {
-            get { return unselectablePortraitTexture; }
-        }
+        public Texture2D UnselectablePortraitTexture => _unselectablePortraitTexture;
 
         /// <summary>
         /// Read a Player object from the content pipeline.
@@ -191,20 +171,11 @@ namespace RolePlayingGame.Characters
                 player.JoinAcceptedDialogue = input.ReadString();
                 player.JoinRejectedDialogue = input.ReadString();
                 player.ActivePortraitTextureName = input.ReadString();
-                player.activePortraitTexture =
-                    input.ContentManager.Load<Texture2D>(
-                        System.IO.Path.Combine(@"Textures\Characters\Portraits",
-                        player.ActivePortraitTextureName));
+                player._activePortraitTexture = input.ContentManager.Load<Texture2D>(System.IO.Path.Combine("Textures/Characters/Portraits", player.ActivePortraitTextureName));
                 player.InactivePortraitTextureName = input.ReadString();
-                player.inactivePortraitTexture =
-                    input.ContentManager.Load<Texture2D>(
-                        System.IO.Path.Combine(@"Textures\Characters\Portraits",
-                        player.InactivePortraitTextureName));
+                player._inactivePortraitTexture = input.ContentManager.Load<Texture2D>(System.IO.Path.Combine("Textures/Characters/Portraits", player.InactivePortraitTextureName));
                 player.UnselectablePortraitTextureName = input.ReadString();
-                player.unselectablePortraitTexture =
-                    input.ContentManager.Load<Texture2D>(
-                        System.IO.Path.Combine(@"Textures\Characters\Portraits",
-                        player.UnselectablePortraitTextureName));
+                player._unselectablePortraitTexture = input.ContentManager.Load<Texture2D>(System.IO.Path.Combine("Textures/Characters/Portraits", player.UnselectablePortraitTextureName));
 
                 return player;
             }
@@ -212,27 +183,28 @@ namespace RolePlayingGame.Characters
 
         public object Clone()
         {
-            Player player = new Player();
-
-            player.activePortraitTexture = activePortraitTexture;
-            player.activePortraitTextureName = activePortraitTextureName;
-            player.AssetName = AssetName;
-            player.CharacterClass = CharacterClass;
-            player.CharacterClassContentName = CharacterClassContentName;
-            player.CharacterLevel = CharacterLevel;
-            player.CombatAnimationInterval = CombatAnimationInterval;
-            player.CombatSprite = CombatSprite.Clone() as AnimatingSprite;
-            player.Direction = Direction;
+            Player player = new()
+            {
+                _activePortraitTexture = _activePortraitTexture,
+                _activePortraitTextureName = _activePortraitTextureName,
+                AssetName = AssetName,
+                CharacterClass = CharacterClass,
+                CharacterClassContentName = CharacterClassContentName,
+                CharacterLevel = CharacterLevel,
+                CombatAnimationInterval = CombatAnimationInterval,
+                CombatSprite = CombatSprite.Clone() as AnimatingSprite,
+                Direction = Direction
+            };
             player.EquippedEquipment.AddRange(EquippedEquipment);
             player.Experience = Experience;
-            player.gold = gold;
-            player.inactivePortraitTexture = inactivePortraitTexture;
-            player.inactivePortraitTextureName = inactivePortraitTextureName;
+            player._gold = _gold;
+            player._inactivePortraitTexture = _inactivePortraitTexture;
+            player._inactivePortraitTextureName = _inactivePortraitTextureName;
             player.InitialEquipmentContentNames.AddRange(InitialEquipmentContentNames);
-            player.introductionDialogue = introductionDialogue;
+            player._introductionDialogue = _introductionDialogue;
             player.Inventory.AddRange(Inventory);
-            player.joinAcceptedDialogue = joinAcceptedDialogue;
-            player.joinRejectedDialogue = joinRejectedDialogue;
+            player._joinAcceptedDialogue = _joinAcceptedDialogue;
+            player._joinRejectedDialogue = _joinRejectedDialogue;
             player.MapIdleAnimationInterval = MapIdleAnimationInterval;
             player.MapPosition = MapPosition;
             player.MapSprite = MapSprite.Clone() as AnimatingSprite;
@@ -240,8 +212,8 @@ namespace RolePlayingGame.Characters
             player.Name = Name;
             player.ShadowTexture = ShadowTexture;
             player.State = State;
-            player.unselectablePortraitTexture = unselectablePortraitTexture;
-            player.unselectablePortraitTextureName = unselectablePortraitTextureName;
+            player._unselectablePortraitTexture = _unselectablePortraitTexture;
+            player._unselectablePortraitTextureName = _unselectablePortraitTextureName;
             player.WalkingSprite = WalkingSprite.Clone() as AnimatingSprite;
 
             player.RecalculateEquipmentStatistics();

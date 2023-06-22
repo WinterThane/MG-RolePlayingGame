@@ -13,52 +13,52 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
 {
     public class LevelUpScreen : GameScreen
     {
-        private int index;
-        private List<Player> leveledUpPlayers;
-        private List<Spell> spellList = new List<Spell>();
+        private int _index;
+        private List<Player> _leveledUpPlayers;
+        private List<Spell> _spellList = new();
 
-        private Texture2D backTexture;
-        private Texture2D selectIconTexture;
-        private Texture2D portraitBackTexture;
-        private Texture2D headerTexture;
-        private Texture2D lineTexture;
-        private Texture2D scrollUpTexture;
-        private Texture2D scrollDownTexture;
-        private Texture2D fadeTexture;
-        private Color color;
-        private Color colorName = new Color(241, 173, 10);
-        private Color colorClass = new Color(207, 130, 42);
-        private Color colorText = new Color(76, 49, 8);
+        private Texture2D _backTexture;
+        private Texture2D _selectIconTexture;
+        private Texture2D _portraitBackTexture;
+        private Texture2D _headerTexture;
+        private Texture2D _lineTexture;
+        private Texture2D _scrollUpTexture;
+        private Texture2D _scrollDownTexture;
+        private Texture2D _fadeTexture;
+        private Color _color;
+        private Color _colorName = new(241, 173, 10);
+        private Color _colorClass = new(207, 130, 42);
+        private Color _colorText = new(76, 49, 8);
 
-        private Vector2 backgroundPosition;
-        private Vector2 textPosition;
-        private Vector2 levelPosition;
-        private Vector2 iconPosition;
-        private Vector2 linePosition;
-        private Vector2 selectPosition;
-        private Vector2 selectIconPosition;
-        private Vector2 screenSize;
-        private Vector2 titlePosition;
-        private Vector2 scrollUpPosition;
-        private Vector2 scrollDownPosition;
-        private Vector2 spellUpgradePosition;
-        private Vector2 portraitPosition;
-        private Vector2 playerNamePosition;
-        private Vector2 playerLvlPosition;
-        private Vector2 playerClassPosition;
-        private Vector2 topLinePosition;
-        private Vector2 playerDamagePosition;
-        private Vector2 headerPosition;
-        private Vector2 backPosition;
-        private Rectangle fadeDest;
+        private Vector2 _backgroundPosition;
+        private Vector2 _textPosition;
+        private Vector2 _levelPosition;
+        private Vector2 _iconPosition;
+        private Vector2 _linePosition;
+        private Vector2 _selectPosition;
+        private Vector2 _selectIconPosition;
+        private Vector2 _screenSize;
+        private Vector2 _titlePosition;
+        private Vector2 _scrollUpPosition;
+        private Vector2 _scrollDownPosition;
+        private Vector2 _spellUpgradePosition;
+        private Vector2 _portraitPosition;
+        private Vector2 _playerNamePosition;
+        private Vector2 _playerLvlPosition;
+        private Vector2 _playerClassPosition;
+        private Vector2 _topLinePosition;
+        private Vector2 _playerDamagePosition;
+        private Vector2 _headerPosition;
+        private Vector2 _backPosition;
+        private Rectangle _fadeDest;
 
-        private readonly string titleText = "Level Up";
-        private readonly string selectString = "Continue";
+        private readonly string _titleText = "Level Up";
+        private readonly string _selectString = "Continue";
 
-        private int startIndex;
-        private int endIndex;
-        private const int maxLines = 3;
-        private const int lineSpacing = 74;
+        private int _startIndex;
+        private int _endIndex;
+        private const int _maxLines = 3;
+        private const int _lineSpacing = 74;
 
         /// <summary>
         /// Constructs a new LevelUpScreen object.
@@ -71,23 +71,21 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
                 throw new ArgumentNullException("leveledUpPlayers");
             }
 
-            this.IsPopup = true;
-            this.leveledUpPlayers = leveledUpPlayers;
+            IsPopup = true;
+            _leveledUpPlayers = leveledUpPlayers;
 
-            index = 0;
+            _index = 0;
 
             GetSpellList();
 
-            AudioManager.PushMusic("LevelUp");
-            this.Exiting += new EventHandler(LevelUpScreen_Exiting);
+            //AudioManager.PushMusic("LevelUp");
+            Exiting += new EventHandler(LevelUpScreen_Exiting);
         }
-
 
         void LevelUpScreen_Exiting(object sender, EventArgs e)
         {
-            AudioManager.PopMusic();
+            //AudioManager.PopMusic();
         }
-
 
         /// <summary>
         /// Load the graphics content
@@ -99,60 +97,50 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         {
             ContentManager content = ScreenManager.Game.Content;
 
-            backTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\PopupScreen");
-            selectIconTexture =
-                content.Load<Texture2D>(@"Textures\Buttons\AButton");
-            portraitBackTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\PlayerSelected");
-            headerTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\Caption");
-            lineTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\SeparationLine");
-            scrollUpTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\ScrollUp");
-            scrollDownTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\ScrollDown");
-            fadeTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\FadeScreen");
+            _backTexture = content.Load<Texture2D>("Textures/GameScreens/PopupScreen");
+            _selectIconTexture = content.Load<Texture2D>("Textures/Buttons/AButton");
+            _portraitBackTexture = content.Load<Texture2D>("Textures/GameScreens/PlayerSelected");
+            _headerTexture = content.Load<Texture2D>("Textures/GameScreens/Caption");
+            _lineTexture = content.Load<Texture2D>("Textures/GameScreens/SeparationLine");
+            _scrollUpTexture = content.Load<Texture2D>("Textures/GameScreens/ScrollUp");
+            _scrollDownTexture = content.Load<Texture2D>("Textures/GameScreens/ScrollDown");
+            _fadeTexture = content.Load<Texture2D>("Textures/GameScreens/FadeScreen");
 
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
-            backgroundPosition.X = (viewport.Width - backTexture.Width) / 2;
-            backgroundPosition.Y = (viewport.Height - backTexture.Height) / 2;
+            _backgroundPosition.X = (viewport.Width - _backTexture.Width) / 2;
+            _backgroundPosition.Y = (viewport.Height - _backTexture.Height) / 2;
 
-            screenSize = new Vector2(viewport.Width, viewport.Height);
-            fadeDest = new Rectangle(0, 0, viewport.Width, viewport.Height);
+            _screenSize = new Vector2(viewport.Width, viewport.Height);
+            _fadeDest = new Rectangle(0, 0, viewport.Width, viewport.Height);
 
-            titlePosition.X = (screenSize.X -
-                Fonts.HeaderFont.MeasureString(titleText).X) / 2;
-            titlePosition.Y = backgroundPosition.Y + lineSpacing;
+            _titlePosition.X = (_screenSize.X - Fonts.HeaderFont.MeasureString(_titleText).X) / 2;
+            _titlePosition.Y = _backgroundPosition.Y + _lineSpacing;
 
-            selectIconPosition.X = screenSize.X / 2 + 260;
-            selectIconPosition.Y = backgroundPosition.Y + 530f;
-            selectPosition.X = selectIconPosition.X -
-                Fonts.ButtonNamesFont.MeasureString(selectString).X - 10f;
-            selectPosition.Y = selectIconPosition.Y;
+            _selectIconPosition.X = _screenSize.X / 2 + 260;
+            _selectIconPosition.Y = _backgroundPosition.Y + 530f;
+            _selectPosition.X = _selectIconPosition.X - Fonts.ButtonNamesFont.MeasureString(_selectString).X - 10f;
+            _selectPosition.Y = _selectIconPosition.Y;
 
-            portraitPosition = backgroundPosition + new Vector2(143f, 155f);
-            backPosition = backgroundPosition + new Vector2(140f, 135f);
+            _portraitPosition = _backgroundPosition + new Vector2(143f, 155f);
+            _backPosition = _backgroundPosition + new Vector2(140f, 135f);
 
-            playerNamePosition = backgroundPosition + new Vector2(230f, 160f);
-            playerClassPosition = backgroundPosition + new Vector2(230f, 185f);
-            playerLvlPosition = backgroundPosition + new Vector2(230f, 205f);
+            _playerNamePosition = _backgroundPosition + new Vector2(230f, 160f);
+            _playerClassPosition = _backgroundPosition + new Vector2(230f, 185f);
+            _playerLvlPosition = _backgroundPosition + new Vector2(230f, 205f);
 
-            topLinePosition = backgroundPosition + new Vector2(380f, 160f);
-            textPosition = backgroundPosition + new Vector2(335f, 320f);
-            levelPosition = backgroundPosition + new Vector2(540f, 320f);
-            iconPosition = backgroundPosition + new Vector2(155f, 303f);
-            linePosition = backgroundPosition + new Vector2(142f, 285f);
+            _topLinePosition = _backgroundPosition + new Vector2(380f, 160f);
+            _textPosition = _backgroundPosition + new Vector2(335f, 320f);
+            _levelPosition = _backgroundPosition + new Vector2(540f, 320f);
+            _iconPosition = _backgroundPosition + new Vector2(155f, 303f);
+            _linePosition = _backgroundPosition + new Vector2(142f, 285f);
 
-            scrollUpPosition = backgroundPosition + new Vector2(810f, 300f);
-            scrollDownPosition = backgroundPosition + new Vector2(810f, 480f);
+            _scrollUpPosition = _backgroundPosition + new Vector2(810f, 300f);
+            _scrollDownPosition = _backgroundPosition + new Vector2(810f, 480f);
 
-            playerDamagePosition = backgroundPosition + new Vector2(560f, 160f);
-            spellUpgradePosition = backgroundPosition + new Vector2(380f, 265f);
+            _playerDamagePosition = _backgroundPosition + new Vector2(560f, 160f);
+            _spellUpgradePosition = _backgroundPosition + new Vector2(380f, 265f);
 
-            headerPosition = backgroundPosition + new Vector2(120f, 248f);
+            _headerPosition = _backgroundPosition + new Vector2(120f, 248f);
         }
 
         /// <summary>
@@ -168,16 +156,16 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             // advance to the next player to have leveled up
             else if (InputManager.IsActionTriggered(InputManager.Action.Ok))
             {
-                if (leveledUpPlayers.Count <= 0)
+                if (_leveledUpPlayers.Count <= 0)
                 {
                     // no players at all
                     ExitScreen();
                     return;
                 }
-                if (index < leveledUpPlayers.Count - 1)
+                if (_index < _leveledUpPlayers.Count - 1)
                 {
                     // move to the next player
-                    index++;
+                    _index++;
                     GetSpellList();
                 }
                 else
@@ -190,61 +178,56 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             // Scroll up
             else if (InputManager.IsActionTriggered(InputManager.Action.CursorUp))
             {
-                if (startIndex > 0)
+                if (_startIndex > 0)
                 {
-                    startIndex--;
-                    endIndex--;
+                    _startIndex--;
+                    _endIndex--;
                 }
             }
             // Scroll down
             else if (InputManager.IsActionTriggered(InputManager.Action.CursorDown))
             {
-                if (startIndex < spellList.Count - maxLines)
+                if (_startIndex < _spellList.Count - _maxLines)
                 {
-                    endIndex++;
-                    startIndex++;
+                    _endIndex++;
+                    _startIndex++;
                 }
             }
         }
-
 
         /// <summary>
         /// Get the spell list
         /// </summary>
         private void GetSpellList()
         {
-            spellList.Clear();
+            _spellList.Clear();
 
-            if ((leveledUpPlayers.Count > 0) &&
-                (leveledUpPlayers[index].CharacterLevel <=
-                    leveledUpPlayers[index].CharacterClass.LevelEntries.Count))
+            if ((_leveledUpPlayers.Count > 0) && (_leveledUpPlayers[_index].CharacterLevel <= _leveledUpPlayers[_index].CharacterClass.LevelEntries.Count))
             {
-                List<Spell> newSpells =
-                    leveledUpPlayers[index].CharacterClass.LevelEntries[
-                        leveledUpPlayers[index].CharacterLevel - 1].Spells;
+                List<Spell> newSpells = _leveledUpPlayers[_index].CharacterClass.LevelEntries[_leveledUpPlayers[_index].CharacterLevel - 1].Spells;
                 if ((newSpells == null) || (newSpells.Count <= 0))
                 {
-                    startIndex = 0;
-                    endIndex = 0;
+                    _startIndex = 0;
+                    _endIndex = 0;
                 }
                 else
                 {
-                    spellList.AddRange(leveledUpPlayers[index].Spells);
-                    spellList.RemoveAll(delegate (Spell spell)
+                    _spellList.AddRange(_leveledUpPlayers[_index].Spells);
+                    _spellList.RemoveAll(delegate (Spell spell)
                     {
                         return !newSpells.Exists(delegate (Spell newSpell)
                         {
                             return spell.AssetName == newSpell.AssetName;
                         });
                     });
-                    startIndex = 0;
-                    endIndex = Math.Min(maxLines, spellList.Count);
+                    _startIndex = 0;
+                    _endIndex = Math.Min(_maxLines, _spellList.Count);
                 }
             }
             else
             {
-                startIndex = 0;
-                endIndex = 0;
+                _startIndex = 0;
+                _endIndex = 0;
             }
         }
 
@@ -253,69 +236,62 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// </summary>
         public override void Draw(GameTime gameTime)
         {
-            Vector2 currentTextPosition = textPosition;
-            Vector2 currentIconPosition = iconPosition;
-            Vector2 currentLinePosition = linePosition;
-            Vector2 currentLevelPosition = levelPosition;
+            Vector2 currentTextPosition = _textPosition;
+            Vector2 currentIconPosition = _iconPosition;
+            Vector2 currentLinePosition = _linePosition;
+            Vector2 currentLevelPosition = _levelPosition;
 
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
             spriteBatch.Begin();
 
             // Draw the fading screen
-            spriteBatch.Draw(fadeTexture, fadeDest, Color.White);
+            spriteBatch.Draw(_fadeTexture, _fadeDest, Color.White);
 
             // Draw the popup background
-            spriteBatch.Draw(backTexture, backgroundPosition, Color.White);
+            spriteBatch.Draw(_backTexture, _backgroundPosition, Color.White);
 
             // Draw the title
-            spriteBatch.DrawString(Fonts.HeaderFont, titleText, titlePosition,
-                Fonts.TitleColor);
+            spriteBatch.DrawString(Fonts.HeaderFont, _titleText, _titlePosition, Fonts.TitleColor);
 
             DrawPlayerStats();
 
             // Draw the spell upgrades caption
-            spriteBatch.Draw(headerTexture, headerPosition, Color.White);
-            spriteBatch.DrawString(Fonts.PlayerNameFont, "Spell Upgrades",
-                spellUpgradePosition, colorClass);
+            spriteBatch.Draw(_headerTexture, _headerPosition, Color.White);
+            spriteBatch.DrawString(Fonts.PlayerNameFont, "Spell Upgrades", _spellUpgradePosition, _colorClass);
 
             // Draw the horizontal separating lines
-            for (int i = 0; i <= maxLines - 1; i++)
+            for (int i = 0; i <= _maxLines - 1; i++)
             {
-                currentLinePosition.Y += lineSpacing;
-                spriteBatch.Draw(lineTexture, currentLinePosition, Color.White);
+                currentLinePosition.Y += _lineSpacing;
+                spriteBatch.Draw(_lineTexture, currentLinePosition, Color.White);
             }
 
             // Draw the spell upgrade details
-            for (int i = startIndex; i < endIndex; i++)
+            for (int i = _startIndex; i < _endIndex; i++)
             {
                 // Draw the spell icon
-                spriteBatch.Draw(spellList[i].IconTexture, currentIconPosition,
-                    Color.White);
+                spriteBatch.Draw(_spellList[i].IconTexture, currentIconPosition, Color.White);
 
                 // Draw the spell name
-                spriteBatch.DrawString(Fonts.GearInfoFont, spellList[i].Name,
-                    currentTextPosition, Fonts.CountColor);
+                spriteBatch.DrawString(Fonts.GearInfoFont, _spellList[i].Name, currentTextPosition, Fonts.CountColor);
 
                 // Draw the spell level
-                spriteBatch.DrawString(Fonts.GearInfoFont, "Spell Level " +
-                    spellList[i].Level.ToString(),
-                    currentLevelPosition, Fonts.CountColor);
+                spriteBatch.DrawString(Fonts.GearInfoFont, "Spell Level " + _spellList[i].Level.ToString(), currentLevelPosition, Fonts.CountColor);
 
                 // Increment to next line position
-                currentTextPosition.Y += lineSpacing;
-                currentLevelPosition.Y += lineSpacing;
-                currentIconPosition.Y += lineSpacing;
+                currentTextPosition.Y += _lineSpacing;
+                currentLevelPosition.Y += _lineSpacing;
+                currentIconPosition.Y += _lineSpacing;
             }
 
             // Draw the scroll bars
-            spriteBatch.Draw(scrollUpTexture, scrollUpPosition, Color.White);
-            spriteBatch.Draw(scrollDownTexture, scrollDownPosition, Color.White);
+            spriteBatch.Draw(_scrollUpTexture, _scrollUpPosition, Color.White);
+            spriteBatch.Draw(_scrollDownTexture, _scrollDownPosition, Color.White);
 
             // Draw the select button and its corresponding text
-            spriteBatch.DrawString(Fonts.ButtonNamesFont, selectString, selectPosition,
-                Color.White);
-            spriteBatch.Draw(selectIconTexture, selectIconPosition, Color.White);
+            spriteBatch.DrawString(Fonts.ButtonNamesFont, _selectString, _selectPosition, Color.White);
+            spriteBatch.Draw(_selectIconTexture, _selectIconPosition, Color.White);
 
             spriteBatch.End();
         }
@@ -326,83 +302,55 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         /// </summary>
         private void DrawPlayerStats()
         {
-            Vector2 position = topLinePosition;
-            Vector2 posDamage = playerDamagePosition;
-            Player player = leveledUpPlayers[index];
+            Vector2 position = _topLinePosition;
+            Vector2 posDamage = _playerDamagePosition;
+            Player player = _leveledUpPlayers[_index];
             int level = player.CharacterLevel;
-            CharacterLevelingStatistics levelingStatistics =
-                player.CharacterClass.LevelingStatistics;
+            CharacterLevelingStatistics levelingStatistics = player.CharacterClass.LevelingStatistics;
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
             // Draw the portrait            
-            spriteBatch.Draw(portraitBackTexture, backPosition, Color.White);
+            spriteBatch.Draw(_portraitBackTexture, _backPosition, Color.White);
 
-            spriteBatch.Draw(player.ActivePortraitTexture, portraitPosition,
-                Color.White);
+            spriteBatch.Draw(player.ActivePortraitTexture, _portraitPosition, Color.White);
 
             // Print the character name
-            spriteBatch.DrawString(Fonts.PlayerNameFont,
-                player.Name, playerNamePosition, colorName);
+            spriteBatch.DrawString(Fonts.PlayerNameFont, player.Name, _playerNamePosition, _colorName);
 
             // Draw the Class Name
-            spriteBatch.DrawString(Fonts.PlayerNameFont,
-                player.CharacterClass.Name, playerClassPosition, colorClass);
+            spriteBatch.DrawString(Fonts.PlayerNameFont, player.CharacterClass.Name, _playerClassPosition, _colorClass);
 
             // Draw the character level
-            spriteBatch.DrawString(Fonts.PlayerNameFont, "LEVEL: " +
-                level.ToString(), playerLvlPosition, Color.Gray);
+            spriteBatch.DrawString(Fonts.PlayerNameFont, "LEVEL: " + level.ToString(), _playerLvlPosition, Color.Gray);
 
             // Draw the character Health Points
-            SetColor(levelingStatistics.LevelsPerHealthPointsIncrease == 0 ? 0 :
-                (level % levelingStatistics.LevelsPerHealthPointsIncrease) *
-                levelingStatistics.HealthPointsIncrease);
-            spriteBatch.DrawString(Fonts.PlayerStatisticsFont, "HP: " +
-                player.CurrentStatistics.HealthPoints + "/" +
-                player.CharacterStatistics.HealthPoints,
-                position, color);
+            SetColor(levelingStatistics.LevelsPerHealthPointsIncrease == 0 ? 0 : (level % levelingStatistics.LevelsPerHealthPointsIncrease) * levelingStatistics.HealthPointsIncrease);
+            spriteBatch.DrawString(Fonts.PlayerStatisticsFont, "HP: " + player.CurrentStatistics.HealthPoints + "/" + player.CharacterStatistics.HealthPoints, position, _color);
 
             // Draw the character Mana Points
             position.Y += Fonts.GearInfoFont.LineSpacing;
-            SetColor(levelingStatistics.LevelsPerMagicPointsIncrease == 0 ? 0 :
-                (level % levelingStatistics.LevelsPerMagicPointsIncrease) *
-                levelingStatistics.MagicPointsIncrease);
-            spriteBatch.DrawString(Fonts.PlayerStatisticsFont, "MP: " +
-                player.CurrentStatistics.MagicPoints + "/" +
-                player.CharacterStatistics.MagicPoints,
-                position, color);
+            SetColor(levelingStatistics.LevelsPerMagicPointsIncrease == 0 ? 0 : (level % levelingStatistics.LevelsPerMagicPointsIncrease) * levelingStatistics.MagicPointsIncrease);
+            spriteBatch.DrawString(Fonts.PlayerStatisticsFont, "MP: " + player.CurrentStatistics.MagicPoints + "/" + player.CharacterStatistics.MagicPoints, position, _color);
 
             // Draw the physical offense
-            SetColor(levelingStatistics.LevelsPerPhysicalOffenseIncrease == 0 ? 0 :
-                (level % levelingStatistics.LevelsPerPhysicalOffenseIncrease) *
-                levelingStatistics.PhysicalOffenseIncrease);
-            spriteBatch.DrawString(Fonts.PlayerStatisticsFont, "PO: " +
-                player.CurrentStatistics.PhysicalOffense, posDamage, color);
+            SetColor(levelingStatistics.LevelsPerPhysicalOffenseIncrease == 0 ? 0 : (level % levelingStatistics.LevelsPerPhysicalOffenseIncrease) * levelingStatistics.PhysicalOffenseIncrease);
+            spriteBatch.DrawString(Fonts.PlayerStatisticsFont, "PO: " + player.CurrentStatistics.PhysicalOffense, posDamage, _color);
 
             // Draw the physical defense
             posDamage.Y += Fonts.PlayerStatisticsFont.LineSpacing;
-            SetColor(levelingStatistics.LevelsPerPhysicalDefenseIncrease == 0 ? 0 :
-                (level % levelingStatistics.LevelsPerPhysicalDefenseIncrease) *
-                levelingStatistics.PhysicalDefenseIncrease);
-            spriteBatch.DrawString(Fonts.PlayerStatisticsFont, "PD: " +
-                player.CurrentStatistics.PhysicalDefense, posDamage, color);
+            SetColor(levelingStatistics.LevelsPerPhysicalDefenseIncrease == 0 ? 0 : (level % levelingStatistics.LevelsPerPhysicalDefenseIncrease) * levelingStatistics.PhysicalDefenseIncrease);
+            spriteBatch.DrawString(Fonts.PlayerStatisticsFont, "PD: " + player.CurrentStatistics.PhysicalDefense, posDamage, _color);
 
             // Draw the Magic offense
             posDamage.Y += Fonts.PlayerStatisticsFont.LineSpacing;
-            SetColor(levelingStatistics.LevelsPerMagicalOffenseIncrease == 0 ? 0 :
-                (level % levelingStatistics.LevelsPerMagicalOffenseIncrease) *
-                levelingStatistics.MagicalOffenseIncrease);
-            spriteBatch.DrawString(Fonts.PlayerStatisticsFont, "MO: " +
-                player.CurrentStatistics.MagicalOffense, posDamage, color);
+            SetColor(levelingStatistics.LevelsPerMagicalOffenseIncrease == 0 ? 0 : (level % levelingStatistics.LevelsPerMagicalOffenseIncrease) * levelingStatistics.MagicalOffenseIncrease);
+            spriteBatch.DrawString(Fonts.PlayerStatisticsFont, "MO: " + player.CurrentStatistics.MagicalOffense, posDamage, _color);
 
             // Draw the Magical defense
             posDamage.Y += Fonts.PlayerStatisticsFont.LineSpacing;
-            SetColor(levelingStatistics.LevelsPerMagicalDefenseIncrease == 0 ? 0 :
-                (level % levelingStatistics.LevelsPerMagicalDefenseIncrease) *
-                levelingStatistics.MagicalDefenseIncrease);
-            spriteBatch.DrawString(Fonts.PlayerStatisticsFont, "MD: " +
-                player.CurrentStatistics.MagicalDefense, posDamage, color);
+            SetColor(levelingStatistics.LevelsPerMagicalDefenseIncrease == 0 ? 0 : (level % levelingStatistics.LevelsPerMagicalDefenseIncrease) * levelingStatistics.MagicalDefenseIncrease);
+            spriteBatch.DrawString(Fonts.PlayerStatisticsFont, "MD: " + player.CurrentStatistics.MagicalDefense, posDamage, _color);
         }
-
 
         /// <summary>
         /// Set the current color based on whether the value has changed.
@@ -412,15 +360,15 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         {
             if (value > 0)
             {
-                color = Color.Green;
+                _color = Color.Green;
             }
             else if (value < 0)
             {
-                color = Color.Red;
+                _color = Color.Red;
             }
             else
             {
-                color = colorText;
+                _color = _colorText;
             }
         }
     }

@@ -8,28 +8,26 @@ namespace RolePlayingGame.Data
         /// <summary>
         /// The weight of this content within the group, for statistical distribution.
         /// </summary>
-        private int weight;
+        private int _weight;
 
         /// <summary>
         /// The weight of this content within the group, for statistical distribution.
         /// </summary>
         public int Weight
         {
-            get { return weight; }
-            set { weight = value; }
+            get => _weight;
+            set => _weight = value;
         }
 
         /// <summary>
         /// Reads a WeightedContentEntry object from the content pipeline.
         /// </summary>
-        public class WeightedContentEntryReader :
-            ContentTypeReader<WeightedContentEntry<T>>
+        public class WeightedContentEntryReader : ContentTypeReader<WeightedContentEntry<T>>
         {
             /// <summary>
             /// Reads a WeightedContentEntry object from the content pipeline.
             /// </summary>
-            protected override WeightedContentEntry<T> Read(ContentReader input,
-                WeightedContentEntry<T> existingInstance)
+            protected override WeightedContentEntry<T> Read(ContentReader input, WeightedContentEntry<T> existingInstance)
             {
                 WeightedContentEntry<T> entry = existingInstance;
                 if (entry == null)

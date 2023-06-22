@@ -52,7 +52,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         public override ReadOnlyCollection<Gear> GetDataList()
         {
             return
-                store.StoreCategories[currentCategoryIndex].AvailableGear.AsReadOnly();
+                store.StoreCategoriesList[currentCategoryIndex].AvailableGearList.AsReadOnly();
         }
 
 
@@ -75,16 +75,16 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         {
             // check the indices before recalculating
             if ((currentCategoryIndex < 0) ||
-                (currentCategoryIndex > store.StoreCategories.Count) ||
+                (currentCategoryIndex > store.StoreCategoriesList.Count) ||
                 (SelectedIndex < 0) || (SelectedIndex >=
-                store.StoreCategories[currentCategoryIndex].AvailableGear.Count))
+                store.StoreCategoriesList[currentCategoryIndex].AvailableGearList.Count))
             {
                 return;
             }
 
             // get the value of the selected gear
             Gear gear =
-                store.StoreCategories[currentCategoryIndex].AvailableGear[SelectedIndex];
+                store.StoreCategoriesList[currentCategoryIndex].AvailableGearList[SelectedIndex];
             if ((gear == null) || (gear.GoldValue <= 0))
             {
                 selectedQuantity = maximumQuantity = 0;
@@ -157,17 +157,17 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             : base()
         {
             // check the parameter
-            if ((store == null) || (store.StoreCategories.Count <= 0))
+            if ((store == null) || (store.StoreCategoriesList.Count <= 0))
             {
                 throw new ArgumentNullException("store");
             }
             this.store = store;
 
             // configure the menu text
-            selectButtonText = "Purchase";
-            backButtonText = "Back";
-            xButtonText = String.Empty;
-            yButtonText = String.Empty;
+            _selectButtonText = "Purchase";
+            _backButtonText = "Back";
+            _xButtonText = String.Empty;
+            _yButtonText = String.Empty;
             ResetMenu();
 
             ResetQuantities();
@@ -221,7 +221,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             currentCategoryIndex--;
             if (currentCategoryIndex < 0)
             {
-                currentCategoryIndex = store.StoreCategories.Count - 1;
+                currentCategoryIndex = store.StoreCategoriesList.Count - 1;
             }
             ResetMenu();
             ResetQuantities();
@@ -234,7 +234,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         protected override void PageScreenRight()
         {
             currentCategoryIndex++;
-            if (currentCategoryIndex >= store.StoreCategories.Count)
+            if (currentCategoryIndex >= store.StoreCategoriesList.Count)
             {
                 currentCategoryIndex = 0;
             }
@@ -249,23 +249,23 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         private void ResetMenu()
         {
             // update the title the title
-            titleText = store.StoreCategories[currentCategoryIndex].Name;
+            _titleText = store.StoreCategoriesList[currentCategoryIndex].Name;
 
             // get the left trigger text
             int index = currentCategoryIndex - 1;
             if (index < 0)
             {
-                index = store.StoreCategories.Count - 1;
+                index = store.StoreCategoriesList.Count - 1;
             }
-            leftTriggerText = store.StoreCategories[index].Name;
+            _leftTriggerText = store.StoreCategoriesList[index].Name;
 
             // get the right trigger text
             index = currentCategoryIndex + 1;
-            if (index >= store.StoreCategories.Count)
+            if (index >= store.StoreCategoriesList.Count)
             {
                 index = 0;
             }
-            rightTriggerText = store.StoreCategories[index].Name;
+            _rightTriggerText = store.StoreCategoriesList[index].Name;
         }
 
         /// <summary>
@@ -287,11 +287,11 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             Vector2 drawPosition = position;
 
             // draw the icon
-            spriteBatch.Draw(entry.IconTexture, drawPosition + iconOffset, Color.White);
+            spriteBatch.Draw(entry.IconTexture, drawPosition + _iconOffset, Color.White);
 
             // draw the name
             Color color = isSelected ? Fonts.HighlightColor : Fonts.DisplayColor;
-            drawPosition.Y += listLineSpacing / 4;
+            drawPosition.Y += _listLineSpacing / 4;
             drawPosition.X += nameColumnInterval;
             spriteBatch.DrawString(Fonts.GearInfoFont, entry.Name, drawPosition, color);
 
@@ -331,12 +331,12 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
                         Color.White);
                     quantityPosition.X += rightQuantityArrow.Width;
                     // draw the purchase button
-                    selectButtonText = "Purchase";
+                    _selectButtonText = "Purchase";
                 }
                 else
                 {
                     // turn off the purchase button
-                    selectButtonText = String.Empty;
+                    _selectButtonText = String.Empty;
                 }
             }
 
@@ -371,7 +371,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             }
 
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-            Vector2 position = descriptionTextPosition;
+            Vector2 position = _descriptionTextPosition;
 
             // draw the description
             // -- it's up to the content owner to fit the description
@@ -413,7 +413,7 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         protected override void DrawColumnHeaders()
         {
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-            Vector2 position = listEntryStartPosition;
+            Vector2 position = _listEntryStartPosition;
 
             position.X += nameColumnInterval;
             if (!String.IsNullOrEmpty(nameColumnText))

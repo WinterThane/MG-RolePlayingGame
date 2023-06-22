@@ -14,36 +14,29 @@ namespace RolePlayingGame.Combat
         /// <summary>
         /// The monster content object that this combatant uses.
         /// </summary>
-        private Monster monster;
+        private Monster _monster;
 
         /// <summary>
         /// The monster content object that this combatant uses.
         /// </summary>
-        public Monster Monster
-        {
-            get { return monster; }
-        }
+        public Monster Monster => _monster;
 
         /// <summary>
         /// The character encapsulated by this combatant.
         /// </summary>
-        public override FightingCharacter Character
-        {
-            get { return monster as FightingCharacter; }
-        }
+        public override FightingCharacter Character => _monster;
 
         /// <summary>
         /// The current state of this combatant.
         /// </summary>
-        private Character.CharacterState state;
-
+        private CharacterState state;
 
         /// <summary>
         /// The current state of this combatant.
         /// </summary>
-        public override Character.CharacterState State
+        public override CharacterState State
         {
-            get { return state; }
+            get => state;
             set
             {
                 if (value == state)
@@ -62,7 +55,7 @@ namespace RolePlayingGame.Combat
                         break;
 
                     case CharacterState.Dying:
-                        statistics.HealthPoints = 0;
+                        _statistics.HealthPoints = 0;
                         CombatSprite.PlayAnimation("Die");
                         break;
                 }
@@ -72,29 +65,25 @@ namespace RolePlayingGame.Combat
         /// <summary>
         /// The combat sprite for this combatant, copied from the monster.
         /// </summary>
-        private AnimatingSprite combatSprite;
+        private AnimatingSprite _combatSprite;
 
         /// <summary>
         /// Accessor for the combat sprite for this combatant.
         /// </summary>
-        public override AnimatingSprite CombatSprite
-        {
-            get { return combatSprite; }
-        }
+        public override AnimatingSprite CombatSprite => _combatSprite;
 
         /// <summary>
         /// The statistics for this particular combatant.
         /// </summary>
-        private StatisticsValue statistics = new StatisticsValue();
+        private StatisticsValue _statistics = new StatisticsValue();
 
         /// <summary>
         /// The current statistics of this combatant.
         /// </summary>
         public override StatisticsValue Statistics
         {
-            get { return statistics + CombatEffects.TotalStatistics; }
+            get { return _statistics + CombatEffects.TotalStatistics; }
         }
-
 
         /// <summary>
         /// Heals the combatant by the given amount.
@@ -107,12 +96,11 @@ namespace RolePlayingGame.Combat
             }
             else
             {
-                statistics += healingStatistics;
-                statistics.ApplyMaximum(monster.CharacterStatistics);
+                _statistics += healingStatistics;
+                _statistics.ApplyMaximum(_monster.CharacterStatistics);
             }
             base.Heal(healingStatistics, duration);
         }
-
 
         /// <summary>
         /// Damages the combatant by the given amount.
@@ -126,12 +114,11 @@ namespace RolePlayingGame.Combat
             }
             else
             {
-                statistics -= damageStatistics;
-                statistics.ApplyMaximum(monster.CharacterStatistics);
+                _statistics -= damageStatistics;
+                _statistics.ApplyMaximum(_monster.CharacterStatistics);
             }
             base.Damage(damageStatistics, duration);
         }
-
 
         /// <summary>
         /// Pay the cost for the given spell.
@@ -152,7 +139,7 @@ namespace RolePlayingGame.Combat
             }
 
             // reduce the player's magic points by the spell's cost
-            statistics.MagicPoints -= spell.MagicPointCost;
+            _statistics.MagicPoints -= spell.MagicPointCost;
 
             return true;
         }
@@ -160,14 +147,14 @@ namespace RolePlayingGame.Combat
         /// <summary>
         /// The artificial intelligence data for this particular combatant.
         /// </summary>
-        private ArtificialIntelligence artificialIntelligence;
+        private ArtificialIntelligence _artificialIntelligence;
 
         /// <summary>
         /// The artificial intelligence data for this particular combatant.
         /// </summary>
         public ArtificialIntelligence ArtificialIntelligence
         {
-            get { return artificialIntelligence; }
+            get { return _artificialIntelligence; }
         }
 
         /// <summary>
@@ -183,14 +170,14 @@ namespace RolePlayingGame.Combat
             }
 
             // assign the parameters
-            this.monster = monster;
-            this.statistics += monster.CharacterStatistics;
-            this.combatSprite = monster.CombatSprite.Clone() as AnimatingSprite;
-            this.State = CharacterState.Idle;
-            this.CombatSprite.PlayAnimation("Idle");
+            _monster = monster;
+            _statistics += monster.CharacterStatistics;
+            _combatSprite = monster.CombatSprite.Clone() as AnimatingSprite;
+            State = CharacterState.Idle;
+            CombatSprite.PlayAnimation("Idle");
 
             // create the AI data
-            this.artificialIntelligence = new ArtificialIntelligence(this);
+            _artificialIntelligence = new ArtificialIntelligence(this);
         }
 
         /// <summary>
@@ -199,8 +186,7 @@ namespace RolePlayingGame.Combat
         public override void Update(GameTime gameTime)
         {
             // start any waiting action immediately
-            if ((CombatAction != null) &&
-                (CombatAction.Stage == CombatActionStage.NotStarted))
+            if ((CombatAction != null) && (CombatAction.Stage == CombatActionStage.NotStarted))
             {
                 CombatAction.Start();
             }

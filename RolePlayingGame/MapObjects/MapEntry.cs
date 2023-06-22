@@ -8,28 +8,25 @@ namespace RolePlayingGame.MapObjects
 {
     public class MapEntry<T> : ContentEntry<T> where T : ContentObject
     {
-        private Point mapPosition;
+        private Point _mapPosition;
         public Point MapPosition
         {
-            get { return mapPosition; }
-            set { mapPosition = value; }
+            get => _mapPosition;
+            set => _mapPosition = value;
         }
 
-        private Direction direction;
+        private Direction _direction;
         [ContentSerializer(Optional = true)]
         public Direction Direction
         {
-            get { return direction; }
-            set { direction = value; }
+            get => _direction;
+            set => _direction = value;
         }
 
         public override bool Equals(object obj)
         {
             MapEntry<T> mapEntry = obj as MapEntry<T>;
-            return ((mapEntry != null) &&
-                (mapEntry.Content == Content) &&
-                (mapEntry.mapPosition == mapPosition) &&
-                (mapEntry.Direction == Direction));
+            return (mapEntry != null) && (mapEntry.Content == Content) && (mapEntry._mapPosition == _mapPosition) && (mapEntry.Direction == Direction);
         }
 
         public override int GetHashCode()
@@ -37,12 +34,12 @@ namespace RolePlayingGame.MapObjects
             return base.GetHashCode();
         }
 
-        private AnimatingSprite mapSprite;
+        private AnimatingSprite _mapSprite;
         [ContentSerializer(Optional = true)]
         public AnimatingSprite MapSprite
         {
-            get { return mapSprite; }
-            set { mapSprite = value; }
+            get => _mapSprite;
+            set => _mapSprite = value;
         }
 
         public class MapEntryReader : ContentTypeReader<MapEntry<T>>
@@ -50,8 +47,7 @@ namespace RolePlayingGame.MapObjects
             /// <summary>
             /// Read a MapEntry object from the content pipeline.
             /// </summary>
-            protected override MapEntry<T> Read(ContentReader input,
-                MapEntry<T> existingInstance)
+            protected override MapEntry<T> Read(ContentReader input, MapEntry<T> existingInstance)
             {
                 MapEntry<T> desc = existingInstance;
                 if (desc == null)

@@ -17,58 +17,58 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
     {
         private Inn inn;
 
-        private Texture2D backgroundTexture;
-        private Texture2D plankTexture;
-        private Texture2D selectIconTexture;
-        private Texture2D backIconTexture;
-        private Texture2D highlightTexture;
-        private Texture2D arrowTexture;
-        private Texture2D conversationTexture;
-        private Texture2D fadeTexture;
-        private Texture2D goldIcon;
+        private Texture2D _backgroundTexture;
+        private Texture2D _plankTexture;
+        private Texture2D _selectIconTexture;
+        private Texture2D _backIconTexture;
+        private Texture2D _highlightTexture;
+        private Texture2D _arrowTexture;
+        private Texture2D _conversationTexture;
+        private Texture2D _fadeTexture;
+        private Texture2D _goldIcon;
 
-        private readonly Vector2 stayPosition = new Vector2(620f, 250f);
-        private readonly Vector2 leavePosition = new Vector2(620f, 300f);
-        private readonly Vector2 costPosition = new Vector2(470, 450);
-        private readonly Vector2 informationPosition = new Vector2(470, 490);
-        private readonly Vector2 selectIconPosition = new Vector2(1150, 640);
-        private readonly Vector2 backIconPosition = new Vector2(80, 640);
-        private readonly Vector2 goldStringPosition = new Vector2(565, 648);
-        private readonly Vector2 stayArrowPosition = new Vector2(520f, 234f);
-        private readonly Vector2 leaveArrowPosition = new Vector2(520f, 284f);
-        private readonly Vector2 stayHighlightPosition = new Vector2(180f, 230f);
-        private readonly Vector2 leaveHighlightPosition = new Vector2(180f, 280f);
-        private readonly Vector2 innKeeperPosition = new Vector2(290, 370);
-        private readonly Vector2 conversationStripPosition = new Vector2(210f, 405f);
-        private readonly Vector2 goldIconPosition = new Vector2(490, 640);
-        private Vector2 plankPosition;
-        private Vector2 backgroundPosition;
-        private Vector2 namePosition;
-        private Vector2 selectTextPosition;
-        private Vector2 backTextPosition;
-        private Rectangle screenRectangle;
+        private readonly Vector2 _stayPosition = new(620f, 250f);
+        private readonly Vector2 _leavePosition = new (620f, 300f);
+        private readonly Vector2 _costPosition = new (470, 450);
+        private readonly Vector2 _informationPosition = new (470, 490);
+        private readonly Vector2 _selectIconPosition = new (1150, 640);
+        private readonly Vector2 _backIconPosition = new (80, 640);
+        private readonly Vector2 _goldStringPosition = new (565, 648);
+        private readonly Vector2 _stayArrowPosition = new (520f, 234f);
+        private readonly Vector2 _leaveArrowPosition = new (520f, 284f);
+        private readonly Vector2 _stayHighlightPosition = new (180f, 230f);
+        private readonly Vector2 _leaveHighlightPosition = new (180f, 280f);
+        private readonly Vector2 _innKeeperPosition = new (290, 370);
+        private readonly Vector2 _conversationStripPosition = new (210f, 405f);
+        private readonly Vector2 _goldIconPosition = new (490, 640);
 
-        private List<string> welcomeMessage;
-        private List<string> serviceRenderedMessage;
-        private List<string> noGoldMessage;
-        private List<string> currentDialogue;
-        private const int maxWidth = 570;
-        private const int maxLines = 3;
+        private Vector2 _plankPosition;
+        private Vector2 _backgroundPosition;
+        private Vector2 _namePosition;
+        private Vector2 _selectTextPosition;
+        private Vector2 _backTextPosition;
+        private Rectangle _screenRectangle;
 
-        private string costString;
-        private readonly string stayString = "Stay";
-        private readonly string leaveString = "Leave";
-        private readonly string selectString = "Select";
-        private readonly string backString = "Leave";
+        private List<string> _welcomeMessage;
+        private List<string> _serviceRenderedMessage;
+        private List<string> _noGoldMessage;
+        private List<string> _currentDialogue;
+        private const int _maxWidth = 570;
+        private const int _maxLines = 3;
 
-        private int selectionMark;
-        private int endIndex;
+        private string _costString;
+        private readonly string _stayString = "Stay";
+        private readonly string _leaveString = "Leave";
+        private readonly string _selectString = "Select";
+        private readonly string _backString = "Leave";
+
+        private int _selectionMark;
+        private int _endIndex;
 
         /// <summary>
         /// Creates a new InnScreen object.
         /// </summary>
-        public InnScreen(Inn inn)
-            : base()
+        public InnScreen(Inn inn) : base()
         {
             // check the parameter
             if (inn == null)
@@ -76,20 +76,16 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
                 throw new ArgumentNullException("inn");
             }
 
-            this.IsPopup = true;
+            IsPopup = true;
             this.inn = inn;
 
-            welcomeMessage = Fonts.BreakTextIntoList(inn.WelcomeMessage,
-                Fonts.DescriptionFont, maxWidth);
-            serviceRenderedMessage = Fonts.BreakTextIntoList(inn.PaidMessage,
-                Fonts.DescriptionFont, maxWidth);
-            noGoldMessage = Fonts.BreakTextIntoList(inn.NotEnoughGoldMessage,
-                Fonts.DescriptionFont, maxWidth);
+            _welcomeMessage = Fonts.BreakTextIntoList(inn.WelcomeMessage, Fonts.DescriptionFont, _maxWidth);
+            _serviceRenderedMessage = Fonts.BreakTextIntoList(inn.PaidMessage, Fonts.DescriptionFont, _maxWidth);
+            _noGoldMessage = Fonts.BreakTextIntoList(inn.NotEnoughGoldMessage, Fonts.DescriptionFont, _maxWidth);
 
-            selectionMark = 1;
-            ChangeDialogue(welcomeMessage);
+            _selectionMark = 1;
+            ChangeDialogue(_welcomeMessage);
         }
-
 
         /// <summary>
         /// Load the graphics content
@@ -102,43 +98,28 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
             ContentManager content = ScreenManager.Game.Content;
 
-            backgroundTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\GameScreenBkgd");
-            plankTexture =
-                content.Load<Texture2D>(@"Textures\MainMenu\MainMenuPlank03");
-            selectIconTexture =
-                content.Load<Texture2D>(@"Textures\Buttons\AButton");
-            backIconTexture =
-                content.Load<Texture2D>(@"Textures\Buttons\BButton");
-            highlightTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\HighlightLarge");
-            arrowTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\SelectionArrow");
-            conversationTexture =
-                content.Load<Texture2D>(@"Textures\GameScreens\ConversationStrip");
-            goldIcon = content.Load<Texture2D>(@"Textures\GameScreens\GoldIcon");
-            fadeTexture = content.Load<Texture2D>(@"Textures\GameScreens\FadeScreen");
+            _backgroundTexture = content.Load<Texture2D>("Textures/GameScreens/GameScreenBkgd");
+            _plankTexture = content.Load<Texture2D>("Textures/MainMenu/MainMenuPlank03");
+            _selectIconTexture = content.Load<Texture2D>("Textures/Buttons/AButton");
+            _backIconTexture = content.Load<Texture2D>("Textures/Buttons/BButton");
+            _highlightTexture = content.Load<Texture2D>("Textures/GameScreens/HighlightLarge");
+            _arrowTexture = content.Load<Texture2D>("Textures/GameScreens/SelectionArrow");
+            _conversationTexture = content.Load<Texture2D>("Textures/GameScreens/ConversationStrip");
+            _goldIcon = content.Load<Texture2D>("Textures/GameScreens/GoldIcon");
+            _fadeTexture = content.Load<Texture2D>("Textures/GameScreens/FadeScreen");
 
-            screenRectangle = new Rectangle(viewport.X, viewport.Y,
-                viewport.Width, viewport.Height);
+            _screenRectangle = new Rectangle(viewport.X, viewport.Y, viewport.Width, viewport.Height);
+            _plankPosition = new Vector2((viewport.Width - _plankTexture.Width) / 2, 67f);
+            _backgroundPosition = new Vector2((viewport.Width - _backgroundTexture.Width) / 2, (viewport.Height - _backgroundTexture.Height) / 2);
+            _namePosition = new Vector2((viewport.Width - Fonts.HeaderFont.MeasureString(inn.Name).X) / 2, 90f);
 
-            plankPosition = new Vector2((viewport.Width - plankTexture.Width) / 2, 67f);
+            _selectTextPosition = _selectIconPosition;
+            _selectTextPosition.X -= Fonts.ButtonNamesFont.MeasureString(_selectString).X + 10;
+            _selectTextPosition.Y += 5;
 
-            backgroundPosition = new Vector2(
-                (viewport.Width - backgroundTexture.Width) / 2,
-                (viewport.Height - backgroundTexture.Height) / 2);
-
-            namePosition = new Vector2(
-                (viewport.Width - Fonts.HeaderFont.MeasureString(inn.Name).X) / 2, 90f);
-
-            selectTextPosition = selectIconPosition;
-            selectTextPosition.X -=
-                Fonts.ButtonNamesFont.MeasureString(selectString).X + 10;
-            selectTextPosition.Y += 5;
-
-            backTextPosition = backIconPosition;
-            backTextPosition.X += backIconTexture.Width + 10;
-            backTextPosition.Y += 5;
+            _backTextPosition = _backIconPosition;
+            _backTextPosition.X += _backIconTexture.Width + 10;
+            _backTextPosition.Y += 5;
         }
 
         /// <summary>
@@ -155,37 +136,37 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             // move the cursor up
             else if (InputManager.IsActionTriggered(InputManager.Action.CursorUp))
             {
-                if (selectionMark == 2)
+                if (_selectionMark == 2)
                 {
-                    selectionMark = 1;
+                    _selectionMark = 1;
                 }
             }
             // move the cursor down
             else if (InputManager.IsActionTriggered(InputManager.Action.CursorDown))
             {
-                if (selectionMark == 1)
+                if (_selectionMark == 1)
                 {
-                    selectionMark = 2;
+                    _selectionMark = 2;
                 }
             }
             // select an option
             else if (InputManager.IsActionTriggered(InputManager.Action.Ok))
             {
-                if (selectionMark == 1)
+                if (_selectionMark == 1)
                 {
                     int partyCharge = GetChargeForParty(Session.Party);
                     if (Session.Party.PartyGold >= partyCharge)
                     {
                         AudioManager.PlayCue("Money");
                         Session.Party.PartyGold -= partyCharge;
-                        selectionMark = 2;
-                        ChangeDialogue(serviceRenderedMessage);
+                        _selectionMark = 2;
+                        ChangeDialogue(_serviceRenderedMessage);
                         HealParty(Session.Party);
                     }
                     else
                     {
-                        selectionMark = 2;
-                        ChangeDialogue(noGoldMessage);
+                        _selectionMark = 2;
+                        ChangeDialogue(_noGoldMessage);
                     }
                 }
                 else
@@ -196,17 +177,16 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
             }
         }
 
-
         /// <summary>
         /// Change the current dialogue.
         /// </summary>
         private void ChangeDialogue(List<string> newDialogue)
         {
-            currentDialogue = newDialogue;
-            endIndex = maxLines;
-            if (endIndex > currentDialogue.Count)
+            _currentDialogue = newDialogue;
+            _endIndex = _maxLines;
+            if (_endIndex > _currentDialogue.Count)
             {
-                endIndex = currentDialogue.Count;
+                _endIndex = _currentDialogue.Count;
             }
         }
 
@@ -224,8 +204,6 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
 
             return inn.ChargePerPlayer * party.Players.Count;
         }
-
-
 
         /// <summary>
         /// Heal the party back to their correct values for level + gear.
@@ -251,74 +229,63 @@ namespace RolePlayingGame.ScreensManager.Screens.GameScreens
         public override void Draw(GameTime gameTime)
         {
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-            Vector2 dialogPosition = informationPosition;
+            Vector2 dialogPosition = _informationPosition;
 
             spriteBatch.Begin();
 
             // Draw fade screen
-            spriteBatch.Draw(fadeTexture, screenRectangle, Color.White);
+            spriteBatch.Draw(_fadeTexture, _screenRectangle, Color.White);
 
             // Draw the background
-            spriteBatch.Draw(backgroundTexture, backgroundPosition, Color.White);
+            spriteBatch.Draw(_backgroundTexture, _backgroundPosition, Color.White);
             // Draw the wooden plank
-            spriteBatch.Draw(plankTexture, plankPosition, Color.White);
+            spriteBatch.Draw(_plankTexture, _plankPosition, Color.White);
             // Draw the select icon
-            spriteBatch.Draw(selectIconTexture, selectIconPosition, Color.White);
+            spriteBatch.Draw(_selectIconTexture, _selectIconPosition, Color.White);
             // Draw the back icon
-            spriteBatch.Draw(backIconTexture, backIconPosition, Color.White);
+            spriteBatch.Draw(_backIconTexture, _backIconPosition, Color.White);
             // Draw the inn name on the wooden plank
-            spriteBatch.DrawString(Fonts.HeaderFont, inn.Name, namePosition,
-                Fonts.DisplayColor);
+            spriteBatch.DrawString(Fonts.HeaderFont, inn.Name, _namePosition, Fonts.DisplayColor);
 
             // Draw the stay and leave option texts based on the current selection
-            if (selectionMark == 1)
+            if (_selectionMark == 1)
             {
-                spriteBatch.Draw(highlightTexture, stayHighlightPosition, Color.White);
-                spriteBatch.Draw(arrowTexture, stayArrowPosition, Color.White);
-                spriteBatch.DrawString(
-                    Fonts.GearInfoFont, stayString, stayPosition, Fonts.HighlightColor);
-                spriteBatch.DrawString(
-                    Fonts.GearInfoFont, leaveString, leavePosition, Fonts.DisplayColor);
+                spriteBatch.Draw(_highlightTexture, _stayHighlightPosition, Color.White);
+                spriteBatch.Draw(_arrowTexture, _stayArrowPosition, Color.White);
+                spriteBatch.DrawString(Fonts.GearInfoFont, _stayString, _stayPosition, Fonts.HighlightColor);
+                spriteBatch.DrawString(Fonts.GearInfoFont, _leaveString, _leavePosition, Fonts.DisplayColor);
             }
             else
             {
-                spriteBatch.Draw(highlightTexture, leaveHighlightPosition, Color.White);
-                spriteBatch.Draw(arrowTexture, leaveArrowPosition, Color.White);
-                spriteBatch.DrawString(Fonts.GearInfoFont, stayString, stayPosition,
-                    Fonts.DisplayColor);
-                spriteBatch.DrawString(Fonts.GearInfoFont, leaveString, leavePosition,
-                    Fonts.HighlightColor);
+                spriteBatch.Draw(_highlightTexture, _leaveHighlightPosition, Color.White);
+                spriteBatch.Draw(_arrowTexture, _leaveArrowPosition, Color.White);
+                spriteBatch.DrawString(Fonts.GearInfoFont, _stayString, _stayPosition, Fonts.DisplayColor);
+                spriteBatch.DrawString(Fonts.GearInfoFont, _leaveString, _leavePosition, Fonts.HighlightColor);
             }
             // Draw the amount of gold
-            spriteBatch.DrawString(Fonts.ButtonNamesFont,
-                Fonts.GetGoldString(Session.Party.PartyGold), goldStringPosition,
-                Color.White);
+            spriteBatch.DrawString(Fonts.ButtonNamesFont, Fonts.GetGoldString(Session.Party.PartyGold), _goldStringPosition, Color.White);
             // Draw the select button text
-            spriteBatch.DrawString(
-                Fonts.ButtonNamesFont, selectString, selectTextPosition, Color.White);
+            spriteBatch.DrawString(Fonts.ButtonNamesFont, _selectString, _selectTextPosition, Color.White);
             // Draw the back button text
-            spriteBatch.DrawString(Fonts.ButtonNamesFont, backString, backTextPosition,
-                Color.White);
+            spriteBatch.DrawString(Fonts.ButtonNamesFont, _backString, _backTextPosition, Color.White);
 
             // Draw Conversation Strip
-            spriteBatch.Draw(conversationTexture, conversationStripPosition,
-                Color.White);
+            spriteBatch.Draw(_conversationTexture, _conversationStripPosition, Color.White);
 
             // Draw Shop Keeper
-            spriteBatch.Draw(inn.ShopkeeperTexture, innKeeperPosition, Color.White);
+            spriteBatch.Draw(inn.ShopkeeperTexture, _innKeeperPosition, Color.White);
             // Draw the cost to stay
-            costString = "Cost: " + GetChargeForParty(Session.Party) + " Gold";
-            spriteBatch.DrawString(Fonts.DescriptionFont, costString, costPosition, Color.DarkRed);
+            _costString = "Cost: " + GetChargeForParty(Session.Party) + " Gold";
+            spriteBatch.DrawString(Fonts.DescriptionFont, _costString, _costPosition, Color.DarkRed);
             // Draw the innkeeper dialog
-            for (int i = 0; i < endIndex; i++)
+            for (int i = 0; i < _endIndex; i++)
             {
-                spriteBatch.DrawString(Fonts.DescriptionFont, currentDialogue[i],
-                    dialogPosition, Color.Black);
+                spriteBatch.DrawString(Fonts.DescriptionFont, _currentDialogue[i], dialogPosition, Color.Black);
                 dialogPosition.Y += Fonts.DescriptionFont.LineSpacing;
             }
 
             // Draw Gold Icon
-            spriteBatch.Draw(goldIcon, goldIconPosition, Color.White);
+            spriteBatch.Draw(_goldIcon, _goldIconPosition, Color.White);
 
             spriteBatch.End();
         }

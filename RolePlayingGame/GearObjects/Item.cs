@@ -16,12 +16,11 @@ namespace RolePlayingGame.GearObjects
             NonCombat = 2,
         };
 
-
         /// <summary>
         /// Description of when the item may be used.
         /// </summary>
         /// <remarks>Defaults to "either", with both values.</remarks>
-        private ItemUsage usage = ItemUsage.Combat | ItemUsage.NonCombat;
+        private ItemUsage _usage = ItemUsage.Combat | ItemUsage.NonCombat;
 
         /// <summary>
         /// Description of when the item may be used.
@@ -30,8 +29,8 @@ namespace RolePlayingGame.GearObjects
         [ContentSerializer(Optional = true)]
         public ItemUsage Usage
         {
-            get { return usage; }
-            set { usage = value; }
+            get => _usage;
+            set => _usage = value;
         }
 
         /// <summary>
@@ -46,7 +45,7 @@ namespace RolePlayingGame.GearObjects
         /// If true, the statistics change are used as a debuff (subtracted).
         /// Otherwise, the statistics change is used as a buff (added).
         /// </summary>
-        private bool isOffensive;
+        private bool _isOffensive;
 
         /// <summary>
         /// If true, the statistics change are used as a debuff (subtracted).
@@ -54,10 +53,9 @@ namespace RolePlayingGame.GearObjects
         /// </summary>
         public bool IsOffensive
         {
-            get { return isOffensive; }
-            set { isOffensive = value; }
+            get => _isOffensive;
+            set => _isOffensive = value;
         }
-
 
         /// <summary>
         /// The duration of the effect of this item on its target, in rounds.
@@ -65,7 +63,7 @@ namespace RolePlayingGame.GearObjects
         /// <remarks>
         /// If the duration is zero, then the effects last for the rest of the battle.
         /// </remarks>
-        private int targetDuration;
+        private int _targetDuration;
 
         /// <summary>
         /// The duration of the effect of this item on its target, in rounds.
@@ -75,10 +73,9 @@ namespace RolePlayingGame.GearObjects
         /// </remarks>
         public int TargetDuration
         {
-            get { return targetDuration; }
-            set { targetDuration = value; }
+            get => _targetDuration;
+            set => _targetDuration = value;
         }
-
 
         /// <summary>
         /// The range of statistics effects of this item on its target.
@@ -86,7 +83,7 @@ namespace RolePlayingGame.GearObjects
         /// <remarks>
         /// This is a debuff if IsOffensive is true, otherwise it's a buff.
         /// </remarks>
-        private StatisticsRange targetEffectRange = new StatisticsRange();
+        private StatisticsRange _targetEffectRange = new StatisticsRange();
 
         /// <summary>
         /// The range of statistics effects of this item on its target.
@@ -96,82 +93,78 @@ namespace RolePlayingGame.GearObjects
         /// </remarks>
         public StatisticsRange TargetEffectRange
         {
-            get { return targetEffectRange; }
-            set { targetEffectRange = value; }
+            get => _targetEffectRange;
+            set => _targetEffectRange = value;
         }
-
 
         /// <summary>
         /// The number of simultaneous, adjacent targets affected by this item.
         /// </summary>
-        private int adjacentTargets;
+        private int _adjacentTargets;
 
         /// <summary>
         /// The number of simultaneous, adjacent targets affected by this item.
         /// </summary>
         public int AdjacentTargets
         {
-            get { return adjacentTargets; }
-            set { adjacentTargets = value; }
+            get => _adjacentTargets;
+            set => _adjacentTargets = value;
         }
 
         /// <summary>
         /// The name of the sound effect cue played when the item is used.
         /// </summary>
-        private string usingCueName;
+        private string _usingCueName;
 
         /// <summary>
         /// The name of the sound effect cue played when the item is used.
         /// </summary>
         public string UsingCueName
         {
-            get { return usingCueName; }
-            set { usingCueName = value; }
+            get => _usingCueName;
+            set => _usingCueName = value;
         }
-
 
         /// <summary>
         /// The name of the sound effect cue played when the item effect is traveling.
         /// </summary>
-        private string travelingCueName;
+        private string _travelingCueName;
 
         /// <summary>
         /// The name of the sound effect cue played when the item effect is traveling.
         /// </summary>
         public string TravelingCueName
         {
-            get { return travelingCueName; }
-            set { travelingCueName = value; }
+            get => _travelingCueName;
+            set => _travelingCueName = value;
         }
-
 
         /// <summary>
         /// The name of the sound effect cue played when the item affects its target.
         /// </summary>
-        private string impactCueName;
+        private string _impactCueName;
 
         /// <summary>
         /// The name of the sound effect cue played when the item affects its target.
         /// </summary>
         public string ImpactCueName
         {
-            get { return impactCueName; }
-            set { impactCueName = value; }
+            get => _impactCueName;
+            set => _impactCueName = value;
         }
-
 
         /// <summary>
         /// The name of the sound effect cue played when the item effect is blocked.
         /// </summary>
-        private string blockCueName;
+        private string _blockCueName;
 
         /// <summary>
         /// The name of the sound effect cue played when the item effect is blocked.
         /// </summary>
         public string BlockCueName
         {
-            get { return blockCueName; }
-            set { blockCueName = value; }
+            get => _blockCueName;
+            set => _blockCueName = value;
         }
 
         /// <summary>
@@ -181,7 +174,7 @@ namespace RolePlayingGame.GearObjects
         /// This is optional.  If it is null, then a Using or Creating animation
         /// in SpellSprite is used.
         /// </remarks>
-        private AnimatingSprite creationSprite;
+        private AnimatingSprite _creationSprite;
 
         /// <summary>
         /// An animating sprite used when this item is used.
@@ -193,38 +186,36 @@ namespace RolePlayingGame.GearObjects
         [ContentSerializer(Optional = true)]
         public AnimatingSprite CreationSprite
         {
-            get { return creationSprite; }
-            set { creationSprite = value; }
+            get => _creationSprite;
+            set => _creationSprite = value;
         }
-
 
         /// <summary>
         /// The animating sprite used when this item is in action.
         /// </summary>
-        private AnimatingSprite spellSprite;
+        private AnimatingSprite _spellSprite;
 
         /// <summary>
         /// The animating sprite used when this item is in action.
         /// </summary>
         public AnimatingSprite SpellSprite
         {
-            get { return spellSprite; }
-            set { spellSprite = value; }
+            get => _spellSprite;
+            set => _spellSprite = value;
         }
-
 
         /// <summary>
         /// The overlay sprite for this item.
         /// </summary>
-        private AnimatingSprite overlay;
+        private AnimatingSprite _overlay;
 
         /// <summary>
         /// The overlay sprite for this item.
         /// </summary>
         public AnimatingSprite Overlay
         {
-            get { return overlay; }
-            set { overlay = value; }
+            get => _overlay;
+            set => _overlay = value;
         }
 
         /// <summary>
@@ -254,17 +245,11 @@ namespace RolePlayingGame.GearObjects
                 item.ImpactCueName = input.ReadString();
                 item.BlockCueName = input.ReadString();
                 item.CreationSprite = input.ReadObject<AnimatingSprite>();
-                item.CreationSprite.SourceOffset = new Vector2(
-                    item.CreationSprite.FrameDimensions.X / 2,
-                    item.CreationSprite.FrameDimensions.Y);
+                item.CreationSprite.SourceOffset = new Vector2(item.CreationSprite.FrameDimensions.X / 2, item.CreationSprite.FrameDimensions.Y);
                 item.SpellSprite = input.ReadObject<AnimatingSprite>();
-                item.SpellSprite.SourceOffset = new Vector2(
-                    item.SpellSprite.FrameDimensions.X / 2,
-                    item.SpellSprite.FrameDimensions.Y);
+                item.SpellSprite.SourceOffset = new Vector2(item.SpellSprite.FrameDimensions.X / 2, item.SpellSprite.FrameDimensions.Y);
                 item.Overlay = input.ReadObject<AnimatingSprite>();
-                item.Overlay.SourceOffset = new Vector2(
-                    item.Overlay.FrameDimensions.X / 2,
-                    item.Overlay.FrameDimensions.Y);
+                item.Overlay.SourceOffset = new Vector2(item.Overlay.FrameDimensions.X / 2, item.Overlay.FrameDimensions.Y);
 
                 return item;
             }

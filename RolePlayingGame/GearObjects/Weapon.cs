@@ -19,7 +19,7 @@ namespace RolePlayingGame.GearObjects
         /// The range of health damage applied by this weapon to its target.
         /// </summary>
         /// <remarks>Damage range values are positive, and will be subtracted.</remarks>
-        private Int32Range targetDamageRange;
+        private Int32Range _targetDamageRange;
 
         /// <summary>
         /// The range of health damage applied by this weapon to its target.
@@ -27,66 +27,64 @@ namespace RolePlayingGame.GearObjects
         /// <remarks>Damage range values are positive, and will be subtracted.</remarks>
         public Int32Range TargetDamageRange
         {
-            get { return targetDamageRange; }
-            set { targetDamageRange = value; }
+            get => _targetDamageRange;
+            set => _targetDamageRange = value;
         }
 
         /// <summary>
         /// The name of the sound effect cue played when the weapon is swung.
         /// </summary>
-        private string swingCueName;
+        private string _swingCueName;
 
         /// <summary>
         /// The name of the sound effect cue played when the weapon is swung.
         /// </summary>
         public string SwingCueName
         {
-            get { return swingCueName; }
-            set { swingCueName = value; }
+            get => _swingCueName;
+            set => _swingCueName = value;
         }
-
 
         /// <summary>
         /// The name of the sound effect cue played when the weapon hits its target.
         /// </summary>
-        private string hitCueName;
+        private string _hitCueName;
 
         /// <summary>
         /// The name of the sound effect cue played when the weapon hits its target.
         /// </summary>
         public string HitCueName
         {
-            get { return hitCueName; }
-            set { hitCueName = value; }
+            get => _hitCueName;
+            set => _hitCueName = value;
         }
-
 
         /// <summary>
         /// The name of the sound effect cue played when the weapon is blocked.
         /// </summary>
-        private string blockCueName;
+        private string _blockCueName;
 
         /// <summary>
         /// The name of the sound effect cue played when the weapon is blocked.
         /// </summary>
         public string BlockCueName
         {
-            get { return blockCueName; }
-            set { blockCueName = value; }
+            get => _blockCueName;
+            set => _blockCueName = value;
         }
 
         /// <summary>
         /// The overlay sprite for this weapon.
         /// </summary>
-        private AnimatingSprite overlay;
+        private AnimatingSprite _overlay;
 
         /// <summary>
         /// The overlay sprite for this weapon.
         /// </summary>
         public AnimatingSprite Overlay
         {
-            get { return overlay; }
-            set { overlay = value; }
+            get => _overlay;
+            set => _overlay = value;
         }
 
         /// <summary>
@@ -115,9 +113,7 @@ namespace RolePlayingGame.GearObjects
                 weapon.HitCueName = input.ReadString();
                 weapon.BlockCueName = input.ReadString();
                 weapon.Overlay = input.ReadObject<AnimatingSprite>();
-                weapon.Overlay.SourceOffset = new Vector2(
-                    weapon.Overlay.FrameDimensions.X / 2,
-                    weapon.Overlay.FrameDimensions.Y);
+                weapon.Overlay.SourceOffset = new Vector2(weapon.Overlay.FrameDimensions.X / 2, weapon.Overlay.FrameDimensions.Y);
 
                 return weapon;
             }
